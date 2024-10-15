@@ -78,6 +78,8 @@ Still in the `just-post-it` folder:
 npm run launch
 ```
 
+You can use either Apache or nginx to setup Just Post-It and make it accessible from the web.
+
 > [!TIP]
 > Once you launched `just-post-it`, pm2 will tell you that the process list is not saved. You can run `pm2 save` command in order to automaticaly restart all pm2 processes if your server is restarted.
 
