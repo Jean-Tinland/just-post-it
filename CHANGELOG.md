@@ -2,6 +2,7 @@
 
 ## Tue Oct 15 2024
 
+- chore(env): cleanup env example file
 - docs(readme): add configuration step
 - fix: cleanup obsolete import in post-it/header
 - docs(changelog): update changelog
