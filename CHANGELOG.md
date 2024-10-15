@@ -2,6 +2,7 @@
 
 ## Tue Oct 15 2024
 
+- fix: cleanup obsolete import in post-it/header
 - docs(changelog): update changelog
 - refactor: cleanup + merge post-it actions inside dropdown menu
 - docs(readme): update roadmap
