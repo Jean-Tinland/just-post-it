@@ -14,6 +14,7 @@ Here are the planned features:
 - Full description of all available features
 - Category manager UI
 - Settings UI
+- Add more settings (spell check, auto correct, etc...)
 - About pane in settings with product version and “Update available” indicator in settings
 - Full i18n support (translations, reading direction, …)
 - Keyboard shortcuts
