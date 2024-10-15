@@ -2,6 +2,10 @@
 
 Just Post-It is a simple note-taking app aiming to provide a novel experience by allowing the user to just drop notes on a free canvas.
 
+<p align="center">
+  <img src="./public/images/preview.jpg" width="800" />
+</p>
+
 ## General notice
 
 As this is a fork from a personal project presented [here](https://www.jeantinland.com/portfolio/draft-pad/) and detailed [in this blog post](https://www.jeantinland.com/blog/the-ultimate-note-app/), some basic features still need to be implemented before production use.
