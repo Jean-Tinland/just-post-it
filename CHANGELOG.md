@@ -1,7 +1,8 @@
 # Changelog
 
-## Tue Oct 15 2024
+## Tue Oct 15 2024 (v0.1.0)
 
+- docs(readme): add app preview
 - chore(env): cleanup env example file
 - docs(readme): add configuration step
 - fix: cleanup obsolete import in post-it/header
