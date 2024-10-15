@@ -10,7 +10,6 @@ As this is a fork from a personal project presented [here](https://www.jeantinla
 
 Here are the planned features:
 
-- Global code refactoring
 - Full description of all available features
 - Category manager UI
 - Settings UI
