@@ -17,7 +17,7 @@ type Props = {
 export default function Pad({ postIts, categories }: Props) {
   const { viewMode, currentCategory } = useAppContext();
   const padRef = React.useRef<HTMLDivElement>(null);
-  const [draggingMode, setDraggingMode] = React.useState(false);
+  const [dragging, setDragging] = React.useState(false);
   const [search, setSearch] = React.useState("");
 
   const filteredPostIts = postIts.filter((postIt) => {
@@ -34,8 +34,6 @@ export default function Pad({ postIts, categories }: Props) {
     viewMode === "grid"
       ? filteredPostIts.sort((a, b) => b.id - a.id)
       : filteredPostIts;
-
-  console.log(sortedPostIts);
 
   const updateSearch = React.useCallback(
     (newSearch: string) => {
@@ -56,12 +54,12 @@ export default function Pad({ postIts, categories }: Props) {
     [filteredPostIts],
   );
 
-  const updateDragginMode = (e: React.MouseEvent<HTMLDivElement>) => {
+  const updateDragging = (e: React.MouseEvent<HTMLDivElement>) => {
     if (viewMode === "grid") {
-      return setDraggingMode(false);
+      return setDragging(false);
     }
     const isMetaPressed = e.metaKey || e.ctrlKey;
-    setDraggingMode(isMetaPressed);
+    setDragging(isMetaPressed);
   };
 
   const classes = classNames(styles.pad, {
@@ -71,9 +69,9 @@ export default function Pad({ postIts, categories }: Props) {
   return (
     <div
       ref={padRef}
-      data-draggable={draggingMode}
+      data-draggable={dragging}
       className={classes}
-      onMouseMove={updateDragginMode}
+      onMouseMove={updateDragging}
     >
       <Controls
         padRef={padRef}
@@ -86,7 +84,7 @@ export default function Pad({ postIts, categories }: Props) {
           key={postIt.id}
           padRef={padRef}
           postIt={postIt}
-          draggingMode={draggingMode}
+          dragging={dragging}
           categories={categories}
         />
       ))}

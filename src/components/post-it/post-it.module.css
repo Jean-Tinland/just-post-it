@@ -22,6 +22,7 @@
   z-index: 1;
 }
 
+.postIt:has([aria-expanded="true"]),
 .postIt[data-dragged="false"]:focus-within {
   border: 1px solid var(--ds-grey-400);
 }

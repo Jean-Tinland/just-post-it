@@ -146,6 +146,8 @@
 
     --ds-tooltip-background: var(--ds-grey-200);
     --ds-popover-background: var(--ds-grey-200);
+    --ds-dropdown-menu-background: var(--ds-grey-200);
+    --ds-dropdown-menu-item-hover-background: var(--ds-grey-100);
   }
 }
 

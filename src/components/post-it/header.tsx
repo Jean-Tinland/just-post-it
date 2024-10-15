@@ -3,6 +3,7 @@ import classNames from "classnames";
 import Button from "dt-design-system/es/button";
 import Popover from "dt-design-system/es/popover";
 import Tooltip from "dt-design-system/es/tooltip";
+import DropdownMenu from "dt-design-system/es/dropdown-menu";
 import DatePicker from "dt-design-system/es/date-picker";
 import * as Icons from "dt-design-system/es/icons";
 import PostItCategorySelector from "./category-selector";
@@ -47,26 +48,44 @@ export default function Header({
     [styles.pastDate]: hasPastDueDate,
   });
 
+  const actions = [
+    {
+      label: (
+        <>
+          <Icons.Download /> Download
+        </>
+      ),
+      onClick: downloadPostIt,
+    },
+    {
+      label: (
+        <>
+          <Icons.FileText /> Markdown preview
+        </>
+      ),
+      onClick: openPreview,
+    },
+  ];
+
   return (
     <header className={styles.header}>
-      <Tooltip content="Download post-it">
-        <Button
-          className={styles.download}
-          variant="transparent"
-          onClick={downloadPostIt}
-        >
-          <Icons.Download />
+      <PostItCategorySelector
+        categoryId={categoryId}
+        categoryColor={categoryColor}
+        categories={categories}
+        updateCategory={updateCategory}
+      />
+      <input
+        className={styles.title}
+        value={title}
+        contentEditable="true"
+        onInput={handleTitleChange}
+      />
+      <DropdownMenu items={actions} modal={false}>
+        <Button variant="transparent" className={styles.actions}>
+          <Icons.MoreVertical />
         </Button>
-      </Tooltip>
-      <Tooltip content="Markdown preview">
-        <Button
-          className={styles.preview}
-          variant="transparent"
-          onClick={openPreview}
-        >
-          <Icons.FileText />
-        </Button>
-      </Tooltip>
+      </DropdownMenu>
       <Popover
         className={styles.datePopover}
         trigger={
@@ -95,18 +114,6 @@ export default function Header({
           <Icons.Bin />
         </Button>
       </Popover>
-      <PostItCategorySelector
-        categoryId={categoryId}
-        categoryColor={categoryColor}
-        categories={categories}
-        updateCategory={updateCategory}
-      />
-      <input
-        className={styles.title}
-        value={title}
-        contentEditable="true"
-        onInput={handleTitleChange}
-      />
     </header>
   );
 }

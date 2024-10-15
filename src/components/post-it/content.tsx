@@ -7,6 +7,7 @@ type Props = {
   content: string;
   handleContentChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   scrollRef: React.RefObject<HTMLDivElement>;
+  dragged: boolean;
 };
 
 export default function Content({
@@ -14,6 +15,7 @@ export default function Content({
   content,
   handleContentChange,
   scrollRef,
+  dragged,
 }: Props) {
   const contentRef = React.useRef<HTMLTextAreaElement>(null);
 
@@ -32,6 +34,8 @@ export default function Content({
       className={styles.content}
       value={content}
       onChange={onChange}
+      spellCheck="false"
+      readOnly={dragged}
     />
   );
 }

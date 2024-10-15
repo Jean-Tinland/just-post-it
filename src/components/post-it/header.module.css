@@ -20,37 +20,18 @@
 
 .date,
 .remove,
-.download,
-.preview {
+.actions {
   opacity: 0;
   pointer-events: none;
   transition: opacity 160ms var(--ds-transition-easing);
-}
-
-.preview {
-  order: 1;
-}
-
-.download {
-  order: 2;
-}
-
-.date {
-  order: 3;
-  margin-left: auto;
 }
 
 .pastDate {
   color: var(--ds-red-400);
 }
 
-.remove {
-  order: 4;
-}
-
-[data-post-it]:is(:hover, :focus-within)
-  :is(.preview, .download, .remove, .date),
-:is(.preview, .download, .remove, .date)[aria-expanded="true"],
+[data-post-it]:is(:hover, :focus-within) :is(.actions, .remove, .date),
+[data-post-it]:has([aria-expanded="true"]) :is(.actions, .remove, .date),
 .hasDate {
   opacity: 1;
   pointer-events: auto;

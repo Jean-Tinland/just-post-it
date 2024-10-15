@@ -1,8 +1,8 @@
-export const remove = (name: string) => {
+export function remove(name: string) {
   document.cookie = `${name}= ; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
-};
+}
 
-export const set = (name: string, value: string, days: number) => {
+export function set(name: string, value: string, days: number) {
   let expires = "";
   if (days) {
     const date = new Date();
@@ -10,9 +10,9 @@ export const set = (name: string, value: string, days: number) => {
     expires = `; expires= + ${date.toUTCString()}`;
   }
   document.cookie = `${name}=${value ?? ""}${expires}; path=/;`;
-};
+}
 
-export const get = (name: string) => {
+export function get(name: string) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   if (typeof parts === "object" && parts.length === 2) {
@@ -21,4 +21,4 @@ export const get = (name: string) => {
       return part.split(";").shift();
     }
   }
-};
+}

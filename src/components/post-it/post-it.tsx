@@ -15,7 +15,7 @@ type Props = {
   padRef: React.RefObject<HTMLDivElement>;
   postIt: PostItItem;
   categories: CategoryItem[];
-  draggingMode: boolean;
+  dragging: boolean;
 };
 
 const MIN_SIZE = 180;
@@ -24,7 +24,7 @@ export default function PostIt({
   padRef,
   postIt,
   categories,
-  draggingMode,
+  dragging,
 }: Props) {
   const ref = React.useRef<HTMLDivElement>(null);
   const scrollRef = React.useRef<HTMLDivElement>(null);
@@ -34,9 +34,7 @@ export default function PostIt({
   const { id, dueDate, bounds, categoryId, categoryColor } = postIt;
   let date = dueDate;
   if (date) {
-    // add one hour to the date to make it work with the database
     date = new Date(date);
-    date.setHours(date.getHours() + 10);
   }
   const hasPastDueDate = Boolean(date && date < new Date());
 
@@ -191,7 +189,7 @@ export default function PostIt({
       style={postItStyles}
       whileDrag={draggedPostItStyles}
       dragConstraints={padRef}
-      drag={draggingMode || dragged}
+      drag={dragging || dragged}
       dragMomentum={false}
       onDragStart={() => setDragged(true)}
       onDragEnd={updatePostItPosition}
@@ -218,6 +216,7 @@ export default function PostIt({
             content={content}
             handleContentChange={handleContentChange}
             scrollRef={scrollRef}
+            dragged={dragged}
           />
         </div>
       </div>
