@@ -2,6 +2,7 @@
 
 ## Tue Oct 15 2024 (v0.1.0)
 
+- docs(readme): update installation & launch procedure
 - docs(readme): add app preview
 - chore(env): cleanup env example file
 - docs(readme): add configuration step
