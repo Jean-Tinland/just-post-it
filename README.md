@@ -59,3 +59,13 @@ npm run launch
 
 > [!TIP]
 > Once you launched `just-post-it`, pm2 will tell you that the process list is not saved. You can run `pm2 save` command in order to automaticaly restart all pm2 processes if your server is restarted.
+
+## Updating the app
+
+```bash
+# This will stop the app, pull the latest changes and relaunch it
+npm run update
+```
+
+> [!WARNING]
+> Your Just Post-It app will be down during the update.
