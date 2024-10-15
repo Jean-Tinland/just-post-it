@@ -46,6 +46,23 @@ cd ./just-post-it
 npm run init
 ```
 
+## Configuration
+
+```bash
+# Duplicate the .env example
+cp .env.example .env
+```
+
+Fill in the required information inside your .env:
+
+```env
+PROD_URL="https://your-production-url.com" # the production url of your app
+PORT=4000 # the port used by the app
+JWT_SECRET=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx # the jwt secret, it can be anything like an UUID
+JWT_DURATION=90 # the jwt token duration in days
+PASSWORD=xxxxxxxx # your password
+```
+
 Just Post-It is now ready to run.
 
 ## Launching the app
