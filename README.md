@@ -3,7 +3,7 @@
 Just Post-It is a simple note-taking app aiming to provide a novel experience by allowing the user to just drop notes on a free canvas.
 
 <p align="center">
-  <img src="./public/images/preview.jpg" width="800" />
+  <img src="./public/images/preview.jpg" width="600" style="border-radius: 12px" />
 </p>
 
 ## General notice
