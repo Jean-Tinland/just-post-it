@@ -2,7 +2,6 @@ import * as React from "react";
 import classNames from "classnames";
 import Button from "dt-design-system/es/button";
 import Popover from "dt-design-system/es/popover";
-import Tooltip from "dt-design-system/es/tooltip";
 import DropdownMenu from "dt-design-system/es/dropdown-menu";
 import DatePicker from "dt-design-system/es/date-picker";
 import * as Icons from "dt-design-system/es/icons";
