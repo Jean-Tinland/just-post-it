@@ -10,17 +10,16 @@ As this is a fork from a personal project presented [here](https://www.jeantinla
 
 Here are the planned features:
 
+- Global code refactoring
 - Full description of all available features
 - Category manager UI
 - Settings UI
 - About pane in settings with product version and “Update available” indicator in settings
 - Full i18n support (translations, reading direction, …)
 - Keyboard shortcuts
-- Global export
+- Global export of post-it
 - Improve app responsive
 - Make the app installable
-- Changelog
-- Global code refactoring
 - Demo website based on the real app
 - …?
 
@@ -59,4 +58,4 @@ npm run launch
 ```
 
 > [!TIP]
-> Once you launched `just-post-it`, pm2 will tell you that the process list is not saved. You can run `pm2 save` command in order to save the pm2 process list. The saved process will be automaticaly restarted if your server is restarted.
+> Once you launched `just-post-it`, pm2 will tell you that the process list is not saved. You can run `pm2 save` command in order to automaticaly restart all pm2 processes if your server is restarted.
