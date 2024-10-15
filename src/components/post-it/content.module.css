@@ -1,0 +1,14 @@
+.content {
+  flex: 1 1 100%;
+  padding: 5px 20px;
+  font-size: 14px;
+  line-height: 1.75;
+  transition: background-color 160ms var(--ds-transition-easing);
+  resize: none;
+  overflow: hidden;
+  border: 0;
+}
+
+.content:not(:focus):hover {
+  background-color: var(--ds-grey-200);
+}

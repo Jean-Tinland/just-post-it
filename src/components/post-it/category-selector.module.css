@@ -1,0 +1,56 @@
+.categoryButton {
+  flex: 0 0 22px;
+  padding: 6px;
+}
+
+.category {
+  flex: 0 0 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--ds-grey-200);
+}
+
+.popover {
+  width: fit-content;
+  width: 170px;
+  min-width: auto;
+}
+
+.selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 12px);
+  gap: 20px;
+  justify-content: center;
+  padding: 4px;
+}
+
+button.button {
+  position: relative;
+  flex: 0 0 12px;
+  width: 12px;
+  height: 12px;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260%;
+  height: 260%;
+  transform: translate(-50%, -50%) scale(0.9);
+  border-radius: 50%;
+  background-color: inherit;
+  opacity: 0;
+  transition:
+    opacity 160ms var(--ds-transition-easing),
+    transform 160ms var(--ds-transition-easing);
+}
+
+.selected::before {
+  opacity: 0.25;
+  transform: translate(-50%, -50%);
+}

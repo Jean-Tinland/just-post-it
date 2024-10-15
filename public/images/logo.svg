@@ -1,0 +1,14 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="256" height="256" rx="40" fill="#222222" style="fill:#222222;fill:color(display-p3 0.1333 0.1333 0.1333);fill-opacity:1;"/>
+<rect x="79" y="80" width="150" height="150" rx="9" fill="black" style="fill:black;fill-opacity:1;"/>
+<rect x="79.5" y="80.5" width="149" height="149" rx="8.5" stroke="white" stroke-opacity="0.3" style="stroke:white;stroke-opacity:0.3;"/>
+<rect x="26" y="27" width="150" height="150" rx="9" fill="black" style="fill:black;fill-opacity:1;"/>
+<rect x="26.5" y="27.5" width="149" height="149" rx="8.5" stroke="white" stroke-opacity="0.45" style="stroke:white;stroke-opacity:0.45;"/>
+<rect x="58" y="40" width="80" height="14" rx="3" fill="#FFD484" style="fill:#FFD484;fill:color(display-p3 1.0000 0.8302 0.5167);fill-opacity:1;"/>
+<rect x="38" y="66" width="80" height="8" rx="4" fill="#E5E5E5" style="fill:#E5E5E5;fill:color(display-p3 0.8980 0.8980 0.8980);fill-opacity:1;"/>
+<rect x="98" y="84" width="65" height="8" rx="4" fill="#E5E5E5" style="fill:#E5E5E5;fill:color(display-p3 0.8980 0.8980 0.8980);fill-opacity:1;"/>
+<rect x="123" y="66" width="35" height="8" rx="4" fill="#E5E5E5" style="fill:#E5E5E5;fill:color(display-p3 0.8980 0.8980 0.8980);fill-opacity:1;"/>
+<rect x="38" y="84" width="53" height="8" rx="4" fill="#E5E5E5" style="fill:#E5E5E5;fill:color(display-p3 0.8980 0.8980 0.8980);fill-opacity:1;"/>
+<rect x="38" y="102" width="80" height="8" rx="4" fill="#E5E5E5" style="fill:#E5E5E5;fill:color(display-p3 0.8980 0.8980 0.8980);fill-opacity:1;"/>
+<rect x="38" y="42" width="10" height="10" rx="5" fill="#E5E5E5" style="fill:#E5E5E5;fill:color(display-p3 0.8980 0.8980 0.8980);fill-opacity:1;"/>
+</svg>

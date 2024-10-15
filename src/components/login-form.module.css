@@ -1,0 +1,37 @@
+.form {
+  width: min(calc(100% - 20px), 320px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  background-color: var(--ds-grey-000);
+  border: 1px solid var(--ds-grey-300);
+  border-radius: var(--ds-radius-200);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.title {
+  color: var(--ds-grey-700);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer {
+  margin-top: 6px;
+}
+
+button.button {
+  width: 100%;
+}

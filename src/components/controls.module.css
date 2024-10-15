@@ -1,0 +1,44 @@
+.bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  z-index: 2;
+}
+
+.search {
+  position: absolute;
+  left: 80px;
+}
+
+.search.grid {
+  top: 100%;
+  left: unset;
+}
+
+@media (min-width: 780px) {
+  .search.grid {
+    top: unset;
+    left: 80px;
+  }
+}
+
+.search input {
+  font-family: var(--content-font);
+}
+
+.addButton {
+  position: relative;
+  margin: 0 auto;
+}
+
+button.motionAddButton {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

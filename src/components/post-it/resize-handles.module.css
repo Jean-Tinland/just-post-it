@@ -1,0 +1,64 @@
+.handles {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.handleX,
+.handleY {
+  --handle-size: 14px;
+
+  position: absolute;
+  border-radius: var(--ds-radius-100);
+  background-color: var(--ds-secondary);
+  pointer-events: auto;
+  opacity: 0;
+  transition: opacity 160ms var(--ds-transition-easing);
+}
+
+.handleX {
+  top: 0;
+  left: calc(100% - var(--handle-size) / 2);
+  width: var(--handle-size);
+  height: 100%;
+  cursor: ew-resize;
+}
+
+.handleY {
+  top: calc(100% - var(--handle-size) / 2);
+  left: 0;
+  width: 100%;
+  height: var(--handle-size);
+  cursor: ns-resize;
+}
+
+.handleBoth {
+  --size: 26px;
+
+  position: absolute;
+  top: calc(100% - var(--size) / 2);
+  left: calc(100% - var(--size) / 2);
+  width: var(--size);
+  height: var(--size);
+  border-radius: var(--ds-radius-100);
+  background-color: var(--ds-secondary);
+  pointer-events: auto;
+  opacity: 0;
+  transition: opacity 160ms var(--ds-transition-easing);
+  cursor: nwse-resize;
+}
+
+.handleX:hover,
+.handleY:hover,
+.handleBoth:hover {
+  opacity: 0.5;
+}
+
+.handleX:active,
+.handleY:active,
+.handleBoth:active {
+  opacity: 0.8;
+}

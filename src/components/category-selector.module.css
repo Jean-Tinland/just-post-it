@@ -1,0 +1,39 @@
+.selector {
+  position: fixed;
+  top: 80px;
+  left: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 2;
+}
+
+button.button {
+  position: relative;
+  flex: 0 0 12px;
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260%;
+  height: 260%;
+  transform: translate(-50%, -50%) scale(0.9);
+  border-radius: 50%;
+  background-color: inherit;
+  opacity: 0;
+  transition:
+    opacity 160ms var(--ds-transition-easing),
+    transform 160ms var(--ds-transition-easing);
+}
+
+.selected::before {
+  opacity: 0.25;
+  transform: translate(-50%, -50%);
+}

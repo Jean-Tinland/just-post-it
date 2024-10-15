@@ -1,0 +1,21 @@
+.pad {
+  position: relative;
+  width: 100%;
+  min-height: 1000vw;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, min(100%, 380px));
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 20px;
+  padding: 140px 40px 80px 40px;
+}
+
+@media (min-width: 780px) {
+  .grid {
+    padding: 80px;
+  }
+}

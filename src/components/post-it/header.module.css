@@ -1,0 +1,76 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 20px 20px 5px 20px;
+}
+
+.title {
+  flex: 1 1 75px;
+  width: 75px;
+  padding: 2px 4px;
+  font-size: 16px;
+  border-radius: var(--ds-radius-100);
+  transition: background-color 160ms var(--ds-transition-easing);
+}
+
+.title:not(:focus):hover {
+  background-color: var(--ds-grey-200);
+}
+
+.date,
+.remove,
+.download,
+.preview {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms var(--ds-transition-easing);
+}
+
+.preview {
+  order: 1;
+}
+
+.download {
+  order: 2;
+}
+
+.date {
+  order: 3;
+  margin-left: auto;
+}
+
+.pastDate {
+  color: var(--ds-red-400);
+}
+
+.remove {
+  order: 4;
+}
+
+[data-post-it]:is(:hover, :focus-within)
+  :is(.preview, .download, .remove, .date),
+:is(.preview, .download, .remove, .date)[aria-expanded="true"],
+.hasDate {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.datePopover {
+  min-width: auto;
+  padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .datePopover > div {
+    background-color: var(--ds-grey-200);
+  }
+}
+
+.removePopover {
+  min-width: auto;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  gap: 10px;
+}

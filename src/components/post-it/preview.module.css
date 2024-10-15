@@ -1,0 +1,117 @@
+.dialog {
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .dialog {
+    background-color: var(--ds-grey-200);
+  }
+}
+
+.header {
+  padding: 20px 20px 10px 20px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.download {
+  display: inline-flex;
+  margin-left: 10px;
+  opacity: 0;
+}
+
+.title:hover .download {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .download {
+    opacity: 1;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px 20px 20px;
+}
+
+.content h1 {
+  font-size: 2rem;
+}
+
+.content h2 {
+  font-size: 1.6rem;
+  margin-top: 2rem;
+}
+
+.content h3 {
+  font-size: 1.3rem;
+  margin-top: 3rem;
+}
+
+.content h4 {
+  font-size: 1.12rem;
+}
+
+.content h5 {
+  font-size: 1rem;
+}
+
+.content h6 {
+  font-size: 0.7rem;
+}
+
+.content p {
+  margin: 1.3rem 0;
+}
+
+.content :is(p, h1, h2, h3, h4, h5, h6) {
+  overflow-wrap: break-word;
+}
+
+.content :is(*):first-child {
+  margin-top: 0;
+}
+
+.content :is(*):last-child {
+  margin-bottom: 0;
+}
+
+.content :is(h1, h2, h3) {
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.content :is(ul, ol) {
+  margin: 1.3rem 0;
+  padding-left: 1.2rem;
+  list-style: unset;
+}
+
+.content :is(b, strong) {
+  font-weight: 700;
+}
+
+.content :is(i, em) {
+  font-style: italic;
+}
+
+.content pre {
+  margin: 1.3rem 0;
+  padding: 1rem;
+  background-color: var(--ds-grey-000);
+  border-radius: var(--ds-radius-200);
+  overflow-x: auto;
+}
+
+.content pre code {
+  font-family: var(--content-font);
+  white-space: pre-wrap;
+}

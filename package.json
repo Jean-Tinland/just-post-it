@@ -1,0 +1,39 @@
+{
+  "name": "just-post-it",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "20.x"
+  },
+  "packageManager": "bun@1.1.10",
+  "scripts": {
+    "dev": "next dev -p 4000",
+    "build": "next build",
+    "start": "next start -p 4000",
+    "lint": "next lint",
+    "init": "node init.js",
+    "launch": "npm install && npm run build && pm2 startOrRestart ecosystem.config.js -- -p $PORT"
+  },
+  "dependencies": {
+    "@next/env": "^14.2.14",
+    "classnames": "^2.5.1",
+    "dt-design-system": "^3.10.25",
+    "framer-motion": "^11.11.1",
+    "jsonwebtoken": "^9.0.2",
+    "next": "^14.2.14",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.1",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^20.16.10",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.14",
+    "typescript": "^5.6.2"
+  }
+}
