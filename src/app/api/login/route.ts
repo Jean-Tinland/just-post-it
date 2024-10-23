@@ -10,8 +10,6 @@ export async function POST(request: NextRequest) {
 
   const pwd = process.env.PASSWORD as string;
 
-  console.log(password, pwd);
-
   if (password !== pwd) {
     return NextResponse.json({ error: "Wrong password" }, { status: 500 });
   }
