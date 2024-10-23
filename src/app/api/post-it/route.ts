@@ -2,47 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@/services/database";
 import * as Auth from "@/services/auth";
 
-export async function PUT(request: NextRequest) {
-  try {
-    await Auth.check(request);
-
-    const { id, title, content, dueDate, bounds, categoryId, lastUpdated } =
-      await request.json();
-    const { top, left, width, height } = bounds;
-
-    await sql.execute(
-      `UPDATE post_it
-       SET
-        title = ?,
-        content = ?,
-        due_date = ?,
-        top_position = ?,
-        left_position = ?,
-        width = ?,
-        height = ?,
-        category_id = ?,
-        last_updated = ?
-       WHERE id = ?`,
-      [
-        title,
-        content,
-        dueDate,
-        top,
-        left,
-        width,
-        height,
-        categoryId,
-        lastUpdated || "NOW()",
-        id,
-      ],
-    );
-
-    return NextResponse.json({ message: "Post-it updated" });
-  } catch (error) {
-    return NextResponse.json({ error }, { status: 401 });
-  }
-}
-
 export async function POST(request: NextRequest) {
   try {
     await Auth.check(request);
@@ -79,6 +38,72 @@ export async function DELETE(request: NextRequest) {
     await sql.execute(`DELETE FROM post_it WHERE id = ?`, [id]);
 
     return NextResponse.json({ message: "Post-it deleted" });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 401 });
+  }
+}
+
+export async function PATCH(request: NextRequest) {
+  try {
+    await Auth.check(request);
+
+    const { id, categoryId, title, content, dueDate, bounds } =
+      await request.json();
+    const { top, left, width, height } = bounds || {};
+
+    console.log(id, categoryId, title, content, dueDate, bounds);
+
+    const now = new Date();
+    const nowISO = now.toISOString().replace("T", " ").split(".")[0];
+
+    if (categoryId !== undefined) {
+      await sql.execute(
+        `UPDATE post_it
+         SET category_id = ?
+         WHERE id = ?`,
+        [categoryId, id],
+      );
+    }
+
+    if (title !== undefined && content !== undefined) {
+      await sql.execute(
+        `UPDATE post_it
+         SET title = ?, content = ?, last_updated = ?
+         WHERE id = ?`,
+        [title, content, nowISO, id],
+      );
+    }
+
+    console.log(dueDate);
+
+    if (dueDate !== undefined) {
+      await sql.execute(
+        `UPDATE post_it
+         SET due_date = ?
+         WHERE id = ?`,
+        [dueDate, id],
+      );
+    }
+
+    if (top !== undefined && left !== undefined) {
+      await sql.execute(
+        `UPDATE post_it
+         SET top_position = ?, left_position = ?, last_updated = ?
+         WHERE id = ?`,
+        [top, left, nowISO, id],
+      );
+    }
+
+    if (width !== undefined && height !== undefined) {
+      await sql.execute(
+        `UPDATE post_it
+         SET width = ?, height = ?, last_updated = ?
+         WHERE id = ?`,
+        [width, height, nowISO, id],
+      );
+    }
+
+    return NextResponse.json({ message: "Post-it updated" });
   } catch (error) {
     return NextResponse.json({ error }, { status: 401 });
   }

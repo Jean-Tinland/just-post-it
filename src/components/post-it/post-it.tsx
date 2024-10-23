@@ -64,7 +64,10 @@ export default function PostIt({
         const xPercent = bounds.left + (x / innerWidth) * 100;
         const yPercent = bounds.top + (y / innerHeight) * 100;
 
-        await Actions.updatePostItPosition(token, id, yPercent, xPercent);
+        await Actions.updatePostIt(token, {
+          id,
+          bounds: { top: yPercent, left: xPercent },
+        });
         setDragged(false);
         setLoading(false);
       }
@@ -95,20 +98,20 @@ export default function PostIt({
 
   const updateResize = async () => {
     setLoading(true);
-    await Actions.updatePostItSize(token, id, width, height);
+    await Actions.updatePostIt(token, { id, bounds: { width, height } });
     setLoading(false);
   };
 
   const updateCategory = async (categoryId: number | null) => {
     setLoading(true);
-    await Actions.updatePostItCategory(token, id, categoryId);
+    await Actions.updatePostIt(token, { id, categoryId });
     setLoading(false);
   };
 
   const updateDueDate = async (dueDate: string | null) => {
     setLoading(true);
     const newDate = dueDate ? new Date(dueDate) : null;
-    await Actions.updatePostItDate(token, id, newDate);
+    await Actions.updatePostIt(token, { id, dueDate: newDate });
     setLoading(false);
   };
 
@@ -136,7 +139,7 @@ export default function PostIt({
     if (!unSavedChanges || preventBlur) return;
     setLoading(true);
 
-    await Actions.updatePostItContent(token, id, title, content);
+    await Actions.updatePostIt(token, { id, title, content });
     setLoading(false);
   };
 

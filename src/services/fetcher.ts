@@ -17,7 +17,7 @@ export const fetcher =
     body: any,
     params: Params = {},
     _headers: Headers = {},
-    options: Record<string, any> = {},
+    options: Record<string, any> = {}
   ): Promise<any> => {
     const headers: Headers = { ...defaultContentType, ..._headers };
 
@@ -49,6 +49,7 @@ export const fetcher =
 export const GET = (url: string, params?: Params, headers?: Headers) =>
   fetcher("GET")(url, undefined, params, headers);
 export const PUT = fetcher("PUT");
+export const PATCH = fetcher("PATCH");
 export const POST = fetcher("POST");
 export const DELETE = (url: string, params?: Params, headers?: Headers) =>
   fetcher("DELETE")(url, undefined, params, headers);
@@ -66,7 +67,7 @@ function buildQueryString(params: Params): string {
     .map((k) =>
       typeof params[k] === "object"
         ? buildQueryStringForObject(k, params[k])
-        : `${k}=${encodeURIComponent(params[k])}`,
+        : `${k}=${encodeURIComponent(params[k])}`
     )
     .join("&");
 }
