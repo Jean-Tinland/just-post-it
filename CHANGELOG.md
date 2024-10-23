@@ -1,5 +1,12 @@
 # Changelog
 
+## Wed Oct 23 2024 (v0.1.1)
+
+- docs(changelog): update changelog
+- refactor: merge all post-it updates in an unique partial route
+- chore: upgrade to Next.js 15
+- chore: remove useless logs
+
 ## Tue Oct 15 2024 (v0.1.0)
 
 - docs(readme): update installation & launch procedure
