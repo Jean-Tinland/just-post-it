@@ -4,8 +4,8 @@ import styles from "./page.module.css";
 import Pad from "@/components/pad";
 
 export default async function Home() {
-  const allCookies = cookies();
-  const token = allCookies.get("token")?.value as string;
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value as string;
 
   const [postIts, categories] = await Promise.all([
     API.getPostIts(token),

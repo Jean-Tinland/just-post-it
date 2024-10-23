@@ -12,12 +12,12 @@
     "launch": "npm install && npm run build && pm2 startOrRestart ecosystem.config.js -- -p $PORT"
   },
   "dependencies": {
-    "@next/env": "^14.2.14",
+    "@next/env": "^15.0.1",
     "classnames": "^2.5.1",
     "dt-design-system": "^3.11.2",
-    "framer-motion": "^11.11.1",
+    "framer-motion": "^11.11.9",
     "jsonwebtoken": "^9.0.2",
-    "next": "^14.2.14",
+    "next": "^15.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
@@ -26,11 +26,11 @@
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.7",
-    "@types/node": "^20.16.10",
-    "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.0",
-    "eslint": "^8.57.1",
-    "eslint-config-next": "^14.2.14",
-    "typescript": "^5.6.2"
+    "@types/node": "^20.17.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "eslint": "^9.13.0",
+    "eslint-config-next": "^15.0.1",
+    "typescript": "^5.6.3"
   }
 }

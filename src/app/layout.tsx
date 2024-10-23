@@ -12,15 +12,15 @@ export const metadata: Metadata = {
   title: "Just Post-It",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const allCookies = cookies();
-  const token = allCookies.get("token")?.value as string;
-  const viewMode = (allCookies.get("viewMode")?.value || "free") as Mode;
-  const currentCategory = allCookies.get("currentCategory")?.value as string;
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value as string;
+  const viewMode = (cookieStore.get("viewMode")?.value || "free") as Mode;
+  const currentCategory = cookieStore.get("currentCategory")?.value as string;
 
   return (
     <html lang="en">
