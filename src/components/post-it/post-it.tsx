@@ -18,7 +18,7 @@ type Props = {
   dragging: boolean;
 };
 
-const MIN_SIZE = 180;
+const MIN_SIZE = 300;
 
 export default function PostIt({
   padRef,
@@ -28,6 +28,7 @@ export default function PostIt({
 }: Props) {
   const ref = React.useRef<HTMLDivElement>(null);
   const scrollRef = React.useRef<HTMLDivElement>(null);
+  const contentRef = React.useRef<HTMLTextAreaElement>(null);
 
   const { user, setLoading, viewMode } = useAppContext();
   const { token } = user;
@@ -95,6 +96,16 @@ export default function PostIt({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [bounds],
   );
+
+  const handleHeightChange = () => {
+    if (!contentRef.current || !scrollRef.current) return;
+    const currentScroll = scrollRef.current.scrollTop;
+
+    contentRef.current.style.minHeight = "inherit";
+    contentRef.current.style.minHeight = `${contentRef.current.scrollHeight}px`;
+
+    scrollRef.current.scrollTop = currentScroll;
+  };
 
   const updateResize = async () => {
     setLoading(true);
@@ -197,6 +208,7 @@ export default function PostIt({
       onDragStart={() => setDragged(true)}
       onDragEnd={updatePostItPosition}
       onBlur={updatePostIt}
+      onResize={() => handleHeightChange()}
     >
       <div className={styles.overflow}>
         <div ref={scrollRef} className={styles.scroll}>
@@ -218,8 +230,9 @@ export default function PostIt({
             postIt={postIt}
             content={content}
             handleContentChange={handleContentChange}
-            scrollRef={scrollRef}
+            contentRef={contentRef}
             dragged={dragged}
+            handleHeightChange={handleHeightChange}
           />
         </div>
       </div>

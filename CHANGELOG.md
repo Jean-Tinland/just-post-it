@@ -2,6 +2,7 @@
 
 ## Wed Oct 23 2024 (v0.1.1)
 
+- refactor: improve post-it resize behavior
 - docs(changelog): update changelog
 - refactor: merge all post-it updates in an unique partial route
 - chore: upgrade to Next.js 15
