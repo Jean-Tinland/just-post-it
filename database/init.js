@@ -20,7 +20,8 @@ const migrate = () => {
       CREATE TABLE category (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL DEFAULT 'New category',
-        color TEXT NOT NULL DEFAULT 'red'
+        color TEXT NOT NULL DEFAULT 'red',
+        position INTEGER NOT NULL DEFAULT 0
     );
     `,
       (err) => {

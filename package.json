@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start -p 4000",
     "lint": "next lint",
-    "init": "node init.js",
+    "init": "node ./database/init.js",
     "update": "pm2 stop just-post-it && git pull && npm run launch",
     "launch": "npm install && npm run build && pm2 startOrRestart ecosystem.config.js -- -p $PORT"
   },
