@@ -1,5 +1,10 @@
 # Changelog
 
+## Thu Oct 24 2024
+
+- chore: update package-lock.json
+- refactor: remove 'Content' string from default for content
+
 ## Wed Oct 23 2024 (v0.1.1)
 
 - refactor: improve post-it resize behavior
