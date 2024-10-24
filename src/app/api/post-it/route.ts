@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
         (?, ?, ?)`,
       [top, left, categoryId],
     );
-    const rows = await sql.get(`SELECT last_insert_rowid() AS id`);
+    const rows = await sql.get(`SELECT last_insert_rowid() AS id FROM post_it`);
     const { id } = rows[0];
 
     return NextResponse.json({ message: "Post-it created", id });
@@ -51,8 +51,6 @@ export async function PATCH(request: NextRequest) {
       await request.json();
     const { top, left, width, height } = bounds || {};
 
-    console.log(id, categoryId, title, content, dueDate, bounds);
-
     const now = new Date();
     const nowISO = now.toISOString().replace("T", " ").split(".")[0];
 
@@ -73,8 +71,6 @@ export async function PATCH(request: NextRequest) {
         [title, content, nowISO, id],
       );
     }
-
-    console.log(dueDate);
 
     if (dueDate !== undefined) {
       await sql.execute(
