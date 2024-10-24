@@ -2,6 +2,8 @@
 
 ## Thu Oct 24 2024
 
+- feat: add category POST, PATCH & DELETE endpoints
+- chore: move database scripts inside database folder
 - chore: update package-lock.json
 - refactor: remove 'Content' string from default for content
 
