@@ -1,5 +1,9 @@
 # Changelog
 
+## Sat Oct 26 2024
+
+- refactor: improve dark theme
+
 ## Thu Oct 24 2024
 
 - feat: add category POST, PATCH & DELETE endpoints
