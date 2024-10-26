@@ -1,14 +1,8 @@
 .dialog {
-  width: 800px;
+  width: 720px;
   display: flex;
   flex-direction: column;
   padding: 8px;
-}
-
-@media (prefers-color-scheme: dark) {
-  .dialog {
-    background-color: var(--ds-grey-200);
-  }
 }
 
 .header {

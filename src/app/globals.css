@@ -109,13 +109,13 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --ds-grey-800: #fff;
-    --ds-grey-700: #ededed;
-    --ds-grey-600: #d7d7d7;
-    --ds-grey-500: #9d9d9d;
-    --ds-grey-400: #7c7b7b;
-    --ds-grey-300: #484848;
-    --ds-grey-200: #262626;
-    --ds-grey-100: #000;
+    --ds-grey-700: #f8f8f8;
+    --ds-grey-600: #ededed;
+    --ds-grey-500: #d7d7d7;
+    --ds-grey-400: #9d9d9d;
+    --ds-grey-300: #7c7b7b;
+    --ds-grey-200: #484848;
+    --ds-grey-100: #262626;
     --ds-grey-000: #000;
 
     --ds-blue-000: #002299;
