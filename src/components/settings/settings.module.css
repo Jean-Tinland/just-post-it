@@ -1,0 +1,60 @@
+.dialog {
+  width: 480px;
+  padding: 10px;
+  border: 1px solid var(--ds-grey-100, #f8f8f8);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.title {
+  padding-right: 55px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.tabs {
+  --ds-tabs-tab-padding: 0 12px;
+  --ds-tabs-tab-font-weight: 400;
+  --ds-tabs-tab-border: 0;
+  --ds-tabs-tab-active-border: 0;
+  --ds-tabs-tab-radius: 0;
+  --ds-tabs-content-padding: 0;
+
+  gap: 12px;
+  @media (width >= 740px) {
+    gap: 20px;
+  }
+}
+
+.tabs [role="tablist"] {
+  align-self: flex-start;
+  flex-wrap: nowrap;
+  gap: 6px;
+  overflow: auto;
+  scrollbar-width: thin;
+  border-radius: var(--ds-radius-200, 8px);
+}
+
+.tabs [role="tablist"]:has(:focus-visible) {
+  outline: var(--ds-focus-ring-width, 2px) solid
+    var(--ds-focus-ring-color, var(--ds-blue-400, #0038ff)) !important;
+  outline-offset: var(--ds-focus-ring-offset, 2px);
+}
+
+.tabs [role="tab"] {
+  justify-content: flex-start;
+  gap: 6px;
+  border-radius: var(--ds-radius-200, 8px);
+}
+
+.tabIcon {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  fill: var(--ds-primary, var(--ds-blue-500, #002dcc));
+}

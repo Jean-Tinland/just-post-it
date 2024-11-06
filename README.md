@@ -15,10 +15,8 @@ As this is a fork from a personal project presented [here](https://www.jeantinla
 Here are the planned features:
 
 - Full description of all available features
-- Category manager UI
-- Settings UI
-- Add more settings (spell check, auto correct, etc...)
-- About pane in settings with product version and “Update available” indicator in settings
+- Add preferences tab in settings (spell check, auto correct, etc...)
+- Add “Update available” indicator in settings' about tab
 - Full i18n support (translations, reading direction, …)
 - Keyboard shortcuts
 - Global export of post-it

@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import * as API from "@/services/api";
 import type { PostItItemPatch } from "@/@types/post-it";
+import type { CategoryItem } from "@/@types/category";
 
 export async function login(password: string) {
   return API.login(password);
@@ -28,5 +29,23 @@ export async function createPostIt(
   left?: number,
 ) {
   await API.createPostIt(authorization, categoryId, top, left);
+  revalidatePath("/", "layout");
+}
+
+export async function createCategory(authorization: string, position: number) {
+  await API.createCategory(authorization, position);
+  revalidatePath("/", "layout");
+}
+
+export async function updateCategory(
+  authorization: string,
+  category: Partial<CategoryItem>,
+) {
+  await API.updateCategory(authorization, category);
+  revalidatePath("/", "layout");
+}
+
+export async function removeCategory(authorization: string, id: number) {
+  await API.removeCategory(authorization, id);
   revalidatePath("/", "layout");
 }

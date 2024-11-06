@@ -1,0 +1,79 @@
+.container {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.createCategory {
+  margin-block-start: auto;
+  margin-inline: auto;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.categoryColorButton {
+  flex: 0 0 12px;
+  height: 12px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.categoryColorPopover {
+  min-width: auto;
+  padding: 4px;
+}
+
+.categoryColorPopoverInner {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.categoryColor {
+  width: 160px;
+}
+
+.categoryColorHelper {
+  padding: 5px;
+}
+
+.categoryName {
+  flex: 1 1 100%;
+}
+
+.moveCategory,
+.removeCategory {
+  opacity: 0;
+  transition: opacity 160ms
+    var(--ds-transition-easing, cubic-bezier(0.4, 0.1, 0.2, 0.9));
+}
+
+.moveCategory:disabled {
+  cursor: default;
+}
+
+.category:is(:hover, :focus-within)
+  :is(.moveCategory:not(:disabled), .removeCategory),
+.category:has([aria-expanded="true"])
+  :is(.moveCategory:not(:disabled), .removeCategory) {
+  opacity: 1;
+}
+
+.removeCategoryPopover {
+  min-width: auto;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  gap: 10px;
+}

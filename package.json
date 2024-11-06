@@ -1,6 +1,10 @@
 {
   "name": "just-post-it",
-  "version": "0.1.1",
+  "version": "1.0.0",
+  "author": {
+    "name": "Jean Tinland",
+    "url": "https://www.jeantinland.com/contact/"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev -p 4000",
@@ -14,7 +18,7 @@
   "dependencies": {
     "@next/env": "^15.0.1",
     "classnames": "^2.5.1",
-    "dt-design-system": "^3.11.2",
+    "dt-design-system": "^3.11.3",
     "framer-motion": "^11.11.9",
     "jsonwebtoken": "^9.0.2",
     "next": "^15.0.1",

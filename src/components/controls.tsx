@@ -5,7 +5,8 @@ import Button from "dt-design-system/es/button";
 import Tooltip from "dt-design-system/es/tooltip";
 import Input from "dt-design-system/es/input";
 import * as Icons from "dt-design-system/es/icons";
-import CategorySelector from "./category-selector";
+import CategorySelector from "@/components/category-selector";
+import Settings from "@/components/settings";
 import { useAppContext } from "@/components/app-context";
 import * as Actions from "@/app/actions";
 import type { CategoryItem } from "@/@types/category";
@@ -18,6 +19,8 @@ type Props = {
   updateSearch: (newSearch: string) => void;
 };
 
+const MotionButton = motion.create(Button);
+
 export default function Controls({
   padRef,
   categories,
@@ -25,11 +28,10 @@ export default function Controls({
   updateSearch,
 }: Props) {
   const searchRef = React.useRef<HTMLInputElement>(null);
+  const [settingsOpened, setSettingsOpened] = React.useState(false);
   const { user, setLoading, viewMode, updateViewMode, currentCategory } =
     useAppContext();
   const { token } = user;
-
-  const MotionButton = motion.create(Button);
 
   const focusSearch = React.useCallback(() => {
     if (searchRef.current) {
@@ -64,6 +66,14 @@ export default function Controls({
       window.removeEventListener("keydown", handleKeyPresses);
     };
   }, [handleKeyPresses]);
+
+  const openSettings = () => {
+    setSettingsOpened(true);
+  };
+
+  const closeSettings = () => {
+    setSettingsOpened(false);
+  };
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const isEnter = e.key === "Enter";
@@ -170,11 +180,18 @@ export default function Controls({
             </MotionButton>
           )}
         </div>
-        <Button className={styles.settings} disabled>
-          <Icons.Settings />
-        </Button>
+        <Tooltip content="Open settings">
+          <Button className={styles.settings} onClick={openSettings}>
+            <Icons.Settings />
+          </Button>
+        </Tooltip>
       </div>
       <CategorySelector categories={categories} />
+      <Settings
+        opened={settingsOpened}
+        close={closeSettings}
+        categories={categories}
+      />
     </>
   );
 }

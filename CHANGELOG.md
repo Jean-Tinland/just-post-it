@@ -1,5 +1,9 @@
 # Changelog
 
+## Wed Nov 6 2024 (v1.0.0)
+
+- feat: add settings module with category manager
+
 ## Sat Oct 26 2024
 
 - refactor: improve dark theme
