@@ -34,7 +34,7 @@ export async function createPostIt(
   categoryId: number | null,
   top?: number,
   left?: number,
-) {
+): Promise<{ id: number }> {
   return Fetcher.POST(
     `${apiUrl}/api/post-it`,
     { top, left, categoryId },

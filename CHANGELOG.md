@@ -5,6 +5,7 @@
 - feat: add settings module with category manager
 - chore: upgrade dependencies
 - fix: adjust category manager color indicator width
+- feat: auto focus post-it title on creation
 
 ## Sat Oct 26 2024
 

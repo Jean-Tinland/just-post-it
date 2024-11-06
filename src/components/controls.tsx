@@ -93,7 +93,8 @@ export default function Controls({
 
   const addPostIt = React.useCallback(async () => {
     setLoading(true);
-    await Actions.createPostIt(token, currentCategory);
+    const { id } = await Actions.createPostIt(token, currentCategory);
+    focusNewPostIt(id);
     setLoading(false);
   }, [currentCategory, token, setLoading]);
 
@@ -116,7 +117,13 @@ export default function Controls({
         const left = ((x - 100) / innerWidth) * 100;
         const top = ((y - 90) / innerHeight) * 100;
 
-        await Actions.createPostIt(token, currentCategory, top, left);
+        const { id } = await Actions.createPostIt(
+          token,
+          currentCategory,
+          top,
+          left,
+        );
+        focusNewPostIt(id);
         setLoading(false);
       }
     },
@@ -194,4 +201,14 @@ export default function Controls({
       />
     </>
   );
+}
+
+function focusNewPostIt(id: number) {
+  setTimeout(() => {
+    const postIt = document.querySelector(`[data-post-it="${id}"]`);
+    if (!postIt) return;
+    const title = postIt.querySelector("input");
+    if (!title) return;
+    title.select();
+  }, 200);
 }

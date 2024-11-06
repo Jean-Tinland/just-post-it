@@ -27,9 +27,10 @@ export async function createPostIt(
   categoryId: number | null,
   top?: number,
   left?: number,
-) {
-  await API.createPostIt(authorization, categoryId, top, left);
+): Promise<{ id: number }> {
+  const { id } = await API.createPostIt(authorization, categoryId, top, left);
   revalidatePath("/", "layout");
+  return { id };
 }
 
 export async function createCategory(authorization: string, position: number) {
