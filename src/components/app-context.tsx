@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import Loader from "dt-design-system/es/loader";
-import { SnackbarProvider } from "dt-design-system/es/snackbar";
+import Loader from "jt-design-system/es/loader";
+import { SnackbarProvider } from "jt-design-system/es/snackbar";
 import * as Cookies from "@/services/cookies";
 import type { Mode } from "@/@types/view-mode";
 import styles from "./app-context.module.css";

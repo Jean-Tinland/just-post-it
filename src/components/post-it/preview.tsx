@@ -1,9 +1,9 @@
 import * as React from "react";
 import ReactMarkdown from "react-markdown";
-import Dialog from "dt-design-system/es/dialog";
-import Button from "dt-design-system/es/button";
-import Tooltip from "dt-design-system/es/tooltip";
-import * as Icons from "dt-design-system/es/icons";
+import Dialog from "jt-design-system/es/dialog";
+import Button from "jt-design-system/es/button";
+import Tooltip from "jt-design-system/es/tooltip";
+import Icon from "@/components/icon";
 import styles from "./preview.module.css";
 
 type Props = {
@@ -37,12 +37,14 @@ export default function Preview({
               variant="transparent"
               onClick={downloadPostIt}
             >
-              <Icons.Download />
+              <Icon code="download" />
             </Button>
           </Tooltip>
         </div>
       </div>
-      <ReactMarkdown className={styles.content}>{content}</ReactMarkdown>
+      <div className={styles.content}>
+        <ReactMarkdown>{content}</ReactMarkdown>
+      </div>
     </Dialog>
   );
 }

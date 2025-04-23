@@ -1,6 +1,6 @@
-import Dialog from "dt-design-system/es/dialog";
-import Tabs from "dt-design-system/es/tabs";
-import * as Icons from "dt-design-system/es/icons";
+import Dialog from "jt-design-system/es/dialog";
+import Tabs from "jt-design-system/es/tabs";
+import Icon from "@/components/icon";
 import Categories from "./categories";
 import Preferences from "./preferences";
 import About from "./about";
@@ -31,7 +31,7 @@ export default function Settings({ opened, close, categories }: Props) {
               {
                 label: (
                   <>
-                    <Icons.MoreVertical className={styles.tabIcon} />
+                    <Icon code="more-vertical" className={styles.tabIcon} />
                     Categories
                   </>
                 ),
@@ -41,7 +41,7 @@ export default function Settings({ opened, close, categories }: Props) {
               {
                 label: (
                   <>
-                    <Icons.Tune className={styles.tabIcon} />
+                    <Icon code="tune" className={styles.tabIcon} />
                     Preferences
                   </>
                 ),
@@ -51,7 +51,7 @@ export default function Settings({ opened, close, categories }: Props) {
               {
                 label: (
                   <>
-                    <Icons.Question className={styles.tabIcon} />
+                    <Icon code="question" className={styles.tabIcon} />
                     About
                   </>
                 ),

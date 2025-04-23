@@ -1,10 +1,10 @@
 "use client";
 
-import Popover from "dt-design-system/es/popover";
-import Tooltip from "dt-design-system/es/tooltip";
-import Input from "dt-design-system/es/input";
-import Button from "dt-design-system/es/button";
-import * as Icons from "dt-design-system/es/icons";
+import Popover from "jt-design-system/es/popover";
+import Tooltip from "jt-design-system/es/tooltip";
+import Input from "jt-design-system/es/input";
+import Button from "jt-design-system/es/button";
+import Icon from "@/components/icon";
 import { useAppContext } from "@/components/app-context";
 import * as Actions from "@/app/actions";
 import type { CategoryItem } from "@/@types/category";
@@ -86,7 +86,7 @@ export default function Categories({ categories }: Props) {
                   onClick={updateCategoryPosition(id, position - 1)}
                   className={styles.moveCategory}
                 >
-                  <Icons.ChevronUp />
+                  <Icon code="chevron-up" />
                 </Button>
               </Tooltip>
               <Popover
@@ -111,7 +111,7 @@ export default function Categories({ categories }: Props) {
                     variant="transparent"
                     className={styles.categoryColorHelper}
                   >
-                    <Icons.Info />
+                    <Icon code="info" />
                   </Button>
                 </Tooltip>
               </Popover>
@@ -128,13 +128,13 @@ export default function Categories({ categories }: Props) {
                     className={styles.removeCategory}
                     variant="transparent"
                   >
-                    <Icons.Cross />
+                    <Icon code="close" />
                   </Button>
                 }
               >
                 Confirm removal?
                 <Button variant="danger" onClick={removeCategory(id)} compact>
-                  <Icons.Bin />
+                  <Icon code="bin" />
                 </Button>
               </Popover>
             </div>
@@ -142,7 +142,7 @@ export default function Categories({ categories }: Props) {
         })}
       </div>
       <Button className={styles.createCategory} onClick={createCategory}>
-        <Icons.Plus />
+        <Icon code="plus" />
         Add Category
       </Button>
     </div>

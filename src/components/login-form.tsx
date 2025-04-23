@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Input from "dt-design-system/es/input";
-import Button from "dt-design-system/es/button";
-import { useSnackbar } from "dt-design-system/es/snackbar";
+import Input from "jt-design-system/es/input";
+import Button from "jt-design-system/es/button";
+import { useSnackbar } from "jt-design-system/es/snackbar";
 import { useAppContext } from "@/components/app-context";
 import * as Actions from "@/app/actions";
 import * as Cookies from "@/services/cookies";

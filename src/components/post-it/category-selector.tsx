@@ -1,9 +1,9 @@
 import * as React from "react";
 import classNames from "classnames";
-import Button from "dt-design-system/es/button";
-import Popover from "dt-design-system/es/popover";
+import Button from "jt-design-system/es/button";
+import Popover from "jt-design-system/es/popover";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
-import Tooltip from "dt-design-system/es/tooltip";
+import Tooltip from "jt-design-system/es/tooltip";
 import type { CategoryItem } from "@/@types/category";
 import styles from "./category-selector.module.css";
 

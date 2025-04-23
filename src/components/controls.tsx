@@ -1,10 +1,10 @@
 import * as React from "react";
 import classNames from "classnames";
 import { PanInfo, motion } from "motion/react";
-import Button from "dt-design-system/es/button";
-import Tooltip from "dt-design-system/es/tooltip";
-import Input from "dt-design-system/es/input";
-import * as Icons from "dt-design-system/es/icons";
+import Button from "jt-design-system/es/button";
+import Tooltip from "jt-design-system/es/tooltip";
+import Input from "jt-design-system/es/input";
+import Icon from "@/components/icon";
 import CategorySelector from "@/components/category-selector";
 import Settings from "@/components/settings";
 import { useAppContext } from "@/components/app-context";
@@ -13,7 +13,7 @@ import type { CategoryItem } from "@/@types/category";
 import styles from "./controls.module.css";
 
 type Props = {
-  padRef: React.RefObject<HTMLDivElement>;
+  padRef: React.RefObject<HTMLDivElement | null>;
   categories: CategoryItem[];
   search: string;
   updateSearch: (newSearch: string) => void;
@@ -132,18 +132,20 @@ export default function Controls({
 
   const modeTooltip =
     viewMode === "free" ? "Toggle grid view" : "Toggle free view";
-  const ModeIcon = viewMode === "free" ? Icons.Trello : Icons.Grid;
+  const modeIcon = viewMode === "free" ? "trello" : "grid";
 
   const searchClasses = classNames(styles.search, {
     [styles.grid]: viewMode === "grid",
   });
+
+  const SearchIcon = () => <Icon code="search" />;
 
   return (
     <>
       <div className={styles.bar}>
         <Tooltip content={modeTooltip}>
           <Button className={styles.viewToggle} onClick={updateMode}>
-            <ModeIcon />
+            <Icon code={modeIcon} />
           </Button>
         </Tooltip>
         <Tooltip content="Search among post-it titles">
@@ -151,7 +153,7 @@ export default function Controls({
             ref={searchRef}
             type="search"
             className={searchClasses}
-            icon="Search"
+            icon={SearchIcon}
             value={search}
             onValueChange={updateSearch}
             onKeyUp={handleKeyUp}
@@ -165,7 +167,7 @@ export default function Controls({
             onClick={addPostIt}
             disabled={viewMode === "free"}
           >
-            <Icons.File />
+            <Icon code="file-edit" />
             New post-it
           </Button>
           {viewMode === "free" && (
@@ -182,14 +184,14 @@ export default function Controls({
               onClick={addPostIt}
               onDragEnd={createPostItFromDrag as any}
             >
-              <Icons.File />
+              <Icon code="file-edit" />
               New post-it
             </MotionButton>
           )}
         </div>
         <Tooltip content="Open settings">
           <Button className={styles.settings} onClick={openSettings}>
-            <Icons.Settings />
+            <Icon code="settings" />
           </Button>
         </Tooltip>
       </div>

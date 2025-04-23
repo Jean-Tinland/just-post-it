@@ -12,7 +12,7 @@ import styles from "./post-it.module.css";
 import Preview from "./preview";
 
 type Props = {
-  padRef: React.RefObject<HTMLDivElement>;
+  padRef: React.RefObject<HTMLDivElement | null>;
   postIt: PostItItem;
   categories: CategoryItem[];
   dragging: boolean;

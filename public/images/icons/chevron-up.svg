@@ -1,0 +1,11 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  style="display: none"
+>
+  <symbol id="icon" viewBox="0 0 24 24">
+    <path
+        d="m12 10.83-4.95 4.95-1.41-1.42L12 8l6.36 6.36-1.41 1.42L12 10.83Z"
+    />
+  </symbol>
+</svg>

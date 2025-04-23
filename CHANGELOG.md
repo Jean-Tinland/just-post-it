@@ -1,5 +1,13 @@
 # Changelog
 
+## Wed Apr 23 2025 (v1.0.1)
+
+- chore: upgrade dependencies
+- chore: enable react-compiler
+- chore: replace framer-motion with motion
+- chore: replace dt-design-system with jt-design-system
+- chore/refactor: add lazy loading for all icons + import icons from remix icons
+
 ## Wed Nov 6 2024 (v1.0.0)
 
 - feat: add settings module with category manager

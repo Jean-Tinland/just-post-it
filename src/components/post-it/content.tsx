@@ -6,7 +6,7 @@ type Props = {
   postIt: PostItItem;
   content: string;
   handleContentChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  contentRef: React.RefObject<HTMLTextAreaElement>;
+  contentRef: React.RefObject<HTMLTextAreaElement | null>;
   dragged: boolean;
   handleHeightChange: () => void;
 };

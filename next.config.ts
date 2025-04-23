@@ -8,6 +8,9 @@ const API_URL =
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  experimental: {
+    reactCompiler: true,
+  },
   env: {
     API_URL,
     JWT_SECRET,

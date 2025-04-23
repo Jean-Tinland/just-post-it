@@ -1,7 +1,7 @@
 import * as React from "react";
 import classNames from "classnames";
-import Button from "dt-design-system/es/button";
-import Tooltip from "dt-design-system/es/tooltip";
+import Button from "jt-design-system/es/button";
+import Tooltip from "jt-design-system/es/tooltip";
 import { useAppContext } from "@/components/app-context";
 import type { CategoryItem } from "@/@types/category";
 import styles from "./category-selector.module.css";

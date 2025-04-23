@@ -1,4 +1,4 @@
-import Icon from "dt-design-system/es/icon";
+import Icon from "jt-design-system/es/icon";
 
 export function Return() {
   return (

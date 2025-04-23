@@ -1,10 +1,10 @@
 import * as React from "react";
 import classNames from "classnames";
-import Button from "dt-design-system/es/button";
-import Popover from "dt-design-system/es/popover";
-import DropdownMenu from "dt-design-system/es/dropdown-menu";
-import DatePicker from "dt-design-system/es/date-picker";
-import * as Icons from "dt-design-system/es/icons";
+import Button from "jt-design-system/es/button";
+import Popover from "jt-design-system/es/popover";
+import DropdownMenu from "jt-design-system/es/dropdown-menu";
+import DatePicker from "jt-design-system/es/date-picker";
+import Icon from "@/components/icon";
 import PostItCategorySelector from "./category-selector";
 import type { CategoryItem } from "@/@types/category";
 import styles from "./header.module.css";
@@ -51,7 +51,7 @@ export default function Header({
     {
       label: (
         <>
-          <Icons.Download /> Download
+          <Icon code="download" /> Download
         </>
       ),
       onClick: downloadPostIt,
@@ -59,7 +59,7 @@ export default function Header({
     {
       label: (
         <>
-          <Icons.FileText /> Markdown preview
+          <Icon code="file-text" /> Markdown preview
         </>
       ),
       onClick: openPreview,
@@ -82,14 +82,14 @@ export default function Header({
       />
       <DropdownMenu items={actions} modal={false}>
         <Button variant="transparent" className={styles.actions}>
-          <Icons.MoreVertical />
+          <Icon code="more-vertical" />
         </Button>
       </DropdownMenu>
       <Popover
         className={styles.datePopover}
         trigger={
           <Button className={dateClasses} variant="transparent">
-            <Icons.Calendar />
+            <Icon code="calendar" />
           </Button>
         }
       >
@@ -99,7 +99,7 @@ export default function Header({
         className={styles.removePopover}
         trigger={
           <Button className={styles.remove} variant="transparent">
-            <Icons.Cross />
+            <Icon code="close" />
           </Button>
         }
       >
@@ -110,7 +110,7 @@ export default function Header({
           onClick={removePostIt}
           compact
         >
-          <Icons.Bin />
+          <Icon code="bin" />
         </Button>
       </Popover>
     </header>
