@@ -6,6 +6,7 @@
 - chore: enable react-compiler
 - chore: replace framer-motion with motion
 - chore: replace dt-design-system with jt-design-system
+- chore: Update nanoid and tar-fs package versions
 - chore/refactor: add lazy loading for all icons + import icons from remix icons
 
 ## Wed Nov 6 2024 (v1.0.0)
