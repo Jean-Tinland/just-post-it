@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PanInfo, motion } from "framer-motion";
+import { PanInfo, motion } from "motion/react";
 import classNames from "classnames";
 import { useAppContext } from "@/components/app-context";
 import Header from "./header";

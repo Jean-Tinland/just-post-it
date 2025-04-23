@@ -1,6 +1,6 @@
 import * as React from "react";
-import { motion } from "framer-motion";
-import type { PanInfo } from "framer-motion";
+import { motion } from "motion/react";
+import type { PanInfo } from "motion/react";
 import styles from "./resize-handles.module.css";
 
 type Props = {

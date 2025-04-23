@@ -16,25 +16,26 @@
     "launch": "npm install && npm run build && pm2 startOrRestart ecosystem.config.js -- -p $PORT"
   },
   "dependencies": {
-    "@next/env": "^15.0.2",
+    "@next/env": "^15.3.1",
     "classnames": "^2.5.1",
-    "dt-design-system": "^3.11.5",
-    "framer-motion": "^11.11.11",
+    "dt-design-system": "^3.14.1",
     "jsonwebtoken": "^9.0.2",
-    "next": "^15.0.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-markdown": "^9.0.1",
+    "jt-design-system": "^2.0.0",
+    "motion": "^12.7.5",
+    "next": "^15.3.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-markdown": "^10.1.0",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.7",
-    "@types/node": "^20.17.6",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "eslint": "^9.14.0",
-    "eslint-config-next": "^15.0.2",
-    "typescript": "^5.6.3"
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^20.17.30",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "eslint": "^9.25.1",
+    "eslint-config-next": "^15.3.1",
+    "typescript": "^5.8.3"
   }
 }

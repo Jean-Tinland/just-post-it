@@ -1,6 +1,6 @@
 import * as React from "react";
 import classNames from "classnames";
-import { PanInfo, motion } from "framer-motion";
+import { PanInfo, motion } from "motion/react";
 import Button from "dt-design-system/es/button";
 import Tooltip from "dt-design-system/es/tooltip";
 import Input from "dt-design-system/es/input";
