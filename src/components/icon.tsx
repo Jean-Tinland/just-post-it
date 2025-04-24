@@ -3,22 +3,23 @@
 import * as React from "react";
 
 export type IconCode =
+  | "bin"
+  | "calendar"
+  | "chevron-up"
+  | "close"
+  | "download"
   | "file-edit"
   | "file-text"
-  | "settings"
+  | "github"
   | "grid"
-  | "trello"
-  | "download"
-  | "more-vertical"
-  | "calendar"
-  | "close"
-  | "bin"
-  | "chevron-up"
   | "info"
+  | "more-vertical"
   | "plus"
+  | "question"
   | "search"
-  | "tune"
-  | "question";
+  | "settings"
+  | "trello"
+  | "tune";
 
 type Props = React.SVGProps<SVGSVGElement> & {
   code: IconCode;
