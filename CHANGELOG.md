@@ -1,5 +1,12 @@
 # Changelog
 
+## Wed Apr 24 2025 (v1.0.2)
+
+- feat: add preferences pane in settings (theme, auto correct, spell-check)
+- refactor: minor cleanup
+- docs(readme): update roadmap
+- docs(changelog): update changelog
+
 ## Wed Apr 23 2025 (v1.0.1)
 
 - chore: upgrade dependencies
