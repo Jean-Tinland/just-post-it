@@ -5,6 +5,7 @@ import Popover from "jt-design-system/es/popover";
 import DropdownMenu from "jt-design-system/es/dropdown-menu";
 import DatePicker from "jt-design-system/es/date-picker";
 import Icon from "@/components/icon";
+import { useAppContext } from "@/components/app-context";
 import PostItCategorySelector from "./category-selector";
 import type { CategoryItem } from "@/@types/category";
 import styles from "./header.module.css";
@@ -38,6 +39,9 @@ export default function Header({
   downloadPostIt,
   openPreview,
 }: Props) {
+  const { preferences } = useAppContext();
+  const { autoCorrect, spellCheck } = preferences;
+
   const formattedDate = dueDate
     ? new Date(dueDate).toISOString().slice(0, 10)
     : "";
@@ -79,6 +83,8 @@ export default function Header({
         value={title}
         contentEditable="true"
         onInput={handleTitleChange}
+        spellCheck={spellCheck === "1" ? "true" : "false"}
+        autoCorrect={autoCorrect === "1" ? "on" : "off"}
       />
       <DropdownMenu items={actions} modal={false}>
         <Button variant="transparent" className={styles.actions}>

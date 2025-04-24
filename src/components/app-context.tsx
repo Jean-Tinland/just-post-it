@@ -5,10 +5,17 @@ import Loader from "jt-design-system/es/loader";
 import { SnackbarProvider } from "jt-design-system/es/snackbar";
 import * as Cookies from "@/services/cookies";
 import type { Mode } from "@/@types/view-mode";
+import type { Theme } from "@/@types/theme";
 import styles from "./app-context.module.css";
 
 type ContextUser = {
   token: string;
+};
+
+type ContextPreferences = {
+  spellCheck: string;
+  autoCorrect: string;
+  theme: Theme;
 };
 
 type AppContextType = {
@@ -19,6 +26,7 @@ type AppContextType = {
   updateViewMode: (newMode: Mode) => void;
   currentCategory: number | null;
   updateCurrentCategory: (newCategory: number | null) => void;
+  preferences: ContextPreferences;
 };
 
 const AppContext = React.createContext<AppContextType>({
@@ -29,12 +37,17 @@ const AppContext = React.createContext<AppContextType>({
   updateViewMode: () => {},
   currentCategory: null,
   updateCurrentCategory: () => {},
+  preferences: {
+    spellCheck: "0",
+    autoCorrect: "0",
+    theme: "auto",
+  },
 });
 
 export function useAppContext() {
-  const context = React.useContext(AppContext);
+  const context = React.use(AppContext);
   if (!context)
-    throw new Error(`useSiteContext must be used within a SiteContextProvider`);
+    throw new Error(`useAppContext must be used within a AppContextProvider`);
   return context;
 }
 
@@ -42,6 +55,7 @@ type Props = {
   user: ContextUser;
   defaultViewMode: "free" | "grid";
   defaultCategory: number | null;
+  preferences: ContextPreferences;
   children: React.ReactNode;
 };
 
@@ -49,6 +63,7 @@ export default function AppContextProvider({
   user,
   defaultViewMode,
   defaultCategory,
+  preferences,
   children,
 }: Props) {
   const [viewMode, setViewMode] = React.useState(defaultViewMode);
@@ -70,7 +85,7 @@ export default function AppContextProvider({
   };
 
   return (
-    <AppContext.Provider
+    <AppContext
       value={{
         user,
         loading,
@@ -79,12 +94,13 @@ export default function AppContextProvider({
         updateViewMode,
         currentCategory,
         updateCurrentCategory,
+        preferences,
       }}
     >
       <SnackbarProvider>
         {children}
         {loading && <Loader variant="bar" className={styles.loader} />}
       </SnackbarProvider>
-    </AppContext.Provider>
+    </AppContext>
   );
 }

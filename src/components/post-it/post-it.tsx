@@ -18,7 +18,8 @@ type Props = {
   dragging: boolean;
 };
 
-const MIN_SIZE = 300;
+const MIN_WIDTH = 300;
+const MIN_HEIGHT = 240;
 
 export default function PostIt({
   padRef,
@@ -83,12 +84,12 @@ export default function PostIt({
         const { x, y } = info.offset;
 
         if (axis === "both") {
-          setWidth(Math.max(MIN_SIZE, width + x));
-          setHeight(Math.max(MIN_SIZE, height + y));
+          setWidth(Math.max(MIN_WIDTH, width + x));
+          setHeight(Math.max(MIN_HEIGHT, height + y));
         } else if (axis === "x") {
-          setWidth(Math.max(MIN_SIZE, width + x));
+          setWidth(Math.max(MIN_WIDTH, width + x));
         } else if (axis === "y") {
-          setHeight(Math.max(MIN_SIZE, height + y));
+          setHeight(Math.max(MIN_HEIGHT, height + y));
         }
 
         setLoading(false);

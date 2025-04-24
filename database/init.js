@@ -55,6 +55,22 @@ const migrate = () => {
         }
       },
     );
+    db.run(
+      `
+      CREATE TABLE preference (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        key TEXT NOT NULL DEFAULT '',
+        value TEXT NOT NULL DEFAULT ''
+    );
+    `,
+      (err) => {
+        if (err) {
+          console.error(err.message);
+        } else {
+          console.log("preference table created successfully.");
+        }
+      },
+    );
   });
 };
 

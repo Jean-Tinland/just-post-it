@@ -65,3 +65,17 @@ export async function updateCategory(
 export async function removeCategory(authorization: string, id: number) {
   return Fetcher.DELETE(`${apiUrl}/api/category`, { id }, { authorization });
 }
+
+export async function getPreferences(authorization: string) {
+  return Fetcher.GET(`${apiUrl}/api/preferences`, undefined, { authorization });
+}
+
+export async function updatePreference(
+  authorization: string,
+  key: string,
+  value: string,
+) {
+  return Fetcher.PATCH(`${apiUrl}/api/preference`, { key, value }, undefined, {
+    authorization,
+  });
+}

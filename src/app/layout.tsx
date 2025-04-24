@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import AppContextProvider from "@/components/app-context";
+import * as API from "@/services/api";
 import type { Mode } from "@/@types/view-mode";
 import "./globals.css";
 
@@ -22,13 +23,16 @@ export default async function RootLayout({
   const viewMode = (cookieStore.get("viewMode")?.value || "free") as Mode;
   const currentCategory = cookieStore.get("currentCategory")?.value as string;
 
+  const preferences = await API.getPreferences(token);
+
   return (
-    <html lang="en">
+    <html lang="en" data-theme={preferences.theme || "auto"}>
       <body>
         <AppContextProvider
           user={{ token }}
           defaultViewMode={viewMode}
           defaultCategory={currentCategory ? Number(currentCategory) : null}
+          preferences={preferences}
         >
           {children}
         </AppContextProvider>

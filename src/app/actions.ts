@@ -50,3 +50,12 @@ export async function removeCategory(authorization: string, id: number) {
   await API.removeCategory(authorization, id);
   revalidatePath("/", "layout");
 }
+
+export async function updatePreference(
+  authorization: string,
+  key: string,
+  value: string,
+) {
+  await API.updatePreference(authorization, key, value);
+  revalidatePath("/", "layout");
+}

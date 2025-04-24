@@ -1,9 +1,8 @@
 import * as React from "react";
-import type { PostItItem } from "@/@types/post-it";
+import { useAppContext } from "@/components/app-context";
 import styles from "./content.module.css";
 
 type Props = {
-  postIt: PostItItem;
   content: string;
   handleContentChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   contentRef: React.RefObject<HTMLTextAreaElement | null>;
@@ -12,13 +11,15 @@ type Props = {
 };
 
 export default function Content({
-  postIt,
   content,
   handleContentChange,
   contentRef,
   dragged,
   handleHeightChange,
 }: Props) {
+  const { preferences } = useAppContext();
+  const { autoCorrect, spellCheck } = preferences;
+
   React.useEffect(() => {
     handleHeightChange();
   }, [handleHeightChange]);
@@ -34,7 +35,8 @@ export default function Content({
       className={styles.content}
       value={content}
       onChange={onChange}
-      spellCheck="false"
+      spellCheck={spellCheck === "1" ? "true" : "false"}
+      autoCorrect={autoCorrect === "1" ? "on" : "off"}
       readOnly={dragged}
     />
   );

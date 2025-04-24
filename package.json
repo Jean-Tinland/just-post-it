@@ -1,9 +1,12 @@
 {
   "name": "just-post-it",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "Jean Tinland",
     "url": "https://www.jeantinland.com/contact/"
+  },
+  "repository": {
+    "url": "https://github.com/Jean-Tinland/just-post-it"
   },
   "private": true,
   "scripts": {
