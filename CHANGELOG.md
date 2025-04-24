@@ -3,6 +3,7 @@
 ## Wed Apr 24 2025 (v1.0.2)
 
 - feat: add preferences pane in settings (theme, auto correct, spell-check)
+- feat: add githup repository link in about pane in settings and in package.json
 - refactor: minor cleanup
 - docs(readme): update roadmap
 - docs(changelog): update changelog
