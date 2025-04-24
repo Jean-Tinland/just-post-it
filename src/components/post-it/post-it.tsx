@@ -228,7 +228,6 @@ export default function PostIt({
             openPreview={openPreview}
           />
           <Content
-            postIt={postIt}
             content={content}
             handleContentChange={handleContentChange}
             contentRef={contentRef}

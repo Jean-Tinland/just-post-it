@@ -2,6 +2,7 @@
 
 ## Wed Apr 24 2025 (v1.0.2)
 
+- fix: remove unvalid prop in post-it.tsx' Content component usage
 - feat: add preferences pane in settings (theme, auto correct, spell-check)
 - feat: add githup repository link in about pane in settings and in package.json
 - refactor: minor cleanup
