@@ -3,6 +3,7 @@
 ## Fri Apr 25 2025 (v1.0.3)
 
 - fix: login page
+- fix: update script in package.json
 - chore: update dependencies
 - docs(readme): fix install documentation
 - docs(changelog): update changelog
