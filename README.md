@@ -43,6 +43,9 @@ git clone https://github.com/Jean-Tinland/just-post-it
 # Go to the cloned folder
 cd ./just-post-it
 
+# Install dependencies
+npm install
+
 # This command will init the database
 npm run init
 ```
