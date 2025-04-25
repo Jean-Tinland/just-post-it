@@ -1,6 +1,6 @@
 {
   "name": "just-post-it",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": {
     "name": "Jean Tinland",
     "url": "https://www.jeantinland.com/contact/"
@@ -23,7 +23,7 @@
     "classnames": "^2.5.1",
     "jsonwebtoken": "^9.0.2",
     "jt-design-system": "^2.0.0",
-    "motion": "^12.7.5",
+    "motion": "^12.9.1",
     "next": "^15.3.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -36,7 +36,7 @@
     "@types/node": "^20.17.30",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
-    "babel-plugin-react-compiler": "^19.0.0-beta-ebf51a3-20250411",
+    "babel-plugin-react-compiler": "^19.1.0-rc.1",
     "eslint": "^9.25.1",
     "eslint-config-next": "^15.3.1",
     "typescript": "^5.8.3"
