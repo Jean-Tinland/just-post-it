@@ -5,7 +5,7 @@ import * as Actions from "@/app/actions";
 import styles from "./preferences.module.css";
 
 export default function Preferences() {
-  const { user, preferences } = useAppContext();
+  const { user, preferences, setLoading } = useAppContext();
   const { theme, autoCorrect, spellCheck } = preferences;
 
   const themeOptions = [
@@ -15,11 +15,13 @@ export default function Preferences() {
   ];
 
   const updatePreference = (key: string) => async (value: boolean | string) => {
+    setLoading(true);
     let convertedValue = value;
     if (typeof value === "boolean") {
       convertedValue = value ? "1" : "0";
     }
     await Actions.updatePreference(user.token, key, convertedValue as string);
+    setLoading(false);
   };
 
   return (

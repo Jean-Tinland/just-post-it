@@ -1,5 +1,10 @@
 # Changelog
 
+## Fri Apr 25 2025
+
+- fix: round values when resizing post-it
+- feat: show loader on preference change
+
 ## Fri Apr 25 2025 (v1.0.3)
 
 - fix: login page
@@ -7,7 +12,6 @@
 - chore: update dependencies
 - docs(readme): fix install documentation
 - docs(changelog): update changelog
-- fix: round values when resizing post-it
 
 ## Tue Apr 24 2025 (v1.0.2)
 
