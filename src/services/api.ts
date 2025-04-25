@@ -67,6 +67,9 @@ export async function removeCategory(authorization: string, id: number) {
 }
 
 export async function getPreferences(authorization: string) {
+  if (!authorization) {
+    return Promise.resolve({});
+  }
   return Fetcher.GET(`${apiUrl}/api/preferences`, undefined, { authorization });
 }
 
