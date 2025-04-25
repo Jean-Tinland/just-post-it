@@ -83,13 +83,16 @@ export default function PostIt({
         setLoading(true);
         const { x, y } = info.offset;
 
+        const newWidth = Math.round(width + x);
+        const newHeight = Math.round(height + y);
+
         if (axis === "both") {
-          setWidth(Math.max(MIN_WIDTH, width + x));
-          setHeight(Math.max(MIN_HEIGHT, height + y));
+          setWidth(Math.max(MIN_WIDTH, newWidth));
+          setHeight(Math.max(MIN_HEIGHT, newHeight));
         } else if (axis === "x") {
-          setWidth(Math.max(MIN_WIDTH, width + x));
+          setWidth(Math.max(MIN_WIDTH, newWidth));
         } else if (axis === "y") {
-          setHeight(Math.max(MIN_HEIGHT, height + y));
+          setHeight(Math.max(MIN_HEIGHT, newHeight));
         }
 
         setLoading(false);

@@ -7,6 +7,7 @@
 - chore: update dependencies
 - docs(readme): fix install documentation
 - docs(changelog): update changelog
+- fix: round values when resizing post-it
 
 ## Tue Apr 24 2025 (v1.0.2)
 
