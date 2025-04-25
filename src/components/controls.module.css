@@ -11,25 +11,27 @@
   z-index: 2;
 }
 
-.search {
+.searchContainer {
   position: absolute;
-  left: 80px;
-}
-
-.search.grid {
   top: 100%;
-  left: unset;
 }
 
-@media (min-width: 780px) {
-  .search.grid {
+@media (min-width: 935px) {
+  .searchContainer {
     top: unset;
     left: 80px;
   }
 }
 
 .search input {
+  padding-right: 45px;
   font-family: var(--content-font);
+}
+
+.searchShortcut {
+  position: absolute;
+  top: 8px;
+  right: 8px;
 }
 
 .addButton {

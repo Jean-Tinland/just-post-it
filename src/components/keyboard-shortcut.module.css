@@ -1,0 +1,47 @@
+.shortcut {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  margin-left: 3px;
+  font-size: 0.8rem;
+}
+
+.key {
+  --foreground: var(--ds-grey-100, #f8f8f8);
+  --background: var(--ds-grey-700, #262626);
+  --border: 1px solid var(--ds-grey-800, #000);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 4px;
+  color: inherit;
+  border-radius: var(--ds-radius-100, 4px);
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
+}
+
+.light .key {
+  --foreground: var(--ds-grey-700, #262626);
+  --background: var(--ds-grey-100, #f8f8f8);
+  --border: 1px solid var(--ds-grey-200, #ededed);
+}
+
+.key::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--background);
+  border: var(--border);
+  opacity: 60%;
+}
+
+.inner {
+  position: relative;
+}

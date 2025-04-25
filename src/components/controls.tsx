@@ -8,6 +8,7 @@ import Icon from "@/components/icon";
 import CategorySelector from "@/components/category-selector";
 import Settings from "@/components/settings";
 import { useAppContext } from "@/components/app-context";
+import KeyboardShortcut from "@/components/keyboard-shortcut";
 import * as Actions from "@/app/actions";
 import type { CategoryItem } from "@/@types/category";
 import styles from "./controls.module.css";
@@ -42,31 +43,6 @@ export default function Controls({
     }
   }, []);
 
-  const handleKeyPresses = React.useCallback(
-    (e: KeyboardEvent) => {
-      const allowedKeys = ["k"];
-      const { code, ctrlKey, key, metaKey } = e;
-      const isAllowed =
-        (ctrlKey || metaKey) &&
-        (allowedKeys.includes(code) || allowedKeys.includes(key));
-
-      if (!isAllowed) return;
-      e.preventDefault();
-
-      if (key === "k" && (ctrlKey || metaKey)) {
-        focusSearch();
-      }
-    },
-    [focusSearch],
-  );
-
-  React.useEffect(() => {
-    window.addEventListener("keydown", handleKeyPresses);
-    return () => {
-      window.removeEventListener("keydown", handleKeyPresses);
-    };
-  }, [handleKeyPresses]);
-
   const openSettings = () => {
     setSettingsOpened(true);
   };
@@ -97,6 +73,41 @@ export default function Controls({
     focusNewPostIt(id);
     setLoading(false);
   }, [currentCategory, token, setLoading]);
+
+  const handleKeyPresses = React.useCallback(
+    (e: KeyboardEvent) => {
+      const allowedKeys = ["+", "l", ",", "/"];
+      const { ctrlKey, key, metaKey, shiftKey } = e;
+      const isAllowed = allowedKeys.includes(key);
+
+      if (!isAllowed) return;
+      e.preventDefault();
+
+      if (key === "/" && shiftKey) {
+        return focusSearch();
+      }
+
+      if (key === "+" && (ctrlKey || metaKey) && shiftKey) {
+        return addPostIt();
+      }
+
+      if (key === "," && (ctrlKey || metaKey)) {
+        return setSettingsOpened(true);
+      }
+
+      if (key === "l" && (ctrlKey || metaKey) && shiftKey) {
+        return updateMode();
+      }
+    },
+    [focusSearch],
+  );
+
+  React.useEffect(() => {
+    window.addEventListener("keydown", handleKeyPresses);
+    return () => {
+      window.removeEventListener("keydown", handleKeyPresses);
+    };
+  }, [handleKeyPresses]);
 
   const createPostItFromDrag = React.useCallback(
     async (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
@@ -130,36 +141,64 @@ export default function Controls({
     [currentCategory, padRef, setLoading, token],
   );
 
+  const removeButtonBackground = () => {
+    const button = document.querySelector(
+      ".".concat(styles.motionAddButton),
+    ) as HTMLElement;
+
+    if (button) {
+      button.style.removeProperty("background-color");
+    }
+  };
+
   const modeTooltip =
     viewMode === "free" ? "Toggle grid view" : "Toggle free view";
+  const fullModeTooltip = (
+    <>
+      {modeTooltip}
+      <KeyboardShortcut keys={["ctrl", "shift", "l"]} theme="light" />
+    </>
+  );
   const modeIcon = viewMode === "free" ? "trello" : "grid";
 
-  const searchClasses = classNames(styles.search, {
+  const searchClasses = classNames(styles.searchContainer, {
     [styles.grid]: viewMode === "grid",
   });
 
   const SearchIcon = () => <Icon code="search" />;
 
+  const settingsTooltip = (
+    <>
+      Open settings <KeyboardShortcut keys={["ctrl", ","]} theme="light" />
+    </>
+  );
+
   return (
     <>
       <div className={styles.bar}>
-        <Tooltip content={modeTooltip}>
+        <Tooltip content={fullModeTooltip}>
           <Button className={styles.viewToggle} onClick={updateMode}>
             <Icon code={modeIcon} />
           </Button>
         </Tooltip>
-        <Tooltip content="Search among post-it titles">
-          <Input
-            ref={searchRef}
-            type="search"
-            className={searchClasses}
-            icon={SearchIcon}
-            value={search}
-            onValueChange={updateSearch}
-            onKeyUp={handleKeyUp}
-            autoFocus
+        <div className={searchClasses}>
+          <Tooltip content="Search among post-it titles">
+            <Input
+              ref={searchRef}
+              type="search"
+              className={styles.search}
+              icon={SearchIcon}
+              value={search}
+              onValueChange={updateSearch}
+              onKeyUp={handleKeyUp}
+            />
+          </Tooltip>
+          <KeyboardShortcut
+            keys={["shift", "/"]}
+            theme="light"
+            className={styles.searchShortcut}
           />
-        </Tooltip>
+        </div>
         <div className={styles.addButton}>
           <Button
             variant={viewMode === "free" ? "secondary" : "primary"}
@@ -169,6 +208,7 @@ export default function Controls({
           >
             <Icon code="file-edit" />
             New post-it
+            <KeyboardShortcut keys={["ctrl", "shift", "+"]} />
           </Button>
           {viewMode === "free" && (
             <MotionButton
@@ -183,13 +223,15 @@ export default function Controls({
               dragMomentum={false}
               onClick={addPostIt}
               onDragEnd={createPostItFromDrag as any}
+              onDragTransitionEnd={removeButtonBackground}
             >
               <Icon code="file-edit" />
               New post-it
+              <KeyboardShortcut keys={["ctrl", "shift", "+"]} />
             </MotionButton>
           )}
         </div>
-        <Tooltip content="Open settings">
+        <Tooltip content={settingsTooltip}>
           <Button className={styles.settings} onClick={openSettings}>
             <Icon code="settings" />
           </Button>
