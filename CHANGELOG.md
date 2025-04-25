@@ -1,6 +1,13 @@
 # Changelog
 
-## Wed Apr 24 2025 (v1.0.2)
+## Fri Apr 25 2025 (v1.0.3)
+
+- fix: login page
+- chore: update dependencies
+- docs(readme): fix install documentation
+- docs(changelog): update changelog
+
+## Tue Apr 24 2025 (v1.0.2)
 
 - fix: remove unvalid prop in post-it.tsx' Content component usage
 - feat: add preferences pane in settings (theme, auto correct, spell-check)
