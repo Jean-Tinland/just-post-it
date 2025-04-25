@@ -4,6 +4,8 @@
 
 - fix: round values when resizing post-it
 - feat: show loader on preference change
+- feat: add controls keyboard shortcuts
+- docs(changelog): update changelog
 
 ## Fri Apr 25 2025 (v1.0.3)
 
