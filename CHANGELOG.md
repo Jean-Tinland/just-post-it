@@ -1,5 +1,10 @@
 # Changelog
 
+## Sat Apr 26 2025
+
+- fix: move keyboard shortcut prevent default
+- docs(changelog): update changelog
+
 ## Fri Apr 25 2025
 
 - fix: round values when resizing post-it
