@@ -81,21 +81,24 @@ export default function Controls({
       const isAllowed = allowedKeys.includes(key);
 
       if (!isAllowed) return;
-      e.preventDefault();
 
       if (key === "/" && shiftKey) {
+        e.preventDefault();
         return focusSearch();
       }
 
       if (key === "+" && (ctrlKey || metaKey) && shiftKey) {
+        e.preventDefault();
         return addPostIt();
       }
 
       if (key === "," && (ctrlKey || metaKey)) {
+        e.preventDefault();
         return setSettingsOpened(true);
       }
 
       if (key === "l" && (ctrlKey || metaKey) && shiftKey) {
+        e.preventDefault();
         return updateMode();
       }
     },
