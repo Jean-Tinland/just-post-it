@@ -54,11 +54,11 @@
 .handleX:hover,
 .handleY:hover,
 .handleBoth:hover {
-  opacity: 0.5;
+  opacity: 50%;
 }
 
 .handleX:active,
 .handleY:active,
 .handleBoth:active {
-  opacity: 0.8;
+  opacity: 80%;
 }

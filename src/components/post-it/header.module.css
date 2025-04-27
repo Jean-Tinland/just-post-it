@@ -33,7 +33,7 @@
 [data-post-it]:is(:hover, :focus-within) :is(.actions, .remove, .date),
 [data-post-it]:has([aria-expanded="true"]) :is(.actions, .remove, .date),
 .hasDate {
-  opacity: 1;
+  opacity: 100%;
   pointer-events: auto;
 }
 

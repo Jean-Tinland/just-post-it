@@ -7,8 +7,9 @@ import Input from "jt-design-system/es/input";
 import Icon from "@/components/icon";
 import CategorySelector from "@/components/category-selector";
 import Settings from "@/components/settings";
-import { useAppContext } from "@/components/app-context";
 import KeyboardShortcut from "@/components/keyboard-shortcut";
+import PostItPlaceholder from "./post-it/post-it-placeholder";
+import { useAppContext } from "@/components/app-context";
 import * as Actions from "@/app/actions";
 import type { CategoryItem } from "@/@types/category";
 import styles from "./controls.module.css";
@@ -20,8 +21,6 @@ type Props = {
   updateSearch: (newSearch: string) => void;
 };
 
-const MotionButton = motion.create(Button);
-
 export default function Controls({
   padRef,
   categories,
@@ -29,6 +28,8 @@ export default function Controls({
   updateSearch,
 }: Props) {
   const searchRef = React.useRef<HTMLInputElement>(null);
+  const [dragging, setDragging] = React.useState(false);
+  const [draggingValid, setDraggingValid] = React.useState(false);
   const [settingsOpened, setSettingsOpened] = React.useState(false);
   const { user, setLoading, viewMode, updateViewMode, currentCategory } =
     useAppContext();
@@ -68,11 +69,12 @@ export default function Controls({
   };
 
   const addPostIt = React.useCallback(async () => {
+    if (dragging) return;
     setLoading(true);
     const { id } = await Actions.createPostIt(token, currentCategory);
     focusNewPostIt(id);
     setLoading(false);
-  }, [currentCategory, token, setLoading]);
+  }, [currentCategory, draggingValid, setLoading, token]);
 
   const handleKeyPresses = React.useCallback(
     (e: KeyboardEvent) => {
@@ -112,6 +114,11 @@ export default function Controls({
     };
   }, [handleKeyPresses]);
 
+  const showPostItPlaceholder = (_: any, info: PanInfo) => {
+    setDragging(true);
+    setDraggingValid(info.offset.y > 100);
+  };
+
   const createPostItFromDrag = React.useCallback(
     async (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
       const container = padRef.current;
@@ -140,19 +147,12 @@ export default function Controls({
         focusNewPostIt(id);
         setLoading(false);
       }
+
+      setDragging(false);
+      setDraggingValid(false);
     },
     [currentCategory, padRef, setLoading, token],
   );
-
-  const removeButtonBackground = () => {
-    const button = document.querySelector(
-      ".".concat(styles.motionAddButton),
-    ) as HTMLElement;
-
-    if (button) {
-      button.style.removeProperty("background-color");
-    }
-  };
 
   const modeTooltip =
     viewMode === "free" ? "Toggle grid view" : "Toggle free view";
@@ -214,24 +214,24 @@ export default function Controls({
             <KeyboardShortcut keys={["ctrl", "shift", "+"]} />
           </Button>
           {viewMode === "free" && (
-            <MotionButton
-              className={styles.motionAddButton}
-              whileDrag={{
-                scale: 1.2,
-                backgroundColor: "var(--ds-green-400)",
-                pointerEvents: "none",
-              }}
+            <motion.div
+              className={styles.bottomButtonContainer}
               drag
               dragSnapToOrigin
+              dragTransition={dragging ? { timeConstant: 100 } : undefined}
+              whileDrag={{ cursor: "grabbing" }}
               dragMomentum={false}
-              onClick={addPostIt}
-              onDragEnd={createPostItFromDrag as any}
-              onDragTransitionEnd={removeButtonBackground}
+              onDrag={showPostItPlaceholder}
+              onDragEnd={createPostItFromDrag}
+              transition={{ duration: 0 }}
             >
-              <Icon code="file-edit" />
-              New post-it
-              <KeyboardShortcut keys={["ctrl", "shift", "+"]} />
-            </MotionButton>
+              <Button className={styles.topAddButton} onClick={addPostIt}>
+                <Icon code="file-edit" />
+                New post-it
+                <KeyboardShortcut keys={["ctrl", "shift", "+"]} />
+              </Button>
+              <PostItPlaceholder visible={draggingValid} />
+            </motion.div>
           )}
         </div>
         <Tooltip content={settingsTooltip}>

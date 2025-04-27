@@ -57,7 +57,7 @@
 }
 
 .postIt[data-dragged="true"] .scroll * {
-  opacity: 0.5;
+  opacity: 50%;
   pointer-events: none;
   filter: grayscale(100%);
   user-select: none;

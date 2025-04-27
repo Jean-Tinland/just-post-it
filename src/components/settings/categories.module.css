@@ -68,7 +68,7 @@
   :is(.moveCategory:not(:disabled), .removeCategory),
 .category:has([aria-expanded="true"])
   :is(.moveCategory:not(:disabled), .removeCategory) {
-  opacity: 1;
+  opacity: 100%;
 }
 
 .removeCategoryPopover {

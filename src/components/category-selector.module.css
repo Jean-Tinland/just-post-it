@@ -34,6 +34,6 @@ button.button {
 }
 
 .selected::before {
-  opacity: 0.25;
+  opacity: 25%;
   transform: translate(-50%, -50%);
 }
