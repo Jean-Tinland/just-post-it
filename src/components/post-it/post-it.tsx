@@ -213,6 +213,9 @@ export default function PostIt({
       onDragEnd={updatePostItPosition}
       onBlur={updatePostIt}
       onResize={() => handleHeightChange()}
+      initial={{ scale: 0.5, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.5, opacity: 0 }}
     >
       <div className={styles.overflow}>
         <div ref={scrollRef} className={styles.scroll}>

@@ -135,8 +135,8 @@ export default function Controls({
 
         const { innerWidth, innerHeight } = window;
 
-        const left = ((x - 100) / innerWidth) * 100;
-        const top = ((y - 90) / innerHeight) * 100;
+        const left = ((x - 150) / innerWidth) * 100;
+        const top = ((y - 120) / innerHeight) * 100;
 
         const { id } = await Actions.createPostIt(
           token,

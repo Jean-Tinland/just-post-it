@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import classNames from "classnames";
+import { AnimatePresence, motion } from "framer-motion";
 import Controls from "@/components/controls";
 import PostIt from "@/components/post-it";
 import { useAppContext } from "@/components/app-context";
@@ -79,15 +80,17 @@ export default function Pad({ postIts, categories }: Props) {
         search={search}
         updateSearch={updateSearch}
       />
-      {sortedPostIts.map((postIt) => (
-        <PostIt
-          key={postIt.id}
-          padRef={padRef}
-          postIt={postIt}
-          dragging={dragging}
-          categories={categories}
-        />
-      ))}
+      <AnimatePresence>
+        {sortedPostIts.map((postIt) => (
+          <PostIt
+            key={postIt.id}
+            padRef={padRef}
+            postIt={postIt}
+            dragging={dragging}
+            categories={categories}
+          />
+        ))}
+      </AnimatePresence>
     </div>
   );
 }
