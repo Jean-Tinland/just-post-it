@@ -8,6 +8,10 @@
   font-size: 0.8rem;
 }
 
+[data-hide-keyboard-shortcuts="1"] .shortcut {
+  display: none;
+}
+
 .key {
   --foreground: var(--ds-grey-100, #f8f8f8);
   --background: var(--ds-grey-700, #262626);

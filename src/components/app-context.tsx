@@ -13,9 +13,10 @@ type ContextUser = {
 };
 
 type ContextPreferences = {
-  spellCheck: string;
-  autoCorrect: string;
+  spellCheck: "0" | "1";
+  autoCorrect: "0" | "1";
   theme: Theme;
+  hideKeyboardShortcuts: "0" | "1";
 };
 
 type AppContextType = {
@@ -41,6 +42,7 @@ const AppContext = React.createContext<AppContextType>({
     spellCheck: "0",
     autoCorrect: "0",
     theme: "auto",
+    hideKeyboardShortcuts: "0",
   },
 });
 

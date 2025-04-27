@@ -6,7 +6,7 @@ import styles from "./preferences.module.css";
 
 export default function Preferences() {
   const { user, preferences, setLoading } = useAppContext();
-  const { theme, autoCorrect, spellCheck } = preferences;
+  const { theme, autoCorrect, spellCheck, hideKeyboardShortcuts } = preferences;
 
   const themeOptions = [
     { value: "auto", label: "System" },
@@ -35,15 +35,21 @@ export default function Preferences() {
         compact
       />
       <Checkbox
+        checked={spellCheck === "1"}
+        onCheckedChange={updatePreference("spellCheck")}
+        label="Enable spell checking"
+        appearance="switch"
+      />
+      <Checkbox
         checked={autoCorrect === "1"}
         onCheckedChange={updatePreference("autoCorrect")}
         label="Enable auto-correct"
         appearance="switch"
       />
       <Checkbox
-        checked={spellCheck === "1"}
-        onCheckedChange={updatePreference("spellCheck")}
-        label="Enable spell checking"
+        checked={hideKeyboardShortcuts === "1"}
+        onCheckedChange={updatePreference("hideKeyboardShortcuts")}
+        label="Hide keyboard shortcuts"
         appearance="switch"
       />
     </div>

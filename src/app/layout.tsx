@@ -26,7 +26,11 @@ export default async function RootLayout({
   const preferences = await API.getPreferences(token);
 
   return (
-    <html lang="en" data-theme={preferences.theme || "auto"}>
+    <html
+      lang="en"
+      data-theme={preferences.theme || "auto"}
+      data-hide-keyboard-shortcuts={preferences.hideKeyboardShortcuts ?? "0"}
+    >
       <body>
         <AppContextProvider
           user={{ token }}
