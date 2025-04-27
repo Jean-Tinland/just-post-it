@@ -1,5 +1,11 @@
 # Changelog
 
+## Sun Apr 27 2025 (V1.0.4)
+
+- feat: allow user to hide keyboard shortcuts in preferences
+- fix: add horizontal hidden overflow to main container
+- docs(changelog): update changelog
+
 ## Sat Apr 26 2025
 
 - fix: move keyboard shortcut prevent default
