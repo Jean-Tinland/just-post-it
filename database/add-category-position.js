@@ -21,7 +21,7 @@ const migrate = () => {
         if (err) {
           console.error(err.message);
         } else {
-          console.log(
+          console.info(
             "category table updated successfully: position column added.",
           );
         }

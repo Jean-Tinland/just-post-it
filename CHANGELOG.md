@@ -2,10 +2,12 @@
 
 ## Sun Apr 27 2025 (V1.0.4)
 
+- feat: animate post-it creation
 - feat: add post-it ghost placeholder while dragging new post-it button
 - feat: allow user to hide keyboard shortcuts in preferences
 - fix: add horizontal hidden overflow to main container
 - docs(changelog): update changelog
+- refactor: replace intented console.log with console.info
 
 ## Sat Apr 26 2025
 

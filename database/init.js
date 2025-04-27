@@ -28,7 +28,7 @@ const migrate = () => {
         if (err) {
           console.error(err.message);
         } else {
-          console.log("category table created successfully.");
+          console.info("category table created successfully.");
         }
       },
     );
@@ -51,7 +51,7 @@ const migrate = () => {
         if (err) {
           console.error(err.message);
         } else {
-          console.log("post_it table created successfully.");
+          console.info("post_it table created successfully.");
         }
       },
     );
@@ -67,7 +67,7 @@ const migrate = () => {
         if (err) {
           console.error(err.message);
         } else {
-          console.log("preference table created successfully.");
+          console.info("preference table created successfully.");
         }
       },
     );

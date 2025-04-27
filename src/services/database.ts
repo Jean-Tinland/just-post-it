@@ -17,7 +17,7 @@ export const sql = {
     return await new Promise((resolve, reject) => {
       db.run(query, values, (err) => {
         if (err) {
-          console.log(err);
+          console.info(err);
           reject(err);
         }
         resolve(null);
@@ -28,7 +28,7 @@ export const sql = {
     return await new Promise((resolve, reject) => {
       db.all(query, values, (err: Error, row) => {
         if (err) {
-          console.log(err);
+          console.info(err);
           return reject(err);
         }
         return resolve(row);
