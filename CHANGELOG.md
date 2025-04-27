@@ -2,6 +2,7 @@
 
 ## Sun Apr 27 2025 (V1.0.4)
 
+- fix: remove unused import in pad component
 - feat: animate post-it creation
 - feat: add post-it ghost placeholder while dragging new post-it button
 - feat: allow user to hide keyboard shortcuts in preferences
