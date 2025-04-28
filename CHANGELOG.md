@@ -4,7 +4,6 @@
 
 - fix: improve post-it placeholder styles
 - fix: disable post-it animations while dragging
-- docs(changelog): update changelog
 
 ## Sun Apr 27 2025 (V1.0.4)
 
@@ -13,20 +12,17 @@
 - feat: add post-it ghost placeholder while dragging new post-it button
 - feat: allow user to hide keyboard shortcuts in preferences
 - fix: add horizontal hidden overflow to main container
-- docs(changelog): update changelog
 - refactor: replace intented console.log with console.info
 
 ## Sat Apr 26 2025
 
 - fix: move keyboard shortcut prevent default
-- docs(changelog): update changelog
 
 ## Fri Apr 25 2025
 
 - fix: round values when resizing post-it
 - feat: show loader on preference change
 - feat: add controls keyboard shortcuts
-- docs(changelog): update changelog
 
 ## Fri Apr 25 2025 (v1.0.3)
 
@@ -34,7 +30,6 @@
 - fix: update script in package.json
 - chore: update dependencies
 - docs(readme): fix install documentation
-- docs(changelog): update changelog
 
 ## Tue Apr 24 2025 (v1.0.2)
 
@@ -43,7 +38,6 @@
 - feat: add githup repository link in about pane in settings and in package.json
 - refactor: minor cleanup
 - docs(readme): update roadmap
-- docs(changelog): update changelog
 
 ## Wed Apr 23 2025 (v1.0.1)
 
@@ -75,7 +69,6 @@
 ## Wed Oct 23 2024 (v0.1.1)
 
 - refactor: improve post-it resize behavior
-- docs(changelog): update changelog
 - refactor: merge all post-it updates in an unique partial route
 - chore: upgrade to Next.js 15
 - chore: remove useless logs
@@ -87,7 +80,6 @@
 - chore(env): cleanup env example file
 - docs(readme): add configuration step
 - fix: cleanup obsolete import in post-it/header
-- docs(changelog): update changelog
 - refactor: cleanup + merge post-it actions inside dropdown menu
 - docs(readme): update roadmap
 - chore: upgrade design-system dependency
