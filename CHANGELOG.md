@@ -4,6 +4,7 @@
 
 - fix: improve post-it placeholder styles
 - fix: disable post-it animations while dragging
+- fix: disable post-it animations while resizing
 
 ## Sun Apr 27 2025 (V1.0.4)
 

@@ -202,7 +202,7 @@ export default function PostIt({
       ref={ref}
       data-post-it={postIt.id}
       data-dragged={dragged}
-      key={bounds.top + bounds.left + bounds.width + bounds.height}
+      key={bounds.top + bounds.left}
       className={classes}
       style={postItStyles}
       whileDrag={draggedPostItStyles}

@@ -86,8 +86,8 @@ export default function Pad({ postIts, categories }: Props) {
             key={postIt.id}
             padRef={padRef}
             postIt={postIt}
-            dragging={dragging}
             categories={categories}
+            dragging={dragging}
           />
         ))}
       </AnimatePresence>
