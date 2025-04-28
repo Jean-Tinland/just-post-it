@@ -2,6 +2,7 @@
 
 ## Mon Apr 28 2025
 
+- fix: improve post-it placeholder styles
 - fix: disable post-it animations while dragging
 - docs(changelog): update changelog
 
