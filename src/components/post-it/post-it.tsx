@@ -200,9 +200,9 @@ export default function PostIt({
   return (
     <motion.div
       ref={ref}
+      key={String(bounds.top + bounds.left)}
       data-post-it={postIt.id}
       data-dragged={dragged}
-      key={bounds.top + bounds.left}
       className={classes}
       style={postItStyles}
       whileDrag={draggedPostItStyles}
@@ -212,9 +212,10 @@ export default function PostIt({
       onDragStart={() => setDragged(true)}
       onDragEnd={updatePostItPosition}
       onBlur={updatePostIt}
-      onResize={() => handleHeightChange()}
-      initial={dragging ? undefined : { scale: 0.5, opacity: 0 }}
+      onResize={handleHeightChange}
+      initial={dragging ? undefined : { scale: 0.8, opacity: 0 }}
       animate={dragging ? undefined : { scale: 1, opacity: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
     >
       <div className={styles.overflow}>
         <div ref={scrollRef} className={styles.scroll}>
