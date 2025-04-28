@@ -1,5 +1,10 @@
 # Changelog
 
+## Mon Apr 28 2025
+
+- fix: disable post-it animations while dragging
+- docs(changelog): update changelog
+
 ## Sun Apr 27 2025 (V1.0.4)
 
 - fix: remove unused import in pad component
