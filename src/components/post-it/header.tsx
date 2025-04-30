@@ -1,7 +1,7 @@
 import * as React from "react";
 import classNames from "classnames";
 import Button from "jt-design-system/es/button";
-import Popover from "jt-design-system/es/popover";
+import Popover, { PopoverPrimitive } from "jt-design-system/es/popover";
 import DropdownMenu from "jt-design-system/es/dropdown-menu";
 import DatePicker from "jt-design-system/es/date-picker";
 import Icon from "@/components/icon";
@@ -110,14 +110,16 @@ export default function Header({
         }
       >
         Confirm removal?
-        <Button
-          variant="danger"
-          className={styles.confirmRemove}
-          onClick={removePostIt}
-          compact
-        >
-          <Icon code="bin" />
-        </Button>
+        <PopoverPrimitive.Close asChild>
+          <Button
+            variant="danger"
+            className={styles.confirmRemove}
+            onClick={removePostIt}
+            compact
+          >
+            <Icon code="bin" />
+          </Button>
+        </PopoverPrimitive.Close>
       </Popover>
     </header>
   );
