@@ -33,10 +33,16 @@ export default function Icon({ code, ...props }: Props) {
     const isCompatible = "IntersectionObserver" in window;
     if (isCompatible) {
       const svg = ref.current;
-      if (svg) {
+      if (svg && !inView) {
         const observer = new IntersectionObserver(
-          ([entry]) => setInView(entry.isIntersecting),
-          { rootMargin: "24px" },
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setInView(true);
+            }
+          },
+          {
+            rootMargin: "24px",
+          },
         );
         observer.observe(svg);
         return () => {
@@ -46,13 +52,13 @@ export default function Icon({ code, ...props }: Props) {
     } else {
       setInView(true);
     }
-  }, []);
+  }, [inView]);
 
   const href = inView ? `/images/icons/${code}.svg#icon` : undefined;
 
   return (
     <svg ref={ref} width={24} height={24} {...props}>
-      <use href={href} />
+      {href && <use href={href} />}
     </svg>
   );
 }
