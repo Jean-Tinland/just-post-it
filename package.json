@@ -22,7 +22,7 @@
     "@next/env": "^15.3.1",
     "classnames": "^2.5.1",
     "jsonwebtoken": "^9.0.2",
-    "jt-design-system": "^2.0.0",
+    "jt-design-system": "^2.0.1",
     "motion": "^12.9.1",
     "next": "^15.3.1",
     "react": "^19.1.0",

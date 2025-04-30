@@ -1,5 +1,11 @@
 # Changelog
 
+## Tue Apr 29 2025
+
+- chore: upgrade jt-design-system
+- fix: close post-it remove popover on post-it deletion
+- fix: disconnect icon intersection observer when inView
+
 ## Mon Apr 28 2025
 
 - fix: improve post-it placeholder styles
