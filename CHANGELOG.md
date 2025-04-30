@@ -5,6 +5,7 @@
 - chore: upgrade jt-design-system
 - fix: close post-it remove popover on post-it deletion
 - fix: disconnect icon intersection observer when inView
+- chore: cleanup unused Icons library component
 
 ## Mon Apr 28 2025
 
