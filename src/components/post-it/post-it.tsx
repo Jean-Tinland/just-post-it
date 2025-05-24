@@ -143,11 +143,20 @@ export default function PostIt({
   const handleKeyDown = async (e: React.KeyboardEvent) => {
     const target = e.target as HTMLElement;
     const matchingTarget = target?.closest("input, textarea");
-    const allowedKeys = ["s"];
+    const allowedKeys = ["s", "Escape"];
     const { ctrlKey, key, metaKey } = e;
     const isAllowed = allowedKeys.includes(key);
 
-    if (!matchingTarget || !isAllowed) return;
+    if (!isAllowed) return;
+
+    if (key === "Escape") {
+      const activeElement = document.activeElement as HTMLElement;
+      if (!activeElement) return;
+
+      activeElement.blur();
+    }
+
+    if (!matchingTarget) return;
 
     if (key === "s" && (ctrlKey || metaKey)) {
       e.preventDefault();
