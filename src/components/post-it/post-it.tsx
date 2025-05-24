@@ -212,7 +212,6 @@ export default function PostIt({
       onDragStart={() => setDragged(true)}
       onDragEnd={updatePostItPosition}
       onBlur={updatePostIt}
-      onResize={handleHeightChange}
       initial={dragging ? undefined : { scale: 0.8, opacity: 0 }}
       animate={dragging ? undefined : { scale: 1, opacity: 1 }}
       exit={{ opacity: 0, scale: 0.8 }}
