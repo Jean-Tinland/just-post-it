@@ -81,8 +81,10 @@ export default function Controls({
       const allowedKeys = ["+", "l", ",", "/"];
       const { ctrlKey, key, metaKey, shiftKey } = e;
       const isAllowed = allowedKeys.includes(key);
+      const target = e.target as HTMLElement;
+      const isFocusingTextField = Boolean(target?.closest("input, textarea"));
 
-      if (!isAllowed) return;
+      if (isFocusingTextField || !isAllowed) return;
 
       if (key === "/" && shiftKey) {
         e.preventDefault();
