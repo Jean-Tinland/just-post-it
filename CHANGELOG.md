@@ -1,5 +1,15 @@
 # Changelog
 
+## Sat May 24 2025 (v1.0.5)
+
+- fix: disable main controls keyboard shortcuts while editing a note
+- refactor: update favicon
+- refactor: increase post-it content bottom padding
+- chore: upgrade dependencies
+- chore: cleanup obsolete props in post-it.tsx
+- refactor: revamp app loader > replace bar with real bottom left loader
+- feat: add cmd|ctrl+s keyboard shortcut for saving post-its
+
 ## Tue Apr 29 2025
 
 - chore: upgrade jt-design-system
