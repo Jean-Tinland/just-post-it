@@ -1,0 +1,22 @@
+.container {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background-color: var(--ds-grey-000, #fff);
+  border: 1px solid var(--ds-grey-200, #ededed);
+  border-radius: var(--ds-radius-200, 8px);
+  z-index: var(--ds-floating-z-index, 100);
+}
+
+.loader {
+  --ds-loader-spinner-size: 20px;
+  --ds-loader-thickness: 3px;
+}
+
+.text {
+  font-size: 14px;
+}

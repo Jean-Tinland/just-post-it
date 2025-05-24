@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
-import Loader from "jt-design-system/es/loader";
 import { SnackbarProvider } from "jt-design-system/es/snackbar";
 import * as Cookies from "@/services/cookies";
 import type { Mode } from "@/@types/view-mode";
 import type { Theme } from "@/@types/theme";
-import styles from "./app-context.module.css";
+import AppLoader from "./app-loader";
 
 type ContextUser = {
   token: string;
@@ -101,7 +100,7 @@ export default function AppContextProvider({
     >
       <SnackbarProvider>
         {children}
-        {loading && <Loader variant="bar" className={styles.loader} />}
+        <AppLoader loading={loading} />
       </SnackbarProvider>
     </AppContext>
   );
