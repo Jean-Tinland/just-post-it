@@ -140,6 +140,23 @@ export default function PostIt({
     setContent(target.value);
   };
 
+  const handleKeyDown = async (e: React.KeyboardEvent) => {
+    const target = e.target as HTMLElement;
+    const matchingTarget = target?.closest("input, textarea");
+    const allowedKeys = ["s"];
+    const { ctrlKey, key, metaKey } = e;
+    const isAllowed = allowedKeys.includes(key);
+
+    if (!matchingTarget || !isAllowed) return;
+
+    if (key === "s" && (ctrlKey || metaKey)) {
+      e.preventDefault();
+      setLoading(true);
+      await Actions.updatePostIt(token, { id, title, content });
+      setLoading(false);
+    }
+  };
+
   const updatePostIt = async (e: React.FocusEvent<HTMLDivElement, Element>) => {
     const unSavedChanges = title !== postIt.title || content !== postIt.content;
 
@@ -211,6 +228,7 @@ export default function PostIt({
       dragMomentum={false}
       onDragStart={() => setDragged(true)}
       onDragEnd={updatePostItPosition}
+      onKeyDown={handleKeyDown}
       onBlur={updatePostIt}
       initial={dragging ? undefined : { scale: 0.8, opacity: 0 }}
       animate={dragging ? undefined : { scale: 1, opacity: 1 }}
