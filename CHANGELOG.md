@@ -9,6 +9,7 @@
 - chore: cleanup obsolete props in post-it.tsx
 - refactor: revamp app loader > replace bar with real bottom left loader
 - feat: add cmd|ctrl+s keyboard shortcut for saving post-its
+- fix: blur focused post-it on Escape key press
 
 ## Tue Apr 29 2025
 
