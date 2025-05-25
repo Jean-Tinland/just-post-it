@@ -290,6 +290,7 @@ export default function PostIt({
       animate={dragging ? undefined : { scale: 1, opacity: 1 }}
       exit={{ opacity: 0, scale: 0.8 }}
       onClick={minimized && !dragging ? unMinimizePostIt : undefined}
+      layout
     >
       <div className={styles.overflow}>
         <div ref={scrollRef} className={styles.scroll}>

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import classNames from "classnames";
-import { AnimatePresence } from "motion/react";
+import { AnimatePresence, LayoutGroup } from "motion/react";
 import Controls from "@/components/controls";
 import PostIt from "@/components/post-it";
 import { useAppContext } from "@/components/app-context";
@@ -80,19 +80,21 @@ export default function Pad({ postIts, categories }: Props) {
         search={search}
         updateSearch={updateSearch}
       />
-      <AnimatePresence mode="popLayout">
-        {sortedPostIts.map((postIt) => {
-          return (
-            <PostIt
-              key={postIt.id}
-              padRef={padRef}
-              postIt={postIt}
-              categories={categories}
-              dragging={dragging}
-            />
-          );
-        })}
-      </AnimatePresence>
+      <LayoutGroup>
+        <AnimatePresence mode="popLayout">
+          {sortedPostIts.map((postIt) => {
+            return (
+              <PostIt
+                key={postIt.id}
+                padRef={padRef}
+                postIt={postIt}
+                categories={categories}
+                dragging={dragging}
+              />
+            );
+          })}
+        </AnimatePresence>
+      </LayoutGroup>
     </div>
   );
 }
