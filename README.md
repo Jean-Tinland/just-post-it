@@ -2,6 +2,8 @@
 
 Just Post-It is a simple note-taking app aiming to provide a novel experience by allowing the user to just drop notes on a free canvas.
 
+[Changelog](./CHANGELOG.md)
+
 <p align="center">
   <img src="./public/images/preview.jpg" width="600" />
 </p>
@@ -17,7 +19,6 @@ Here are the planned features:
 - Full description of all available features
 - Add “Update available” indicator in settings' about tab
 - Full i18n support (translations, reading direction, …)
-- Keyboard shortcuts
 - Global export of post-it
 - Improve app responsive
 - Make the app installable
