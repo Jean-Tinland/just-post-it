@@ -15,8 +15,8 @@
 }
 
 .postIt:has([aria-expanded="true"]),
-.postIt:focus-within,
-.postIt[data-dragged="true"] {
+.postIt[data-dragged="true"],
+.postIt:focus-within {
   z-index: 1;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .maximized,
-.maximized:focus-within {
+.maximized:has([aria-expanded="true"]) .maximized:focus-within {
   z-index: 3;
 }
 

@@ -5,6 +5,7 @@
 - refactor: move header actions in post-it footer
 - feat: add minimize & maximize actions in post-it header
 - fix: un maximize post-it on escape key press
+- fix: add correct z-index to post-it when maximized
 
 ## Sat May 24 2025 (v1.0.5)
 
