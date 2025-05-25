@@ -6,6 +6,7 @@
 - feat: add minimize & maximize actions in post-it header
 - fix: un maximize post-it on escape key press
 - fix: add correct z-index to post-it when maximized
+- refactor: rename functions + disable minimize & maximize buttons while grid mode is enabled
 
 ## Sat May 24 2025 (v1.0.5)
 

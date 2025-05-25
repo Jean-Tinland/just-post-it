@@ -305,6 +305,7 @@ export default function PostIt({
             minimized={minimized}
             toggleMaximize={toggleMaximize}
             maximized={maximized}
+            viewMode={viewMode}
           />
           {!minimized && (
             <>
@@ -316,7 +317,7 @@ export default function PostIt({
                 handleHeightChange={handleHeightChange}
               />
               <Footer
-                downloadDraft={downloadPostIt}
+                downloadPostIt={downloadPostIt}
                 openPreview={openPreview}
                 dueDate={date}
                 updateDueDate={updateDueDate}

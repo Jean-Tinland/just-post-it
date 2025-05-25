@@ -8,7 +8,7 @@ import Icon from "@/components/icon";
 import styles from "./footer.module.css";
 
 type Props = {
-  downloadDraft: () => void;
+  downloadPostIt: () => void;
   openPreview: () => void;
   dueDate: Date | null;
   updateDueDate: (dueDate: string) => Promise<void>;
@@ -16,7 +16,7 @@ type Props = {
 };
 
 export default function Footer({
-  downloadDraft,
+  downloadPostIt,
   openPreview,
   dueDate,
   updateDueDate,
@@ -58,8 +58,8 @@ export default function Footer({
           <Icon code="file-text" />
         </Button>
       </Tooltip>
-      <Tooltip content="Download draft">
-        <Button variant="transparent" onClick={downloadDraft}>
+      <Tooltip content="Download post-it">
+        <Button variant="transparent" onClick={downloadPostIt}>
           <Icon code="download" />
         </Button>
       </Tooltip>

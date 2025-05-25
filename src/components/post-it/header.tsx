@@ -21,6 +21,7 @@ type Props = {
   minimized: number;
   toggleMaximize: () => void;
   maximized: boolean;
+  viewMode: "free" | "grid";
 };
 
 export default function Header({
@@ -35,6 +36,7 @@ export default function Header({
   minimized,
   toggleMaximize,
   maximized,
+  viewMode,
 }: Props) {
   const { preferences } = useAppContext();
   const { autoCorrect, spellCheck } = preferences;
@@ -44,6 +46,7 @@ export default function Header({
   });
 
   const maximizeTooltip = maximized ? "Unmaximize" : "Maximize";
+  const disableActions = viewMode === "grid";
 
   return (
     <header className={classes}>
@@ -68,6 +71,7 @@ export default function Header({
               className={styles.minimize}
               variant="transparent"
               onClick={toggleMinimize}
+              disabled={disableActions}
             >
               <Icon code="minus" />
             </Button>
@@ -77,6 +81,7 @@ export default function Header({
               className={styles.maximize}
               variant="transparent"
               onClick={toggleMaximize}
+              disabled={disableActions}
             >
               <Icon code="square" />
             </Button>
