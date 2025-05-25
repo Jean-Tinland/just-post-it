@@ -1,5 +1,4 @@
 import * as React from "react";
-import { motion } from "motion/react";
 import classNames from "classnames";
 import Button from "jt-design-system/es/button";
 import Tooltip from "jt-design-system/es/tooltip";
@@ -35,7 +34,7 @@ export default function Footer({
   const dateTooltip = dueDate ? "Update due date" : "Set due date";
 
   return (
-    <motion.footer className={styles.footer} layout="preserve-aspect">
+    <footer className={styles.footer}>
       <Tooltip content={dateTooltip}>
         <span>
           <Popover
@@ -64,6 +63,6 @@ export default function Footer({
           <Icon code="download" />
         </Button>
       </Tooltip>
-    </motion.footer>
+    </footer>
   );
 }

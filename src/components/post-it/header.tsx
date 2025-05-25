@@ -1,5 +1,4 @@
 import * as React from "react";
-import { motion } from "motion/react";
 import classNames from "classnames";
 import Button from "jt-design-system/es/button";
 import Popover, { PopoverPrimitive } from "jt-design-system/es/popover";
@@ -50,7 +49,7 @@ export default function Header({
   const disableActions = viewMode === "grid";
 
   return (
-    <motion.header className={classes} layout="preserve-aspect">
+    <header className={classes}>
       <PostItCategorySelector
         categoryId={categoryId}
         categoryColor={categoryColor}
@@ -109,6 +108,6 @@ export default function Header({
           </Popover>
         </>
       )}
-    </motion.header>
+    </header>
   );
 }

@@ -8,7 +8,6 @@
 - fix: add correct z-index to post-it when maximized
 - refactor: rename functions + disable minimize & maximize buttons while grid mode is enabled
 - docs(readme): update roadmap + add changelog
-- feat: animate minimize and maximize actions
 
 ## Sat May 24 2025 (v1.0.5)
 

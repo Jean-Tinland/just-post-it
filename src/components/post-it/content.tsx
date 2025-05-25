@@ -1,5 +1,4 @@
 import * as React from "react";
-import { motion } from "motion/react";
 import { useAppContext } from "@/components/app-context";
 import styles from "./content.module.css";
 
@@ -31,7 +30,7 @@ export default function Content({
   };
 
   return (
-    <motion.textarea
+    <textarea
       ref={contentRef}
       className={styles.content}
       value={content}
@@ -39,7 +38,6 @@ export default function Content({
       spellCheck={spellCheck === "1" ? "true" : "false"}
       autoCorrect={autoCorrect === "1" ? "on" : "off"}
       readOnly={dragged}
-      layout="preserve-aspect"
     />
   );
 }
