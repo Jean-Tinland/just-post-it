@@ -47,7 +47,7 @@ export async function PATCH(request: NextRequest) {
   try {
     await Auth.check(request);
 
-    const { id, categoryId, title, content, dueDate, bounds } =
+    const { id, categoryId, title, content, dueDate, bounds, minimized } =
       await request.json();
     const { top, left, width, height } = bounds || {};
 
@@ -96,6 +96,15 @@ export async function PATCH(request: NextRequest) {
          SET width = ?, height = ?, last_updated = ?
          WHERE id = ?`,
         [width, height, nowISO, id],
+      );
+    }
+
+    if (minimized !== undefined) {
+      await sql.execute(
+        `UPDATE post_it
+         SET minimized = ?
+         WHERE id = ?`,
+        [minimized, id],
       );
     }
 

@@ -7,21 +7,22 @@ export async function GET(request: NextRequest) {
     await Auth.check(request);
 
     const rows = await sql.get(`SELECT
-                d.id,
-                d.title,
-                d.content,
-                d.due_date,
-                d.top_position,
-                d.left_position,
-                d.width,
-                d.height,
-                d.last_updated,
-                d.category_id,
+                p.id,
+                p.title,
+                p.content,
+                p.due_date,
+                p.top_position,
+                p.left_position,
+                p.width,
+                p.height,
+                p.category_id,
+                p.last_updated,
+                p.minimized,
                 c.name as category_name,
                 c.color as category_color
-              FROM post_it d
-              LEFT JOIN category c ON d.category_id = c.id
-              ORDER BY d.last_updated`);
+              FROM post_it p
+              LEFT JOIN category c ON p.category_id = c.id
+              ORDER BY p.last_updated`);
 
     const postIts = rows.map((row) => ({
       id: row.id,
@@ -34,8 +35,9 @@ export async function GET(request: NextRequest) {
         width: row.width,
         height: row.height,
       },
-      lastUpdated: row.last_updated,
       categoryId: row.category_id,
+      lastUpdated: row.last_updated,
+      minimized: row.minimized,
       categoryName: row.category_name,
       categoryColor: row.category_color,
     }));

@@ -15,6 +15,7 @@ export type PostItItem = {
   categoryId: number | null;
   categoryName: string;
   categoryColor: string;
+  minimized: 0 | 1;
 };
 
 export type PostItItemPatch = Partial<Omit<PostItItem, "bounds">> & {

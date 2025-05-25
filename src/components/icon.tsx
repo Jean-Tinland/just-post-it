@@ -13,11 +13,13 @@ export type IconCode =
   | "github"
   | "grid"
   | "info"
+  | "minus"
   | "more-vertical"
   | "plus"
   | "question"
   | "search"
   | "settings"
+  | "square"
   | "trello"
   | "tune";
 

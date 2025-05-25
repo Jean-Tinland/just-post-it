@@ -4,12 +4,13 @@ import classNames from "classnames";
 import { useAppContext } from "@/components/app-context";
 import Header from "./header";
 import Content from "./content";
+import Footer from "./footer";
+import Preview from "./preview";
 import ResizeHandles from "./resize-handles";
 import * as Actions from "@/app/actions";
 import type { PostItItem } from "@/@types/post-it";
 import type { CategoryItem } from "@/@types/category";
 import styles from "./post-it.module.css";
-import Preview from "./preview";
 
 type Props = {
   padRef: React.RefObject<HTMLDivElement | null>;
@@ -33,7 +34,7 @@ export default function PostIt({
 
   const { user, setLoading, viewMode } = useAppContext();
   const { token } = user;
-  const { id, dueDate, bounds, categoryId, categoryColor } = postIt;
+  const { id, dueDate, bounds, categoryId, categoryColor, minimized } = postIt;
   let date = dueDate;
   if (date) {
     date = new Date(date);
@@ -46,6 +47,7 @@ export default function PostIt({
   const [width, setWidth] = React.useState(bounds.width);
   const [height, setHeight] = React.useState(bounds.height);
   const [previewOpened, setPreviewOpened] = React.useState(false);
+  const [maximized, setMaximized] = React.useState(false);
 
   const removePostIt = React.useCallback(async () => {
     setLoading(true);
@@ -184,6 +186,45 @@ export default function PostIt({
     setLoading(false);
   };
 
+  const maximizePostIt = () => {
+    setMaximized(true);
+  };
+
+  const unMaximizePostIt = () => {
+    setMaximized(false);
+  };
+
+  const toggleMaximize = () => {
+    if (maximized) {
+      unMaximizePostIt();
+    } else {
+      maximizePostIt();
+    }
+  };
+
+  const minimizePostIt = async () => {
+    setLoading(true);
+
+    unMaximizePostIt();
+    await Actions.updatePostIt(token, { id, minimized: 1 });
+    setLoading(false);
+  };
+
+  const unMinimizePostIt = async () => {
+    setLoading(true);
+
+    await Actions.updatePostIt(token, { id, minimized: 0 });
+    setLoading(false);
+  };
+
+  const toggleMinimize = async () => {
+    if (minimized) {
+      await unMinimizePostIt();
+    } else {
+      await minimizePostIt();
+    }
+  };
+
   const downloadPostIt = () => {
     const href = "data:text/plain;charset=utf-8,".concat(
       encodeURIComponent(content),
@@ -209,14 +250,18 @@ export default function PostIt({
   const classes = classNames(styles.postIt, {
     [styles.grid]: viewMode === "grid",
     [styles.pastDueDate]: hasPastDueDate,
+    [styles.minimized]: minimized,
+    [styles.maximized]: maximized,
   });
 
-  const postItStyles = {
-    top: `${bounds.top}vh`,
-    left: `${bounds.left}vw`,
+  const postItStyles = computeStyles({
+    top: bounds.top,
+    left: bounds.left,
     width,
     height,
-  };
+    minimized,
+    maximized,
+  });
 
   const draggedPostItStyles = {
     opacity: 0.8,
@@ -229,6 +274,7 @@ export default function PostIt({
       key={String(bounds.top + bounds.left)}
       data-post-it={postIt.id}
       data-dragged={dragged}
+      data-maximized={maximized}
       className={classes}
       style={postItStyles}
       whileDrag={draggedPostItStyles}
@@ -242,6 +288,7 @@ export default function PostIt({
       initial={dragging ? undefined : { scale: 0.8, opacity: 0 }}
       animate={dragging ? undefined : { scale: 1, opacity: 1 }}
       exit={{ opacity: 0, scale: 0.8 }}
+      onClick={minimized && !dragging ? unMinimizePostIt : undefined}
     >
       <div className={styles.overflow}>
         <div ref={scrollRef} className={styles.scroll}>
@@ -251,24 +298,34 @@ export default function PostIt({
             categories={categories}
             title={title}
             updateCategory={updateCategory}
-            dueDate={date}
-            updateDueDate={updateDueDate}
-            hasPastDueDate={hasPastDueDate}
             handleTitleChange={handleTitleChange}
             removePostIt={removePostIt}
-            downloadPostIt={downloadPostIt}
-            openPreview={openPreview}
+            toggleMinimize={toggleMinimize}
+            minimized={minimized}
+            toggleMaximize={toggleMaximize}
+            maximized={maximized}
           />
-          <Content
-            content={content}
-            handleContentChange={handleContentChange}
-            contentRef={contentRef}
-            dragged={dragged}
-            handleHeightChange={handleHeightChange}
-          />
+          {!minimized && (
+            <>
+              <Content
+                content={content}
+                handleContentChange={handleContentChange}
+                contentRef={contentRef}
+                dragged={dragged}
+                handleHeightChange={handleHeightChange}
+              />
+              <Footer
+                downloadDraft={downloadPostIt}
+                openPreview={openPreview}
+                dueDate={date}
+                updateDueDate={updateDueDate}
+                hasPastDueDate={hasPastDueDate}
+              />
+            </>
+          )}
         </div>
       </div>
-      {viewMode === "free" && (
+      {!minimized && viewMode === "free" && (
         <ResizeHandles
           handleResize={handleResize}
           updateResize={updateResize}
@@ -283,4 +340,47 @@ export default function PostIt({
       />
     </motion.div>
   );
+}
+
+type Styles = {
+  top: number;
+  left: number;
+  width: number;
+  height: number;
+  minimized: number;
+  maximized: boolean;
+};
+
+function computeStyles({
+  top,
+  left,
+  width,
+  height,
+  minimized,
+  maximized,
+}: Styles) {
+  if (minimized) {
+    return {
+      top: `${top}vh`,
+      left: `${left}vw`,
+      width: 240,
+      height: 52,
+    };
+  }
+  if (maximized) {
+    return {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      width: "min(calc(100% - 48px), 1200px)",
+      height: "calc(100% - 48px)",
+    };
+  }
+  return {
+    top: `${top}vh`,
+    left: `${left}vw`,
+    width,
+    height,
+  };
 }

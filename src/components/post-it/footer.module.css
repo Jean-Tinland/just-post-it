@@ -1,0 +1,21 @@
+.footer {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  padding: 6px 10px;
+  background-color: var(--ds-grey-000);
+  border-top: 1px solid var(--ds-grey-300);
+  border-radius: 0 0 var(--ds-radius-200) var(--ds-radius-200);
+  opacity: 0;
+  transition: opacity 160ms var(--ds-transition-easing);
+}
+
+[data-post-it]:is(:hover, :focus-within) .footer,
+.footer:has([aria-expanded="true"]) {
+  opacity: 1;
+}
+
+.datePopover {
+  min-width: auto;
+  padding: 0;
+}

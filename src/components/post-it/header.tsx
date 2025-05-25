@@ -2,8 +2,7 @@ import * as React from "react";
 import classNames from "classnames";
 import Button from "jt-design-system/es/button";
 import Popover, { PopoverPrimitive } from "jt-design-system/es/popover";
-import DropdownMenu from "jt-design-system/es/dropdown-menu";
-import DatePicker from "jt-design-system/es/date-picker";
+import Tooltip from "jt-design-system/es/tooltip";
 import Icon from "@/components/icon";
 import { useAppContext } from "@/components/app-context";
 import PostItCategorySelector from "./category-selector";
@@ -16,13 +15,12 @@ type Props = {
   categories: CategoryItem[];
   title: string;
   updateCategory: (categoryId: number | null) => Promise<void>;
-  dueDate: Date | null;
-  updateDueDate: (dueDate: string) => Promise<void>;
-  hasPastDueDate: boolean;
   handleTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   removePostIt: () => void;
-  downloadPostIt: () => void;
-  openPreview: () => void;
+  toggleMinimize: () => void;
+  minimized: number;
+  toggleMaximize: () => void;
+  maximized: boolean;
 };
 
 export default function Header({
@@ -31,47 +29,24 @@ export default function Header({
   categories,
   title,
   updateCategory,
-  dueDate,
-  updateDueDate,
-  hasPastDueDate,
   handleTitleChange,
   removePostIt,
-  downloadPostIt,
-  openPreview,
+  toggleMinimize,
+  minimized,
+  toggleMaximize,
+  maximized,
 }: Props) {
   const { preferences } = useAppContext();
   const { autoCorrect, spellCheck } = preferences;
 
-  const formattedDate = dueDate
-    ? new Date(dueDate).toISOString().slice(0, 10)
-    : "";
-
-  const dateClasses = classNames(styles.date, {
-    [styles.hasDate]: dueDate,
-    [styles.pastDate]: hasPastDueDate,
+  const classes = classNames(styles.header, {
+    [styles.minimized]: minimized,
   });
 
-  const actions = [
-    {
-      label: (
-        <>
-          <Icon code="download" /> Download
-        </>
-      ),
-      onClick: downloadPostIt,
-    },
-    {
-      label: (
-        <>
-          <Icon code="file-text" /> Markdown preview
-        </>
-      ),
-      onClick: openPreview,
-    },
-  ];
+  const maximizeTooltip = maximized ? "Unmaximize" : "Maximize";
 
   return (
-    <header className={styles.header}>
+    <header className={classes}>
       <PostItCategorySelector
         categoryId={categoryId}
         categoryColor={categoryColor}
@@ -86,41 +61,48 @@ export default function Header({
         spellCheck={spellCheck === "1" ? "true" : "false"}
         autoCorrect={autoCorrect === "1" ? "on" : "off"}
       />
-      <DropdownMenu items={actions} modal={false}>
-        <Button variant="transparent" className={styles.actions}>
-          <Icon code="more-vertical" />
-        </Button>
-      </DropdownMenu>
-      <Popover
-        className={styles.datePopover}
-        trigger={
-          <Button className={dateClasses} variant="transparent">
-            <Icon code="calendar" />
-          </Button>
-        }
-      >
-        <DatePicker lang="en" value={formattedDate} onChange={updateDueDate} />
-      </Popover>
-      <Popover
-        className={styles.removePopover}
-        trigger={
-          <Button className={styles.remove} variant="transparent">
-            <Icon code="close" />
-          </Button>
-        }
-      >
-        Confirm removal?
-        <PopoverPrimitive.Close asChild>
-          <Button
-            variant="danger"
-            className={styles.confirmRemove}
-            onClick={removePostIt}
-            compact
+      {!minimized && (
+        <>
+          <Tooltip content="Minimize">
+            <Button
+              className={styles.minimize}
+              variant="transparent"
+              onClick={toggleMinimize}
+            >
+              <Icon code="minus" />
+            </Button>
+          </Tooltip>
+          <Tooltip content={maximizeTooltip}>
+            <Button
+              className={styles.maximize}
+              variant="transparent"
+              onClick={toggleMaximize}
+            >
+              <Icon code="square" />
+            </Button>
+          </Tooltip>
+          <Popover
+            className={styles.removePopover}
+            trigger={
+              <Button className={styles.remove} variant="transparent">
+                <Icon code="close" />
+              </Button>
+            }
           >
-            <Icon code="bin" />
-          </Button>
-        </PopoverPrimitive.Close>
-      </Popover>
+            Confirm removal?
+            <PopoverPrimitive.Close asChild>
+              <Button
+                variant="danger"
+                className={styles.confirmRemove}
+                onClick={removePostIt}
+                compact
+              >
+                <Icon code="bin" />
+              </Button>
+            </PopoverPrimitive.Close>
+          </Popover>
+        </>
+      )}
     </header>
   );
 }

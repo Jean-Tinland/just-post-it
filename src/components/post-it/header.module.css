@@ -1,8 +1,22 @@
 .header {
+  position: sticky;
+  top: 0;
   display: flex;
   align-items: center;
   gap: 2px;
-  padding: 20px 20px 5px 20px;
+  padding: 10px 10px 10px 15px;
+  background-color: var(--ds-grey-000);
+  border-bottom: 1px solid transparent;
+  transition: border 160ms var(--ds-transition-easing);
+}
+
+[data-post-it]:is(:hover, :focus-within) .header:not(.minimized) {
+  border-bottom: 1px solid var(--ds-grey-300);
+}
+
+.minimized {
+  margin-top: 4px;
+  border-bottom: 1px solid transparent;
 }
 
 .title {
@@ -18,9 +32,7 @@
   background-color: var(--ds-grey-200);
 }
 
-.date,
-.remove,
-.actions {
+:is(.minimize, .maximize, .remove) {
   opacity: 0;
   pointer-events: none;
   transition: opacity 160ms var(--ds-transition-easing);
@@ -30,22 +42,10 @@
   color: var(--ds-red-400);
 }
 
-[data-post-it]:is(:hover, :focus-within) :is(.actions, .remove, .date),
-[data-post-it]:has([aria-expanded="true"]) :is(.actions, .remove, .date),
-.hasDate {
+[data-post-it]:is(:hover, :focus-within) :is(.minimize, .maximize, .remove),
+[data-post-it]:has([aria-expanded="true"]) :is(.minimize, .maximize, .remove) {
   opacity: 100%;
   pointer-events: auto;
-}
-
-.datePopover {
-  min-width: auto;
-  padding: 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  .datePopover > div {
-    background-color: var(--ds-grey-200);
-  }
 }
 
 .removePopover {

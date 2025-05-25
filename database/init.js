@@ -44,7 +44,8 @@ const migrate = () => {
         height REAL NOT NULL DEFAULT 240,
         content TEXT NOT NULL DEFAULT '',
         category_id INTEGER NULL,
-        last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        minimized INTEGER NOT NULL DEFAULT 0
     );
     `,
       (err) => {

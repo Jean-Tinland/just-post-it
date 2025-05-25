@@ -1,7 +1,5 @@
 .postIt {
   position: absolute;
-  min-width: 140px;
-  min-height: 140px;
   background-color: var(--ds-grey-000);
   border: 1px solid var(--ds-grey-300);
   border-radius: var(--ds-radius-200);
@@ -37,6 +35,24 @@
   z-index: 0;
 }
 
+.minimized {
+  cursor: pointer;
+}
+
+.maximized {
+  position: fixed;
+  margin: auto;
+}
+
+.maximized,
+.maximized:focus-within {
+  z-index: 3;
+}
+
+.minimized * {
+  pointer-events: none;
+}
+
 .overflow {
   border-radius: inherit;
   overflow: clip;
@@ -54,6 +70,10 @@
   overflow: auto;
   scrollbar-width: thin;
   border-radius: inherit;
+}
+
+.maximized .scroll {
+  overscroll-behavior: contain;
 }
 
 .postIt[data-dragged="true"] .scroll * {
