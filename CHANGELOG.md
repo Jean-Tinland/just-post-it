@@ -1,5 +1,10 @@
 # Changelog
 
+## Sun May 25 2025 (v1.0.6)
+
+- refactor: move header actions in post-it footer
+- feat: add minimize & maximize actions in post-it header
+
 ## Sat May 24 2025 (v1.0.5)
 
 - fix: disable main controls keyboard shortcuts while editing a note
