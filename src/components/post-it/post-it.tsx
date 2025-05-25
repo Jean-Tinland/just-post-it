@@ -156,6 +156,7 @@ export default function PostIt({
       if (!activeElement) return;
 
       activeElement.blur();
+      unMaximizePostIt();
     }
 
     if (!matchingTarget) return;
