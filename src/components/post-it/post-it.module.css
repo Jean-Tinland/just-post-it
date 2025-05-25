@@ -45,7 +45,8 @@
 }
 
 .maximized,
-.maximized:has([aria-expanded="true"]) .maximized:focus-within {
+.maximized:has([aria-expanded="true"]),
+.maximized:focus-within {
   z-index: 3;
 }
 
