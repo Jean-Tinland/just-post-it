@@ -1,0 +1,14 @@
+.indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ds-green-400);
+  font-size: 14px;
+  margin-left: auto;
+}
+
+.icon {
+  flex: 0 0 16px;
+  height: 16px;
+  fill: currentcolor;
+}

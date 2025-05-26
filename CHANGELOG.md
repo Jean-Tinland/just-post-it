@@ -1,7 +1,8 @@
 # Changelog
 
-## Mon May 26 2025
+## Mon May 26 2025 (v1.0.7)
 
+- feat: add Saved! indicator when post-it is saved
 - refactor: fix eslint warnings in controls.tsx
 - fix: remove margin transition on post-it header
 

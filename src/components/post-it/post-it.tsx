@@ -48,6 +48,8 @@ export default function PostIt({
   const [height, setHeight] = React.useState(bounds.height);
   const [previewOpened, setPreviewOpened] = React.useState(false);
   const [maximized, setMaximized] = React.useState(false);
+  const [saved, setSaved] = React.useState(false);
+  const savedTimeout = React.useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const removePostIt = React.useCallback(async () => {
     setLoading(true);
@@ -142,6 +144,16 @@ export default function PostIt({
     setContent(target.value);
   };
 
+  const updateSaved = () => {
+    setSaved(true);
+    if (typeof savedTimeout.current === "string") {
+      clearTimeout(savedTimeout.current);
+    }
+    savedTimeout.current = setTimeout(() => {
+      setSaved(false);
+    }, 1280);
+  };
+
   const handleKeyDown = async (e: React.KeyboardEvent) => {
     const target = e.target as HTMLElement;
     const matchingTarget = target?.closest("input, textarea");
@@ -165,6 +177,7 @@ export default function PostIt({
       e.preventDefault();
       setLoading(true);
       await Actions.updatePostIt(token, { id, title, content });
+      updateSaved();
       setLoading(false);
     }
   };
@@ -184,8 +197,11 @@ export default function PostIt({
     setLoading(true);
 
     await Actions.updatePostIt(token, { id, title, content });
+    updateSaved();
     setLoading(false);
   };
+
+  console.log(saved);
 
   const maximizePostIt = () => {
     setMaximized(true);
@@ -322,6 +338,7 @@ export default function PostIt({
                 dueDate={date}
                 updateDueDate={updateDueDate}
                 hasPastDueDate={hasPastDueDate}
+                saved={saved}
               />
             </>
           )}

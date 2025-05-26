@@ -5,6 +5,7 @@ import Tooltip from "jt-design-system/es/tooltip";
 import Popover from "jt-design-system/es/popover";
 import DatePicker from "jt-design-system/es/date-picker";
 import Icon from "@/components/icon";
+import SavedIndicator from "./saved-indicator";
 import styles from "./footer.module.css";
 
 type Props = {
@@ -13,6 +14,7 @@ type Props = {
   dueDate: Date | null;
   updateDueDate: (dueDate: string) => Promise<void>;
   hasPastDueDate: boolean;
+  saved: boolean;
 };
 
 export default function Footer({
@@ -21,6 +23,7 @@ export default function Footer({
   dueDate,
   updateDueDate,
   hasPastDueDate,
+  saved,
 }: Props) {
   const formattedDate = dueDate
     ? new Date(dueDate).toISOString().slice(0, 10)
@@ -63,6 +66,7 @@ export default function Footer({
           <Icon code="download" />
         </Button>
       </Tooltip>
+      <SavedIndicator saved={saved} />
     </footer>
   );
 }

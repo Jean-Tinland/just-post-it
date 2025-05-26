@@ -5,6 +5,7 @@ import * as React from "react";
 export type IconCode =
   | "bin"
   | "calendar"
+  | "check"
   | "chevron-up"
   | "close"
   | "download"

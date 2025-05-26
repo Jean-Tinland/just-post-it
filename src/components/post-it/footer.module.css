@@ -8,6 +8,8 @@
   border-radius: 0 0 var(--ds-radius-200) var(--ds-radius-200);
   opacity: 0;
   transition: opacity 160ms var(--ds-transition-easing);
+  overflow: hidden;
+  overflow: clip;
 }
 
 [data-post-it]:is(:hover, :focus-within) .footer,
