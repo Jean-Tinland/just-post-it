@@ -5,6 +5,7 @@
 - feat: add Saved! indicator when post-it is saved
 - refactor: fix eslint warnings in controls.tsx
 - fix: remove margin transition on post-it header
+- fix: handle word break in url inside post-it
 
 ## Sun May 25 2025 (v1.0.6)
 
