@@ -201,8 +201,6 @@ export default function PostIt({
     setLoading(false);
   };
 
-  console.log(saved);
-
   const maximizePostIt = () => {
     setMaximized(true);
   };
