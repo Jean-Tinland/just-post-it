@@ -3,6 +3,7 @@
 ## Mon May 26 2025
 
 - refactor: fix eslint warnings in controls.tsx
+- fix: remove margin transition on post-it header
 
 ## Sun May 25 2025 (v1.0.6)
 

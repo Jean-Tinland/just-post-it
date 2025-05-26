@@ -7,9 +7,7 @@
   padding: 10px 10px 10px 15px;
   background-color: var(--ds-grey-000);
   border-bottom: 1px solid transparent;
-  transition:
-    margin 160ms var(--ds-transition-easing),
-    border 160ms var(--ds-transition-easing);
+  transition: border 160ms var(--ds-transition-easing);
 }
 
 [data-post-it]:is(:hover, :focus-within) .header:not(.minimized) {
