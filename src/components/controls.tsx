@@ -74,7 +74,7 @@ export default function Controls({
     const { id } = await Actions.createPostIt(token, currentCategory);
     focusNewPostIt(id);
     setLoading(false);
-  }, [currentCategory, draggingValid, setLoading, token]);
+  }, [currentCategory, dragging, draggingValid, setLoading, token]);
 
   const handleKeyPresses = React.useCallback(
     (e: KeyboardEvent) => {
@@ -106,7 +106,7 @@ export default function Controls({
         return updateMode();
       }
     },
-    [focusSearch],
+    [addPostIt, focusSearch, updateMode],
   );
 
   React.useEffect(() => {

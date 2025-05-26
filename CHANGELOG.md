@@ -1,5 +1,9 @@
 # Changelog
 
+## Mon May 26 2025
+
+- refactor: fix eslint warnings in controls.tsx
+
 ## Sun May 25 2025 (v1.0.6)
 
 - refactor: move header actions in post-it footer
