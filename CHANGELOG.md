@@ -1,5 +1,9 @@
 # Changelog
 
+## Tue May 27 2025
+
+- refactor: fix eslint warnings in controls.tsx
+
 ## Mon May 26 2025 (v1.0.7)
 
 - feat: add Saved! indicator when post-it is saved

@@ -64,9 +64,9 @@ export default function Controls({
     }
   };
 
-  const updateMode = () => {
+  const updateMode = React.useCallback(() => {
     updateViewMode(viewMode === "free" ? "grid" : "free");
-  };
+  }, [updateViewMode, viewMode]);
 
   const addPostIt = React.useCallback(async () => {
     if (dragging) return;
@@ -74,7 +74,7 @@ export default function Controls({
     const { id } = await Actions.createPostIt(token, currentCategory);
     focusNewPostIt(id);
     setLoading(false);
-  }, [currentCategory, dragging, draggingValid, setLoading, token]);
+  }, [currentCategory, dragging, setLoading, token]);
 
   const handleKeyPresses = React.useCallback(
     (e: KeyboardEvent) => {
