@@ -1,7 +1,9 @@
 # Changelog
 
-## Thu May 29 2025
+## Thu May 29 2025 (v1.0.8)
 
+- feat: allow tab indent in post-it content
+- fix: remove useless smooth scroll in post-it content
 - chore: upgrade dependencies
 
 ## Tue May 27 2025

@@ -70,7 +70,6 @@
   gap: 8x;
   overflow: auto;
   scrollbar-width: thin;
-  scroll-behavior: smooth;
   border-radius: inherit;
 }
 
