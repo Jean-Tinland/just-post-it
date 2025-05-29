@@ -1,5 +1,9 @@
 # Changelog
 
+## Thu May 29 2025
+
+- chore: upgrade dependencies
+
 ## Tue May 27 2025
 
 - refactor: fix eslint warnings in controls.tsx

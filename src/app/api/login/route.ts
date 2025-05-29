@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+import type { StringValue } from "ms";
 
 export async function POST(request: NextRequest) {
   const { password } = await request.json();
@@ -15,7 +16,7 @@ export async function POST(request: NextRequest) {
   }
 
   const secret = process.env.JWT_SECRET as string;
-  const expiresIn = `${process.env.JWT_DURATION}d`;
+  const expiresIn = `${process.env.JWT_DURATION}d` as StringValue;
   const token = jwt.sign({}, secret, { expiresIn });
 
   return NextResponse.json({ token });
