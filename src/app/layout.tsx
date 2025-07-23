@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Favicons from "@/components/favicons";
 import AppContextProvider from "@/components/app-context";
+import FontFamily from "@/components/font-family";
 import * as API from "@/services/api";
 import type { Mode } from "@/@types/view-mode";
+import type { Preferences } from "@/@types/preferences";
 import "./globals.css";
 
 export const dynamic = "force-dynamic";
@@ -24,7 +26,7 @@ export default async function RootLayout({
   const viewMode = (cookieStore.get("viewMode")?.value || "free") as Mode;
   const currentCategory = cookieStore.get("currentCategory")?.value as string;
 
-  const preferences = await API.getPreferences(token);
+  const preferences: Preferences = await API.getPreferences(token);
 
   return (
     <html
@@ -34,6 +36,7 @@ export default async function RootLayout({
     >
       <head>
         <Favicons />
+        <FontFamily fontFamily={preferences.fontFamily} />
       </head>
       <body>
         <AppContextProvider

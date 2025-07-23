@@ -7,14 +7,14 @@
   padding: 16px;
 }
 
-.theme {
+.field {
   width: fit-content;
 }
 
-.theme > label {
+.field > label {
   flex-direction: row;
 }
 
-.theme select {
+.field select {
   user-select: none;
 }

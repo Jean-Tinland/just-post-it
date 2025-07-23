@@ -1,5 +1,9 @@
 # Changelog
 
+## Wed Jul 23 2025 (v1.1.2)
+
+- feat: add font family user setting in preferences
+
 ## Wed Jul 23 2025 (v1.1.1)
 
 - feat: make maximized post-it more immersive (zen mode)

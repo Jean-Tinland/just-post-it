@@ -1,4 +1,5 @@
 import Select from "jt-design-system/es/select";
+import Input from "jt-design-system/es/input";
 import Checkbox from "jt-design-system/es/checkbox";
 import { useAppContext } from "@/components/app-context";
 import * as Actions from "@/app/actions";
@@ -6,7 +7,8 @@ import styles from "./preferences.module.css";
 
 export default function Preferences() {
   const { user, preferences, setLoading } = useAppContext();
-  const { theme, autoCorrect, spellCheck, hideKeyboardShortcuts } = preferences;
+  const { theme, autoCorrect, spellCheck, hideKeyboardShortcuts, fontFamily } =
+    preferences;
 
   const themeOptions = [
     { value: "auto", label: "System" },
@@ -28,10 +30,17 @@ export default function Preferences() {
     <div className={styles.container}>
       <Select
         label="Theme"
-        className={styles.theme}
+        className={styles.field}
         value={theme}
         onValueChange={updatePreference("theme")}
         options={themeOptions}
+        compact
+      />
+      <Input
+        label="Font family"
+        className={styles.field}
+        defaultValue={fontFamily}
+        onBlur={(e) => updatePreference("fontFamily")(e.target.value)}
         compact
       />
       <Checkbox

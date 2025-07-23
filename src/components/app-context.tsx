@@ -4,18 +4,11 @@ import * as React from "react";
 import { SnackbarProvider } from "jt-design-system/es/snackbar";
 import * as Cookies from "@/services/cookies";
 import type { Mode } from "@/@types/view-mode";
-import type { Theme } from "@/@types/theme";
+import type { Preferences } from "@/@types/preferences";
 import AppLoader from "./app-loader";
 
 type ContextUser = {
   token: string;
-};
-
-type ContextPreferences = {
-  spellCheck: "0" | "1";
-  autoCorrect: "0" | "1";
-  theme: Theme;
-  hideKeyboardShortcuts: "0" | "1";
 };
 
 type AppContextType = {
@@ -26,7 +19,7 @@ type AppContextType = {
   updateViewMode: (newMode: Mode) => void;
   currentCategory: number | null;
   updateCurrentCategory: (newCategory: number | null) => void;
-  preferences: ContextPreferences;
+  preferences: Preferences;
 };
 
 const AppContext = React.createContext<AppContextType>({
@@ -42,6 +35,7 @@ const AppContext = React.createContext<AppContextType>({
     autoCorrect: "0",
     theme: "auto",
     hideKeyboardShortcuts: "0",
+    fontFamily: "ui-monospace, monospace",
   },
 });
 
@@ -56,7 +50,7 @@ type Props = {
   user: ContextUser;
   defaultViewMode: "free" | "grid";
   defaultCategory: number | null;
-  preferences: ContextPreferences;
+  preferences: Preferences;
   children: React.ReactNode;
 };
 
