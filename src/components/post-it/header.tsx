@@ -43,6 +43,7 @@ export default function Header({
 
   const classes = classNames(styles.header, {
     [styles.minimized]: minimized,
+    [styles.maximized]: maximized,
   });
 
   const maximizeTooltip = maximized ? "Unmaximize" : "Maximize";

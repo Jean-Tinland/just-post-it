@@ -1,5 +1,9 @@
 # Changelog
 
+## Wed Jul 23 2025 (v1.1.1)
+
+- feat: make maximized post-it more immersive (zen mode)
+
 ## Wed Jul 23 2025 (v1.1.0)
 
 - feat: make the app installable & add wide range of favicons
@@ -63,7 +67,7 @@
 - feat: add post-it ghost placeholder while dragging new post-it button
 - feat: allow user to hide keyboard shortcuts in preferences
 - fix: add horizontal hidden overflow to main container
-- refactor: replace intented console.log with console.info
+- refactor: replace intended console.log with console.info
 
 ## Sat Apr 26 2025
 

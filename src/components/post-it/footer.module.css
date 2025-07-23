@@ -12,8 +12,9 @@
   overflow: clip;
 }
 
-[data-post-it]:is(:hover, :focus-within) .footer,
-.footer:has([aria-expanded="true"]) {
+[data-post-it]:is(:hover, :focus-within) .footer:not(.maximized),
+.footer:has([aria-expanded="true"]),
+.maximized:hover {
   opacity: 1;
 }
 

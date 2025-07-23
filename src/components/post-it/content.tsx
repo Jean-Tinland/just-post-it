@@ -1,4 +1,5 @@
 import * as React from "react";
+import classNames from "classnames";
 import { useAppContext } from "@/components/app-context";
 import styles from "./content.module.css";
 
@@ -8,6 +9,7 @@ type Props = {
   contentRef: React.RefObject<HTMLTextAreaElement | null>;
   dragged: boolean;
   handleHeightChange: () => void;
+  maximized: boolean;
 };
 
 export default function Content({
@@ -16,6 +18,7 @@ export default function Content({
   contentRef,
   dragged,
   handleHeightChange,
+  maximized,
 }: Props) {
   const { preferences } = useAppContext();
   const { autoCorrect, spellCheck } = preferences;
@@ -40,10 +43,14 @@ export default function Content({
     target.setRangeText(tab, start, start, "end");
   };
 
+  const classes = classNames(styles.content, {
+    [styles.maximized]: maximized,
+  });
+
   return (
     <textarea
       ref={contentRef}
-      className={styles.content}
+      className={classes}
       value={content}
       onChange={onChange}
       onKeyDown={onKeyDown}

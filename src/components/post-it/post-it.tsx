@@ -202,10 +202,16 @@ export default function PostIt({
   };
 
   const maximizePostIt = () => {
+    document.body.style.setProperty("overflow", "hidden");
     setMaximized(true);
+    const textArea = contentRef.current;
+    if (textArea) {
+      textArea.focus();
+    }
   };
 
   const unMaximizePostIt = () => {
+    document.body.style.removeProperty("overflow");
     setMaximized(false);
   };
 
@@ -329,6 +335,7 @@ export default function PostIt({
                 contentRef={contentRef}
                 dragged={dragged}
                 handleHeightChange={handleHeightChange}
+                maximized={maximized}
               />
               <Footer
                 downloadPostIt={downloadPostIt}
@@ -337,6 +344,7 @@ export default function PostIt({
                 updateDueDate={updateDueDate}
                 hasPastDueDate={hasPastDueDate}
                 saved={saved}
+                maximized={maximized}
               />
             </>
           )}
@@ -390,8 +398,10 @@ function computeStyles({
       bottom: 0,
       left: 0,
       right: 0,
-      width: "min(calc(100% - 48px), 1200px)",
-      height: "calc(100% - 48px)",
+      width: "100%",
+      height: "100%",
+      borderColor: "transparent",
+      borderRadius: 0,
     };
   }
   return {

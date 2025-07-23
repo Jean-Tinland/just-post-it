@@ -11,7 +11,7 @@
 }
 
 [data-maximized="true"] .content {
-  padding: 20px;
+  padding: 20px min(350px, 20%);
 }
 
 .content:not(:focus):hover {

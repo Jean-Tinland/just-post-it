@@ -10,13 +10,17 @@
   transition: border 160ms var(--ds-transition-easing);
 }
 
-[data-post-it]:is(:hover, :focus-within) .header:not(.minimized) {
+[data-post-it]:is(:hover, :focus-within) .header:not(.minimized, .maximized) {
   border-bottom: 1px solid var(--ds-grey-300);
 }
 
 .minimized {
   margin-top: 4px;
   border-bottom: 1px solid transparent;
+}
+
+.maximized {
+  padding-left: min(350px, 20%);
 }
 
 .title {
@@ -42,8 +46,11 @@
   color: var(--ds-red-400);
 }
 
-[data-post-it]:is(:hover, :focus-within) :is(.minimize, .maximize, .remove),
-[data-post-it]:has([aria-expanded="true"]) :is(.minimize, .maximize, .remove) {
+[data-post-it]:is(:hover, :focus-within)
+  .header:not(.maximized)
+  :is(.minimize, .maximize, .remove),
+[data-post-it]:has([aria-expanded="true"]) :is(.minimize, .maximize, .remove),
+.maximized:hover :is(.minimize, .maximize, .remove) {
   opacity: 100%;
   pointer-events: auto;
 }

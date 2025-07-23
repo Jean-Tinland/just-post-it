@@ -15,6 +15,7 @@ type Props = {
   updateDueDate: (dueDate: string) => Promise<void>;
   hasPastDueDate: boolean;
   saved: boolean;
+  maximized: boolean;
 };
 
 export default function Footer({
@@ -24,10 +25,15 @@ export default function Footer({
   updateDueDate,
   hasPastDueDate,
   saved,
+  maximized,
 }: Props) {
   const formattedDate = dueDate
     ? new Date(dueDate).toISOString().slice(0, 10)
     : "";
+
+  const classes = classNames(styles.footer, {
+    [styles.maximized]: maximized,
+  });
 
   const dateClasses = classNames(styles.date, {
     [styles.hasDate]: dueDate,
@@ -37,7 +43,7 @@ export default function Footer({
   const dateTooltip = dueDate ? "Update due date" : "Set due date";
 
   return (
-    <footer className={styles.footer}>
+    <footer className={classes}>
       <Tooltip content={dateTooltip}>
         <span>
           <Popover
