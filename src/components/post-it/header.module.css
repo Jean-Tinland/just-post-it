@@ -20,6 +20,7 @@
 }
 
 .maximized {
+  position: static;
   padding-left: min(350px, 20%);
 }
 
