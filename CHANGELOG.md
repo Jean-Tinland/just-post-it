@@ -1,5 +1,10 @@
 # Changelog
 
+## Wed Jul 23 2025 (v1.1.0)
+
+- feat: make the app installable & add wide range of favicons
+- chore: upgrade dependencies & bump v1.1.0
+
 ## Thu May 29 2025 (v1.0.8)
 
 - feat: allow tab indent in post-it content
