@@ -3,6 +3,7 @@
 ## Wed Jul 23 2025 (v1.1.1)
 
 - feat: make maximized post-it more immersive (zen mode)
+- chore: add keyboard shortcut in unmaximize post-it button tooltip
 
 ## Wed Jul 23 2025 (v1.1.0)
 

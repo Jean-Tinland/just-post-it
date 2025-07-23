@@ -5,6 +5,7 @@ import Popover, { PopoverPrimitive } from "jt-design-system/es/popover";
 import Tooltip from "jt-design-system/es/tooltip";
 import Icon from "@/components/icon";
 import { useAppContext } from "@/components/app-context";
+import KeyboardShortcut from "@/components/keyboard-shortcut";
 import PostItCategorySelector from "./category-selector";
 import type { CategoryItem } from "@/@types/category";
 import styles from "./header.module.css";
@@ -46,7 +47,13 @@ export default function Header({
     [styles.maximized]: maximized,
   });
 
-  const maximizeTooltip = maximized ? "Unmaximize" : "Maximize";
+  const maximizeTooltip = maximized ? (
+    <>
+      Unmaximize <KeyboardShortcut keys={["esc"]} theme="light" />
+    </>
+  ) : (
+    "Maximize"
+  );
   const disableActions = viewMode === "grid";
 
   return (
