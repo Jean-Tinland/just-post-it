@@ -1,6 +1,6 @@
 # It's Just Post-It
 
-Just Post-It is a simple note-taking app aiming to provide a novel experience by allowing the user to just drop notes on a free canvas.
+_Just Post-It_ is a simple note-taking app aiming to provide a novel experience by allowing the user to just drop notes on a free canvas.
 
 [Changelog](./CHANGELOG.md)
 
@@ -17,11 +17,9 @@ As this is a fork from a personal project presented [here](https://www.jeantinla
 Here are the planned features:
 
 - Full description of all available features
-- Add “Update available” indicator in settings' about tab
 - Full i18n support (translations, reading direction, …)
 - Global export of post-it
 - Improve app responsive
-- Make the app installable
 - Demo website based on the real app
 - …?
 
@@ -30,7 +28,7 @@ This list is non-exhaustive and expected to evolve.
 ## Dependencies & requirements
 
 - npm
-- node >= 18
+- node >= 18.18
 - pm2
 
 ## Installation
@@ -68,7 +66,7 @@ JWT_DURATION=90 # the jwt token duration in days
 PASSWORD=xxxxxxxx # your password
 ```
 
-Just Post-It is now ready to run.
+_Just Post-It_ is now ready to run.
 
 ## Launching the app
 
@@ -79,7 +77,7 @@ Still in the `just-post-it` folder:
 npm run launch
 ```
 
-You can use either Apache or nginx to setup Just Post-It and make it accessible from the web.
+You can use either Apache or nginx to setup _Just Post-It_ and make it accessible from the web.
 
 > [!TIP]
 > Once you launched `just-post-it`, pm2 will tell you that the process list is not saved. You can run `pm2 save` command in order to automaticaly restart all pm2 processes if your server is restarted.

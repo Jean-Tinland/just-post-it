@@ -1,5 +1,9 @@
 # Changelog
 
+## Wed Jul 23 2025
+
+- chore(readme): update roadmap & cleanup readme
+
 ## Wed Jul 23 2025 (v1.1.2)
 
 - feat: add font family user setting in preferences
