@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import Favicons from "@/components/favicons";
 import AppContextProvider from "@/components/app-context";
 import * as API from "@/services/api";
 import type { Mode } from "@/@types/view-mode";
@@ -31,6 +32,9 @@ export default async function RootLayout({
       data-theme={preferences.theme || "auto"}
       data-hide-keyboard-shortcuts={preferences.hideKeyboardShortcuts ?? "0"}
     >
+      <head>
+        <Favicons />
+      </head>
       <body>
         <AppContextProvider
           user={{ token }}
