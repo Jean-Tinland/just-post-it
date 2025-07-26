@@ -51,12 +51,6 @@ export default function PostIt({
   const [saved, setSaved] = React.useState(false);
   const savedTimeout = React.useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  const removePostIt = React.useCallback(async () => {
-    setLoading(true);
-    await Actions.deletePostIt(token, id);
-    setLoading(false);
-  }, [id, token, setLoading]);
-
   const updatePostItPosition = React.useCallback(
     async (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
       const container = padRef.current;
@@ -245,6 +239,13 @@ export default function PostIt({
       await minimizePostIt();
     }
   };
+
+  const removePostIt = React.useCallback(async () => {
+    setLoading(true);
+    unMaximizePostIt();
+    await Actions.deletePostIt(token, id);
+    setLoading(false);
+  }, [id, token, setLoading]);
 
   const downloadPostIt = () => {
     const href = "data:text/plain;charset=utf-8,".concat(

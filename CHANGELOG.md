@@ -1,5 +1,9 @@
 # Changelog
 
+## Sat Jul 26 2025 (v1.1.3)
+
+- fix: unmaximize post-it before deleting so it restores body overflow
+
 ## Wed Jul 23 2025
 
 - chore(readme): update roadmap & cleanup readme
