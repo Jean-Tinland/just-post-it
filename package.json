@@ -19,12 +19,12 @@
     "launch": "npm install && npm run build && pm2 startOrRestart ecosystem.config.js -- -p $PORT"
   },
   "dependencies": {
-    "@next/env": "^15.4.3",
+    "@next/env": "^15.4.4",
     "classnames": "^2.5.1",
     "jsonwebtoken": "^9.0.2",
     "jt-design-system": "^2.0.1",
-    "motion": "^12.23.6",
-    "next": "^15.4.3",
+    "motion": "^12.23.9",
+    "next": "^15.4.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-markdown": "^10.1.0",
@@ -37,8 +37,8 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "babel-plugin-react-compiler": "^19.1.0-rc.2",
-    "eslint": "^9.31.0",
-    "eslint-config-next": "^15.4.3",
+    "eslint": "^9.32.0",
+    "eslint-config-next": "^15.4.4",
     "typescript": "^5.8.3"
   }
 }
