@@ -3,10 +3,11 @@
 ## Sat Jul 26 2025 (v1.1.3)
 
 - fix: unmaximize post-it before deleting so it restores body overflow
+- chore: upgrade dependencies
 
 ## Wed Jul 23 2025
 
-- chore(readme): update roadmap & cleanup readme
+- docs(readme): update roadmap & cleanup readme
 - feat: make post-it header not sticky when maximized
 
 ## Wed Jul 23 2025 (v1.1.2)
