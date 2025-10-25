@@ -1,6 +1,6 @@
 {
   "name": "just-post-it",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "author": {
     "name": "Jean Tinland",
     "url": "https://www.jeantinland.com/contact/"
@@ -10,8 +10,8 @@
   },
   "private": true,
   "scripts": {
-    "dev": "next dev -p 4000",
-    "build": "next build",
+    "dev": "next dev --webpack -p 4000",
+    "build": "next build --webpack",
     "start": "next start -p 4000",
     "lint": "next lint",
     "init": "node ./database/init.js",
@@ -19,26 +19,26 @@
     "launch": "npm install && npm run build && pm2 startOrRestart ecosystem.config.js -- -p $PORT"
   },
   "dependencies": {
-    "@next/env": "^15.4.4",
+    "@next/env": "^16.0.0",
     "classnames": "^2.5.1",
     "jsonwebtoken": "^9.0.2",
     "jt-design-system": "^2.0.1",
-    "motion": "^12.23.9",
-    "next": "^15.4.4",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "motion": "^12.23.24",
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-markdown": "^10.1.0",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^20.19.9",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "babel-plugin-react-compiler": "^19.1.0-rc.2",
-    "eslint": "^9.32.0",
-    "eslint-config-next": "^15.4.4",
-    "typescript": "^5.8.3"
+    "@types/node": "^20.19.23",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "eslint": "^9.38.0",
+    "eslint-config-next": "^16.0.0",
+    "typescript": "^5.9.3"
   }
 }

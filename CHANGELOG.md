@@ -1,5 +1,10 @@
 # Changelog
 
+## Sat Oct 25 2025 (v1.1.4)
+
+- chore: upgrade depedencies
+- fix: remove eslint errors
+
 ## Sat Jul 26 2025 (v1.1.3)
 
 - fix: unmaximize post-it before deleting so it restores body overflow
