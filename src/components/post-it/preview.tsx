@@ -1,4 +1,3 @@
-import * as React from "react";
 import ReactMarkdown from "react-markdown";
 import Dialog from "jt-design-system/es/dialog";
 import Button from "jt-design-system/es/button";

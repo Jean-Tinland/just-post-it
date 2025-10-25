@@ -1,4 +1,3 @@
-import * as React from "react";
 import classNames from "classnames";
 import Button from "jt-design-system/es/button";
 import Popover from "jt-design-system/es/popover";

@@ -1,11 +1,10 @@
-import * as React from "react";
 import { motion } from "motion/react";
 import type { PanInfo } from "motion/react";
 import styles from "./resize-handles.module.css";
 
 type Props = {
   handleResize: (
-    direction: "x" | "y" | "both",
+    direction: "x" | "y" | "both"
   ) => (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => void;
   updateResize: () => void;
 };
