@@ -5,7 +5,6 @@ import { useAppContext } from "@/components/app-context";
 import Header from "./header";
 import Content from "./content";
 import Footer from "./footer";
-import Preview from "./preview";
 import ResizeHandles from "./resize-handles";
 import * as Actions from "@/app/actions";
 import type { PostItItem } from "@/@types/post-it";

@@ -1,5 +1,9 @@
 # Changelog
 
+## Fri Dec 5 2025 (v2.0.1)
+
+- fix: cleanup unused import
+
 ## Thu Dec 4 2025 (v2.0.0)
 
 - feat: migrate storage from SQLite to file-based system
