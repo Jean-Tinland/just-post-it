@@ -1,5 +1,12 @@
 # Changelog
 
+## Thu Dec 4 2025 (v2.0.0)
+
+- feat: migrate storage from SQLite to file-based system
+- feat: implement markdown preview with code blocks support thanks to shiki
+- chore: add migration script and guide
+- chore: upgrade dependencies
+
 ## Sat Oct 25 2025 (v1.1.4)
 
 - chore: upgrade depedencies

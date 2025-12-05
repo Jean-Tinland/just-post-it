@@ -46,7 +46,6 @@ export default function PostIt({
   const [content, setContent] = React.useState(postIt.content);
   const [width, setWidth] = React.useState(bounds.width);
   const [height, setHeight] = React.useState(bounds.height);
-  const [previewOpened, setPreviewOpened] = React.useState(false);
   const [maximized, setMaximized] = React.useState(false);
   const [saved, setSaved] = React.useState(false);
   const savedTimeout = React.useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -72,7 +71,7 @@ export default function PostIt({
         setLoading(false);
       }
     },
-    [bounds, id, padRef, setLoading, token],
+    [bounds, id, padRef, setLoading, token]
   );
 
   const handleResize = React.useCallback(
@@ -96,7 +95,7 @@ export default function PostIt({
         setLoading(false);
       },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [bounds],
+    [bounds]
   );
 
   const handleHeightChange = () => {
@@ -249,7 +248,7 @@ export default function PostIt({
 
   const downloadPostIt = () => {
     const href = "data:text/plain;charset=utf-8,".concat(
-      encodeURIComponent(content),
+      encodeURIComponent(content)
     );
 
     const link = Object.assign(document.createElement("a"), {
@@ -259,14 +258,6 @@ export default function PostIt({
     document.body.appendChild(link);
     link.click();
     link.remove();
-  };
-
-  const openPreview = () => {
-    setPreviewOpened(true);
-  };
-
-  const closePreview = () => {
-    setPreviewOpened(false);
   };
 
   const classes = classNames(styles.postIt, {
@@ -339,8 +330,8 @@ export default function PostIt({
                 maximized={maximized}
               />
               <Footer
+                postItId={postIt.id}
                 downloadPostIt={downloadPostIt}
-                openPreview={openPreview}
                 dueDate={date}
                 updateDueDate={updateDueDate}
                 hasPastDueDate={hasPastDueDate}
@@ -357,13 +348,6 @@ export default function PostIt({
           updateResize={updateResize}
         />
       )}
-      <Preview
-        isOpened={previewOpened}
-        close={closePreview}
-        title={title}
-        content={content}
-        downloadPostIt={downloadPostIt}
-      />
     </motion.div>
   );
 }

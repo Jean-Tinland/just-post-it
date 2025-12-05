@@ -88,8 +88,7 @@
 }
 
 .content pre {
-  margin: 1.3rem 0;
-  padding: 1rem;
+  margin-top: 0;
   background-color: var(--ds-grey-000);
   border-radius: var(--ds-radius-200);
   overflow-x: auto;

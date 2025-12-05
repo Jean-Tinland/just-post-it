@@ -1,6 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sql } from "@/services/database";
+import * as FileSystem from "@/services/filesystem";
 import * as Auth from "@/services/auth";
+
+export async function GET(request: NextRequest) {
+  try {
+    await Auth.check(request);
+
+    const { searchParams } = request.nextUrl;
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing post-it ID" },
+        { status: 400 }
+      );
+    }
+
+    const postIt = await FileSystem.getPostIt(Number(id));
+
+    if (!postIt) {
+      return NextResponse.json({ error: "Post-it not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(postIt);
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 401 });
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,15 +34,7 @@ export async function POST(request: NextRequest) {
 
     const { categoryId = null, top = 10, left = 10 } = await request.json();
 
-    await sql.execute(
-      `INSERT INTO post_it
-        (top_position, left_position, category_id)
-        VALUES
-        (?, ?, ?)`,
-      [top, left, categoryId],
-    );
-    const rows = await sql.get(`SELECT last_insert_rowid() AS id FROM post_it`);
-    const { id } = rows[0];
+    const id = await FileSystem.createPostIt(categoryId, top, left);
 
     return NextResponse.json({ message: "Post-it created", id });
   } catch (error) {
@@ -35,7 +53,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Post-it not found" }, { status: 404 });
     }
 
-    await sql.execute(`DELETE FROM post_it WHERE id = ?`, [id]);
+    await FileSystem.deletePostIt(Number(id));
 
     return NextResponse.json({ message: "Post-it deleted" });
   } catch (error) {
@@ -49,64 +67,18 @@ export async function PATCH(request: NextRequest) {
 
     const { id, categoryId, title, content, dueDate, bounds, minimized } =
       await request.json();
-    const { top, left, width, height } = bounds || {};
 
-    const now = new Date();
-    const nowISO = now.toISOString().replace("T", " ").split(".")[0];
+    const updates: any = {};
 
-    if (categoryId !== undefined) {
-      await sql.execute(
-        `UPDATE post_it
-         SET category_id = ?
-         WHERE id = ?`,
-        [categoryId, id],
-      );
-    }
+    if (categoryId !== undefined) updates.categoryId = categoryId;
+    if (title !== undefined) updates.title = title;
+    if (content !== undefined) updates.content = content;
+    if (dueDate !== undefined)
+      updates.dueDate = dueDate ? new Date(dueDate) : null;
+    if (bounds !== undefined) updates.bounds = bounds;
+    if (minimized !== undefined) updates.minimized = minimized;
 
-    if (title !== undefined && content !== undefined) {
-      await sql.execute(
-        `UPDATE post_it
-         SET title = ?, content = ?, last_updated = ?
-         WHERE id = ?`,
-        [title, content, nowISO, id],
-      );
-    }
-
-    if (dueDate !== undefined) {
-      await sql.execute(
-        `UPDATE post_it
-         SET due_date = ?
-         WHERE id = ?`,
-        [dueDate, id],
-      );
-    }
-
-    if (top !== undefined && left !== undefined) {
-      await sql.execute(
-        `UPDATE post_it
-         SET top_position = ?, left_position = ?, last_updated = ?
-         WHERE id = ?`,
-        [top, left, nowISO, id],
-      );
-    }
-
-    if (width !== undefined && height !== undefined) {
-      await sql.execute(
-        `UPDATE post_it
-         SET width = ?, height = ?, last_updated = ?
-         WHERE id = ?`,
-        [width, height, nowISO, id],
-      );
-    }
-
-    if (minimized !== undefined) {
-      await sql.execute(
-        `UPDATE post_it
-         SET minimized = ?
-         WHERE id = ?`,
-        [minimized, id],
-      );
-    }
+    await FileSystem.updatePostIt(id, updates);
 
     return NextResponse.json({ message: "Post-it updated" });
   } catch (error) {

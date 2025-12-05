@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sql } from "@/services/database";
-
+import * as FileSystem from "@/services/filesystem";
 import * as Auth from "@/services/auth";
+import { CategoryItem } from "@/@types/category";
 
 export async function POST(request: NextRequest) {
   try {
@@ -9,12 +9,7 @@ export async function POST(request: NextRequest) {
 
     const { position } = await request.json();
 
-    await sql.execute(`INSERT INTO category (position) VALUES (?)`, [position]);
-
-    const rows = await sql.get(
-      `SELECT last_insert_rowid() AS id FROM category`,
-    );
-    const { id } = rows[0];
+    const id = await FileSystem.createCategory(position);
 
     return NextResponse.json({ message: "Category created", id });
   } catch (error) {
@@ -32,11 +27,11 @@ export async function DELETE(request: NextRequest) {
     if (!id) {
       return NextResponse.json(
         { error: "Category not found" },
-        { status: 404 },
+        { status: 404 }
       );
     }
 
-    await sql.execute(`DELETE FROM category WHERE id = ?`, [id]);
+    await FileSystem.deleteCategory(Number(id));
 
     return NextResponse.json({ message: "Category deleted" });
   } catch (error) {
@@ -50,32 +45,15 @@ export async function PATCH(request: NextRequest) {
 
     const { id, name, color, position } = await request.json();
 
-    if (name !== undefined) {
-      await sql.execute(
-        `UPDATE category
-         SET name = ?
-         WHERE id = ?`,
-        [name, id],
-      );
-    }
+    console.log({ id, name, color, position });
 
-    if (color !== undefined) {
-      await sql.execute(
-        `UPDATE category
-         SET color = ?
-         WHERE id = ?`,
-        [color, id],
-      );
-    }
+    const updates: Record<string, Partial<CategoryItem>> = {};
 
-    if (position !== undefined) {
-      await sql.execute(
-        `UPDATE category
-         SET position = ?
-         WHERE id = ?`,
-        [position, id],
-      );
-    }
+    if (name !== undefined) updates.name = name;
+    if (color !== undefined) updates.color = color;
+    if (position !== undefined) updates.position = position;
+
+    await FileSystem.updateCategory(id, updates);
 
     return NextResponse.json({ message: "Category updated" });
   } catch (error) {

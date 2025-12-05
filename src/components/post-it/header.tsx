@@ -69,8 +69,8 @@ export default function Header({
         value={title}
         contentEditable="true"
         onInput={handleTitleChange}
-        spellCheck={spellCheck === "1" ? "true" : "false"}
-        autoCorrect={autoCorrect === "1" ? "on" : "off"}
+        spellCheck={spellCheck}
+        autoCorrect={autoCorrect ? "on" : "off"}
       />
       {!minimized && (
         <>

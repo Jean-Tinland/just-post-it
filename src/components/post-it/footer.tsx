@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import Link from "next/link";
 import Button from "jt-design-system/es/button";
 import Tooltip from "jt-design-system/es/tooltip";
 import Popover from "jt-design-system/es/popover";
@@ -8,8 +9,8 @@ import SavedIndicator from "./saved-indicator";
 import styles from "./footer.module.css";
 
 type Props = {
+  postItId: number;
   downloadPostIt: () => void;
-  openPreview: () => void;
   dueDate: Date | null;
   updateDueDate: (dueDate: string) => Promise<void>;
   hasPastDueDate: boolean;
@@ -18,8 +19,8 @@ type Props = {
 };
 
 export default function Footer({
+  postItId,
   downloadPostIt,
-  openPreview,
   dueDate,
   updateDueDate,
   hasPastDueDate,
@@ -62,7 +63,11 @@ export default function Footer({
         </span>
       </Tooltip>
       <Tooltip content="Markdown preview">
-        <Button variant="transparent" onClick={openPreview}>
+        <Button
+          tag={Link}
+          variant="transparent"
+          href={`/?previewId=${postItId}`}
+        >
           <Icon code="file-text" />
         </Button>
       </Tooltip>

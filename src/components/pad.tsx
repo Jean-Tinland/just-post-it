@@ -52,7 +52,7 @@ export default function Pad({ postIts, categories }: Props) {
         }
       }
     },
-    [filteredPostIts],
+    [filteredPostIts]
   );
 
   const updateDragging = (e: React.MouseEvent<HTMLDivElement>) => {

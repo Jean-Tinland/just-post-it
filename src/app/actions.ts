@@ -11,7 +11,7 @@ export async function login(password: string) {
 
 export async function updatePostIt(
   authorization: string,
-  postIt: PostItItemPatch,
+  postIt: PostItItemPatch
 ) {
   await API.updatePostIt(authorization, postIt);
   revalidatePath("/", "layout");
@@ -26,7 +26,7 @@ export async function createPostIt(
   authorization: string,
   categoryId: number | null,
   top?: number,
-  left?: number,
+  left?: number
 ): Promise<{ id: number }> {
   const { id } = await API.createPostIt(authorization, categoryId, top, left);
   revalidatePath("/", "layout");
@@ -40,7 +40,7 @@ export async function createCategory(authorization: string, position: number) {
 
 export async function updateCategory(
   authorization: string,
-  category: Partial<CategoryItem>,
+  category: Partial<CategoryItem>
 ) {
   await API.updateCategory(authorization, category);
   revalidatePath("/", "layout");
@@ -48,14 +48,5 @@ export async function updateCategory(
 
 export async function removeCategory(authorization: string, id: number) {
   await API.removeCategory(authorization, id);
-  revalidatePath("/", "layout");
-}
-
-export async function updatePreference(
-  authorization: string,
-  key: string,
-  value: string,
-) {
-  await API.updatePreference(authorization, key, value);
   revalidatePath("/", "layout");
 }

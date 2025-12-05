@@ -1,25 +1,22 @@
-import ReactMarkdown from "react-markdown";
+"use client";
+
 import Dialog from "jt-design-system/es/dialog";
-import Button from "jt-design-system/es/button";
-import Tooltip from "jt-design-system/es/tooltip";
-import Icon from "@/components/icon";
 import styles from "./preview.module.css";
+import { useRouter } from "next/navigation";
 
 type Props = {
   isOpened: boolean;
-  close: () => void;
   title: string;
-  content: string;
-  downloadPostIt: () => void;
+  children: React.ReactNode;
 };
 
-export default function Preview({
-  isOpened,
-  close,
-  title,
-  content,
-  downloadPostIt,
-}: Props) {
+export default function Preview({ isOpened, title, children }: Props) {
+  const router = useRouter();
+
+  const close = () => {
+    router.push("/");
+  };
+
   return (
     <Dialog
       className={styles.dialog}
@@ -28,22 +25,9 @@ export default function Preview({
       closeButtonVariant="transparent"
     >
       <div className={styles.header}>
-        <div className={styles.title}>
-          {title}
-          <Tooltip content="Download post-it">
-            <Button
-              className={styles.download}
-              variant="transparent"
-              onClick={downloadPostIt}
-            >
-              <Icon code="download" />
-            </Button>
-          </Tooltip>
-        </div>
+        <div className={styles.title}>{title}</div>
       </div>
-      <div className={styles.content}>
-        <ReactMarkdown>{content}</ReactMarkdown>
-      </div>
+      <div className={styles.content}>{children}</div>
     </Dialog>
   );
 }

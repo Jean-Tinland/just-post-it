@@ -54,8 +54,8 @@ export default function Content({
       value={content}
       onChange={onChange}
       onKeyDown={onKeyDown}
-      spellCheck={spellCheck === "1" ? "true" : "false"}
-      autoCorrect={autoCorrect === "1" ? "on" : "off"}
+      spellCheck={spellCheck}
+      autoCorrect={autoCorrect ? "on" : "off"}
       readOnly={dragged}
     />
   );

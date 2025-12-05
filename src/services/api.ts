@@ -16,9 +16,13 @@ export async function getPostIts(authorization: string) {
   return Fetcher.GET(`${apiUrl}/api/post-its`, undefined, { authorization });
 }
 
+export async function getPostIt(authorization: string, id: number) {
+  return Fetcher.GET(`${apiUrl}/api/post-it`, { id }, { authorization });
+}
+
 export async function updatePostIt(
   authorization: string,
-  data: PostItItemPatch,
+  data: PostItItemPatch
 ) {
   return Fetcher.PATCH(`${apiUrl}/api/post-it`, data, undefined, {
     authorization,
@@ -33,13 +37,13 @@ export async function createPostIt(
   authorization: string,
   categoryId: number | null,
   top?: number,
-  left?: number,
+  left?: number
 ): Promise<{ id: number }> {
   return Fetcher.POST(
     `${apiUrl}/api/post-it`,
     { top, left, categoryId },
     undefined,
-    { authorization },
+    { authorization }
   );
 }
 
@@ -55,7 +59,7 @@ export async function createCategory(authorization: string, position: number) {
 
 export async function updateCategory(
   authorization: string,
-  category: Partial<CategoryItem>,
+  category: Partial<CategoryItem>
 ) {
   return Fetcher.PATCH(`${apiUrl}/api/category`, category, undefined, {
     authorization,
@@ -64,21 +68,4 @@ export async function updateCategory(
 
 export async function removeCategory(authorization: string, id: number) {
   return Fetcher.DELETE(`${apiUrl}/api/category`, { id }, { authorization });
-}
-
-export async function getPreferences(authorization: string) {
-  if (!authorization) {
-    return Promise.resolve({});
-  }
-  return Fetcher.GET(`${apiUrl}/api/preferences`, undefined, { authorization });
-}
-
-export async function updatePreference(
-  authorization: string,
-  key: string,
-  value: string,
-) {
-  return Fetcher.PATCH(`${apiUrl}/api/preference`, { key, value }, undefined, {
-    authorization,
-  });
 }

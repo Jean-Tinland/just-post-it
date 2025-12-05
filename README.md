@@ -2,7 +2,7 @@
 
 _Just Post-It_ is a simple note-taking app aiming to provide a novel experience by allowing the user to just drop notes on a free canvas.
 
-[Changelog](./CHANGELOG.md)
+[Changelog](./CHANGELOG.md) | [Migration Guide v1 to v2](./MIGRATION.md)
 
 <p align="center">
   <img src="./public/images/preview.jpg" width="600" />
@@ -11,6 +11,21 @@ _Just Post-It_ is a simple note-taking app aiming to provide a novel experience 
 ## General notice
 
 As this is a fork from a personal project presented [here](https://www.jeantinland.com/portfolio/draft-pad/) and detailed [in this blog post](https://www.jeantinland.com/blog/the-ultimate-note-app/), some basic features still need to be implemented before production use.
+
+## Storage Architecture
+
+_Just Post-It_ uses a **file-based storage system**:
+
+- **Notes** are stored as `.md` files with frontmatter in the `contents/` folder
+- **Categories** are stored in `contents/categories.json`
+- **Preferences** are stored in the browser's localStorage (client-side)
+
+This approach makes your data:
+
+- Easy to backup (just copy the `contents/` folder)
+- Version control friendly
+- Human-readable and editable
+- Portable across systems
 
 ## Roadmap
 
@@ -44,10 +59,10 @@ cd ./just-post-it
 
 # Install dependencies
 npm install
-
-# This command will init the database
-npm run init
 ```
+
+> [!NOTE]
+> The `contents/` folder will be automatically created when you start using the app. No database initialization is required.
 
 ## Configuration
 
@@ -91,3 +106,36 @@ npm run update
 
 > [!WARNING]
 > Your Just Post-It app will be down during the update.
+
+## Migrating from SQLite
+
+If you're upgrading from a version that used SQLite, run the migration script:
+
+```bash
+npm run migrate
+```
+
+This will convert your existing data to the new file-based format. See the [Migration Guide](./MIGRATION.md) for detailed instructions.
+
+## Backup & Restore
+
+### Backing up your data
+
+Simply copy the `contents/` folder to back up all your notes and categories:
+
+```bash
+# Create a backup
+cp -r contents/ contents-backup-$(date +%Y%m%d)/
+```
+
+### Restoring from backup
+
+Copy your backed-up `contents/` folder back to the application directory:
+
+```bash
+# Restore from backup
+cp -r contents-backup-20250204/ contents/
+```
+
+> [!TIP]
+> You can also use git to version control your `contents/` folder by removing it from `.gitignore`, though this will make your notes public in your repository.

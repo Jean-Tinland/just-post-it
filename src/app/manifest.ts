@@ -1,15 +1,6 @@
 import type { MetadataRoute } from "next";
-import { cookies } from "next/headers";
-import * as API from "@/services/api";
 
-export default async function manifest(): Promise<MetadataRoute.Manifest> {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value as string;
-
-  const preferences = await API.getPreferences(token);
-
-  const themeColor = preferences.theme === "light" ? "#fff" : "#000";
-
+export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Just Post-It",
     description: "A simple note-taking app working with post-it",
@@ -54,7 +45,5 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
         sizes: "128x128",
       },
     ],
-    background_color: themeColor,
-    theme_color: themeColor,
   };
 }

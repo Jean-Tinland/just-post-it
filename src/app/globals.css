@@ -4,8 +4,7 @@
   --layout-foreground-color: var(--ds-grey-800);
   --layout-background-color: var(--ds-grey-100);
 
-  --default-font:
-    ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+  --default-font: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
@@ -203,8 +202,8 @@
     - The "html" attribute is exclud, because otherwise a bug in Chrome breaks the CSS hyphens property (https://github.com/elad2412/the-new-css-reset/issues/36)
  */
 *:where(
-  :not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)
-) {
+    :not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)
+  ) {
   all: unset;
   display: revert;
 }
@@ -306,7 +305,6 @@ html,
 body {
   position: relative;
   vertical-align: baseline;
-  font-family: var(--content-font);
   font-size: 16px;
   line-height: 1.3;
   color: var(--layout-foreground-color);
@@ -315,6 +313,8 @@ body {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
+
+  font-family: var(--content-font, var(--default-font));
 }
 
 body {
@@ -344,4 +344,26 @@ body {
 
 [data-logs] {
   height: 100%;
+}
+
+pre.shiki {
+  margin: 10px 0;
+  padding: 46px 15px 15px;
+  font-size: var(--label);
+  font-family: var(--content-font);
+  border-radius: var(--radius-200);
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+@media (prefers-color-scheme: dark) {
+  .shiki,
+  .shiki span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
+}
+
+code {
+  font-family: var(--content-font);
 }
