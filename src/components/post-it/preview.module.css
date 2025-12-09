@@ -88,6 +88,12 @@
   font-style: italic;
 }
 
+.content a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 2px;
+}
+
 .content pre {
   margin-top: 0;
   background-color: var(--ds-grey-000);

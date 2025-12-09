@@ -1,5 +1,13 @@
 # Changelog
 
+## Fri Dec 5 2025 (v2.0.2)
+
+- chore: cleanup obsoletes v1 files
+- chore: remove logs
+- fix: prevent scroll on preview opening or closing
+- feat: make preview an almost full screen dialog
+- fix: add correct styles for links and anchors in preview
+
 ## Fri Dec 5 2025 (v2.0.1)
 
 - fix: cleanup unused import
