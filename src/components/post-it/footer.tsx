@@ -67,6 +67,8 @@ export default function Footer({
           tag={Link}
           variant="transparent"
           href={`/?previewId=${postItId}`}
+          // @ts-ignore type problem with the design system button
+          scroll={false}
         >
           <Icon code="file-text" />
         </Button>

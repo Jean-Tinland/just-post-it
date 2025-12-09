@@ -14,7 +14,7 @@ export default function Preview({ isOpened, title, children }: Props) {
   const router = useRouter();
 
   const close = () => {
-    router.push("/");
+    router.push("/", { scroll: false });
   };
 
   return (
