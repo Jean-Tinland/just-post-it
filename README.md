@@ -107,16 +107,6 @@ npm run update
 > [!WARNING]
 > Your Just Post-It app will be down during the update.
 
-## Migrating from SQLite
-
-If you're upgrading from a version that used SQLite, run the migration script:
-
-```bash
-npm run migrate
-```
-
-This will convert your existing data to the new file-based format. See the [Migration Guide](./MIGRATION.md) for detailed instructions.
-
 ## Backup & Restore
 
 ### Backing up your data

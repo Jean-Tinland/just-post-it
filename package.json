@@ -14,8 +14,6 @@
     "build": "next build --webpack",
     "start": "next start -p 4000",
     "lint": "next lint",
-    "init": "node ./database/init.js",
-    "migrate": "node ./database/migrate.js",
     "update": "pm2 stop just-post-it && git checkout package-lock.json && git pull && npm run launch",
     "launch": "npm install && npm run build && pm2 startOrRestart ecosystem.config.js -- -p $PORT"
   },
@@ -31,9 +29,7 @@
     "react-dom": "^19.2.1",
     "react-markdown": "^10.1.0",
     "rehype-raw": "^7.0.0",
-    "shiki": "^3.19.0",
-    "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7"
+    "shiki": "^3.19.0"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.10",
