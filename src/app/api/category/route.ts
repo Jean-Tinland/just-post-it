@@ -45,8 +45,6 @@ export async function PATCH(request: NextRequest) {
 
     const { id, name, color, position } = await request.json();
 
-    console.log({ id, name, color, position });
-
     const updates: Record<string, Partial<CategoryItem>> = {};
 
     if (name !== undefined) updates.name = name;

@@ -15,8 +15,6 @@ export default async function Home({ searchParams }: Props) {
   const token = cookieStore.get("token")?.value as string;
   const { previewId } = await searchParams;
 
-  console.log({ previewId });
-
   const [postIts, categories] = await Promise.all([
     API.getPostIts(token),
     API.getCategories(token),
