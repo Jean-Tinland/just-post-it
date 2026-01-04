@@ -3,6 +3,10 @@
 ## Sun Jan 4 2026 (v2.0.3)
 
 - chore: upgrade dependencies
+- fix: enable maximize button regardless of view mode
+- fix: add scrollbar color for improved visibility in scrollable areas
+- fix: prevent resize handles from displaying when maximized
+- fix: update padding for maximized content and header for better layout
 
 ## Fri Dec 5 2025 (v2.0.2)
 
