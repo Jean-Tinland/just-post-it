@@ -7,6 +7,7 @@
 - fix: add scrollbar color for improved visibility in scrollable areas
 - fix: prevent resize handles from displaying when maximized
 - fix: update padding for maximized content and header for better layout
+- fix: adjust preview header and content padding link to match maximized post-it styles
 
 ## Fri Dec 5 2025 (v2.0.2)
 
