@@ -1,5 +1,9 @@
 # Changelog
 
+## Sun Jan 4 2026 (v2.0.3)
+
+- chore: upgrade dependencies
+
 ## Fri Dec 5 2025 (v2.0.2)
 
 - chore: cleanup obsoletes v1 files
@@ -21,12 +25,12 @@
 
 ## Sat Oct 25 2025 (v1.1.4)
 
-- chore: upgrade depedencies
+- chore: upgrade dependencies
 - fix: remove eslint errors
 
 ## Sat Jul 26 2025 (v1.1.3)
 
-- fix: unmaximize post-it before deleting so it restores body overflow
+- fix: un-maximize post-it before deleting so it restores body overflow
 - chore: upgrade dependencies
 
 ## Wed Jul 23 2025
@@ -41,7 +45,7 @@
 ## Wed Jul 23 2025 (v1.1.1)
 
 - feat: make maximized post-it more immersive (zen mode)
-- chore: add keyboard shortcut in unmaximize post-it button tooltip
+- chore: add keyboard shortcut in un-maximize post-it button tooltip
 
 ## Wed Jul 23 2025 (v1.1.0)
 
@@ -127,9 +131,9 @@
 
 ## Tue Apr 24 2025 (v1.0.2)
 
-- fix: remove unvalid prop in post-it.tsx' Content component usage
+- fix: remove invalid prop in post-it.tsx' Content component usage
 - feat: add preferences pane in settings (theme, auto correct, spell-check)
-- feat: add githup repository link in about pane in settings and in package.json
+- feat: add github repository link in about pane in settings and in package.json
 - refactor: minor cleanup
 - docs(readme): update roadmap
 
