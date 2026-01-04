@@ -341,7 +341,7 @@ export default function PostIt({
           )}
         </div>
       </div>
-      {!minimized && viewMode === "free" && (
+      {!minimized && !maximized && viewMode === "free" && (
         <ResizeHandles
           handleResize={handleResize}
           updateResize={updateResize}
