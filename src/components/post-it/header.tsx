@@ -89,7 +89,6 @@ export default function Header({
               className={styles.maximize}
               variant="transparent"
               onClick={toggleMaximize}
-              disabled={disableActions}
             >
               <Icon code="square" />
             </Button>
