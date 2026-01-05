@@ -22,7 +22,7 @@
 
 @media (min-width: 720px) {
   [data-maximized="true"] .content {
-    padding: 10px min(420px, calc((100vw - 700px) / 2));
+    padding: 10px calc((100vw - 700px) / 2);
   }
 }
 
