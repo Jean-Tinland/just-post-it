@@ -5,6 +5,7 @@
 - fix: add media query for increased font size on non-hover devices
 - fix: remove min() from padding calculations in post-it content for consistent layout
 - fix: remove min() from padding calculations in preview for consistent layout
+- fix: update minHeight calculation for content to ensure proper resizing
 
 ## Sun Jan 4 2026 (v2.0.3)
 

@@ -101,8 +101,10 @@ export default function PostIt({
     if (!contentRef.current || !scrollRef.current) return;
     const currentScroll = scrollRef.current.scrollTop;
 
-    contentRef.current.style.minHeight = "inherit";
-    contentRef.current.style.minHeight = `${contentRef.current.scrollHeight}px`;
+    contentRef.current.style.minHeight = "100%";
+
+    const newScrollHeight = contentRef.current.scrollHeight;
+    contentRef.current.style.minHeight = `${newScrollHeight}px`;
 
     scrollRef.current.scrollTop = currentScroll;
   };
