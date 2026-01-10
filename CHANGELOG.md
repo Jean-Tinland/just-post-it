@@ -1,5 +1,9 @@
 # Changelog
 
+## Sat Jan 10 2026 (v2.0.5)
+
+- chore: upgrade dependencies
+
 ## Mon Jan 5 2026 (v2.0.4)
 
 - fix: add media query for increased font size on non-hover devices
