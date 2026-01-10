@@ -22,7 +22,7 @@
     "classnames": "^2.5.1",
     "gray-matter": "^4.0.3",
     "jsonwebtoken": "^9.0.3",
-    "jt-design-system": "https://packages.jeantinland.com/jt-design-system/2.0.2.tar.gz",
+    "jt-design-system": "https://packages.jeantinland.com/jt-design-system/2.0.2",
     "motion": "^12.25.0",
     "next": "^16.1.1",
     "react": "^19.2.3",
