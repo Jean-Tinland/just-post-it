@@ -10,6 +10,10 @@
   border: 0;
 }
 
+[data-draggable="true"] .content {
+  pointer-events: none;
+}
+
 @media not (hover: hover) {
   .content {
     font-size: 16px;

@@ -1,5 +1,9 @@
 # Changelog
 
+## Sat Jan 10 2026 (v2.0.6)
+
+- fix: add pointer-events style for draggable content to prevent interaction
+
 ## Sat Jan 10 2026 (v2.0.5)
 
 - chore: upgrade dependencies
