@@ -1,5 +1,9 @@
 # Changelog
 
+## Sun Jan 11 2026 (v2.0.7)
+
+- fix: adjust positioning of add button
+
 ## Sat Jan 10 2026 (v2.0.6)
 
 - fix: add pointer-events style for draggable content to prevent interaction
