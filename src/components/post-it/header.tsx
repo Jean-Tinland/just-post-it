@@ -16,7 +16,7 @@ type Props = {
   categories: CategoryItem[];
   title: string;
   updateCategory: (categoryId: number | null) => Promise<void>;
-  handleTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleTitleChange: (e: React.InputEvent<HTMLInputElement>) => void;
   removePostIt: () => void;
   toggleMinimize: () => void;
   minimized: number;

@@ -70,7 +70,7 @@ export default function PostIt({
         setLoading(false);
       }
     },
-    [bounds, id, padRef, setLoading, token]
+    [bounds, id, padRef, setLoading, token],
   );
 
   const handleResize = React.useCallback(
@@ -94,7 +94,7 @@ export default function PostIt({
         setLoading(false);
       },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [bounds]
+    [bounds],
   );
 
   const handleHeightChange = () => {
@@ -128,7 +128,7 @@ export default function PostIt({
     setLoading(false);
   };
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTitleChange = (e: React.InputEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     setTitle(target.value);
   };
@@ -249,7 +249,7 @@ export default function PostIt({
 
   const downloadPostIt = () => {
     const href = "data:text/plain;charset=utf-8,".concat(
-      encodeURIComponent(content)
+      encodeURIComponent(content),
     );
 
     const link = Object.assign(document.createElement("a"), {

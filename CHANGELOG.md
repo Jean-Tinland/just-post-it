@@ -5,6 +5,7 @@
 - feat: add category filtering to post-its based on query param instead of a cookie
 - chore: upgrade dependencies
 - feat: display only post-its that are in view
+- fix: update handleTitleChange event type to InputEvent
 
 ## Sun Jan 11 2026 (v2.0.7)
 
