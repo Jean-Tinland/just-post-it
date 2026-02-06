@@ -4,7 +4,7 @@ import * as React from "react";
 import classNames from "classnames";
 import { AnimatePresence } from "motion/react";
 import Controls from "@/components/controls";
-import PostIt from "@/components/post-it";
+import LazyPostIt from "@/components/post-it/lazy-post-it";
 import { useAppContext } from "@/components/app-context";
 import type { PostItItem } from "@/@types/post-it";
 import type { CategoryItem } from "@/@types/category";
@@ -85,12 +85,13 @@ export default function Pad({ postIts, categories, categoryId }: Props) {
       <AnimatePresence mode="popLayout">
         {sortedPostIts.map((postIt) => {
           return (
-            <PostIt
+            <LazyPostIt
               key={postIt.id}
               padRef={padRef}
               postIt={postIt}
               categories={categories}
               dragging={dragging}
+              viewMode={viewMode}
             />
           );
         })}

@@ -1,5 +1,11 @@
 # Changelog
 
+## Fri Feb 6 2026 (v2.0.8)
+
+- feat: add category filtering to post-its based on query param instead of a cookie
+- chore: upgrade dependencies
+- feat: display only post-its that are in view
+
 ## Sun Jan 11 2026 (v2.0.7)
 
 - fix: adjust positioning of add button
