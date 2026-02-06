@@ -15,7 +15,8 @@
     "start": "next start -p 4000",
     "lint": "next lint",
     "update": "pm2 stop just-post-it && git checkout package-lock.json && git pull && npm run launch",
-    "launch": "npm install && npm run build && pm2 startOrRestart ecosystem.config.js -- -p $PORT"
+    "launch": "npm install && npm run build && pm2 startOrRestart ecosystem.config.js -- -p $PORT",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@next/env": "^16.1.6",
