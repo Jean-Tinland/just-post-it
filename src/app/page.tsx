@@ -13,10 +13,12 @@ type Props = {
 export default async function Home({ searchParams }: Props) {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value as string;
-  const { previewId } = await searchParams;
+  const params = await searchParams;
+  const { previewId, c } = params;
+  const categoryId = c ? Number(c) : null;
 
   const [postIts, categories] = await Promise.all([
-    API.getPostIts(token),
+    API.getPostIts(token, categoryId),
     API.getCategories(token),
   ]);
 
@@ -28,7 +30,7 @@ export default async function Home({ searchParams }: Props) {
 
   return (
     <main className={styles.main}>
-      <Pad postIts={postIts} categories={categories} />
+      <Pad postIts={postIts} categories={categories} categoryId={categoryId} />
       <Preview
         isOpened={postItPreview !== null}
         title={postItPreview?.title || ""}

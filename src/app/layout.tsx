@@ -22,7 +22,6 @@ export default async function RootLayout({
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value as string;
   const viewMode = (cookieStore.get("viewMode")?.value || "free") as Mode;
-  const currentCategory = cookieStore.get("currentCategory")?.value as string;
 
   return (
     <html lang="en" data-theme="auto" data-hide-keyboard-shortcuts="0">
@@ -30,11 +29,7 @@ export default async function RootLayout({
         <Favicons />
       </head>
       <body>
-        <AppContextProvider
-          user={{ token }}
-          defaultViewMode={viewMode}
-          defaultCategory={currentCategory ? Number(currentCategory) : null}
-        >
+        <AppContextProvider user={{ token }} defaultViewMode={viewMode}>
           <PreferencesInitializer />
           {children}
         </AppContextProvider>

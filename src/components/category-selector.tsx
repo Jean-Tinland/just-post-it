@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import classNames from "classnames";
 import Button from "jt-design-system/es/button";
 import Tooltip from "jt-design-system/es/tooltip";
@@ -10,7 +11,8 @@ type Props = {
 };
 
 export default function CategorySelector({ categories }: Props) {
-  const { currentCategory, updateCurrentCategory } = useAppContext();
+  const router = useRouter();
+  const { currentCategory } = useAppContext();
   return (
     <div className={styles.selector}>
       {categories.map((category) => {
@@ -18,7 +20,11 @@ export default function CategorySelector({ categories }: Props) {
         const isSelected = currentCategory && currentCategory === id;
 
         const updateCategory = () => {
-          updateCurrentCategory(isSelected ? null : category.id);
+          if (isSelected) {
+            router.push("/");
+          } else {
+            router.push(`/?c=${category.id}`);
+          }
         };
 
         const classes = classNames(styles.button, {

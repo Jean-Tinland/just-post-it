@@ -46,21 +46,21 @@ export function useAppContext() {
 type Props = {
   user: ContextUser;
   defaultViewMode: "free" | "grid";
-  defaultCategory: number | null;
   children: React.ReactNode;
 };
 
 export default function AppContextProvider({
   user,
   defaultViewMode,
-  defaultCategory,
   children,
 }: Props) {
   const [viewMode, setViewMode] = React.useState(defaultViewMode);
-  const [currentCategory, setCurrentCategory] = React.useState(defaultCategory);
+  const [currentCategory, setCurrentCategory] = React.useState<number | null>(
+    null,
+  );
   const [loading, setLoading] = React.useState(false);
   const [preferences, setPreferences] = React.useState<Preferences>(
-    PreferencesService.DEFAULT_PREFERENCES
+    PreferencesService.DEFAULT_PREFERENCES,
   );
 
   const updateViewMode = React.useCallback((newMode: Mode) => {
@@ -71,13 +71,8 @@ export default function AppContextProvider({
   const updateCurrentCategory = React.useCallback(
     (newCategory: number | null) => {
       setCurrentCategory(newCategory);
-      if (newCategory) {
-        Cookies.set("currentCategory", newCategory.toString(), 360);
-      } else {
-        Cookies.remove("currentCategory");
-      }
     },
-    []
+    [],
   );
 
   const updatePreferences = React.useCallback((prefs: Preferences) => {

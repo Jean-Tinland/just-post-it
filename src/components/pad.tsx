@@ -13,22 +13,24 @@ import styles from "./pad.module.css";
 type Props = {
   postIts: PostItItem[];
   categories: CategoryItem[];
+  categoryId: number | null;
 };
 
-export default function Pad({ postIts, categories }: Props) {
-  const { viewMode, currentCategory } = useAppContext();
+export default function Pad({ postIts, categories, categoryId }: Props) {
+  const { viewMode, updateCurrentCategory } = useAppContext();
   const padRef = React.useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = React.useState(false);
   const [search, setSearch] = React.useState("");
+
+  React.useEffect(() => {
+    updateCurrentCategory(categoryId);
+  }, [categoryId, updateCurrentCategory]);
 
   const filteredPostIts = postIts.filter((postIt) => {
     if (search && !normalize(postIt.title).includes(normalize(search))) {
       return false;
     }
-    if (!currentCategory) {
-      return true;
-    }
-    return postIt.categoryId === currentCategory;
+    return true;
   });
 
   const sortedPostIts =
@@ -52,7 +54,7 @@ export default function Pad({ postIts, categories }: Props) {
         }
       }
     },
-    [filteredPostIts]
+    [filteredPostIts],
   );
 
   const updateDragging = (e: React.MouseEvent<HTMLDivElement>) => {

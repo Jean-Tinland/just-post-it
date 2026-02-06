@@ -6,7 +6,15 @@ export async function GET(request: NextRequest) {
   try {
     await Auth.check(request);
 
-    const postIts = await FileSystem.getAllPostIts();
+    const searchParams = request.nextUrl.searchParams;
+    const categoryId = searchParams.get("categoryId");
+
+    let postIts = await FileSystem.getAllPostIts();
+
+    if (categoryId) {
+      const categoryIdNum = Number(categoryId);
+      postIts = postIts.filter((postIt) => postIt.categoryId === categoryIdNum);
+    }
 
     return NextResponse.json(postIts);
   } catch (error) {
