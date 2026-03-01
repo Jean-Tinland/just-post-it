@@ -26,7 +26,7 @@ button.button {
   height: 260%;
   transform: translate(-50%, -50%) scale(0.9);
   border-radius: 50%;
-  background-color: inherit;
+  background: inherit;
   opacity: 0;
   transition:
     opacity 160ms var(--ds-transition-easing),

@@ -3,6 +3,7 @@
 ## Sun Mar 1 2026 (v2.0.9)
 
 - feat: allow gradients in category color
+- fix: change background-color to background in category selector
 - chore: update package versions in package.json and package-lock.json
 
 ## Fri Feb 6 2026 (v2.0.8)
