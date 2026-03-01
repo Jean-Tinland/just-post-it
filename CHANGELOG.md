@@ -5,6 +5,7 @@
 - feat: allow gradients in category color
 - fix: change background-color to background in category selector
 - chore: update package versions in package.json and package-lock.json
+- feat: add changelog link and restructure buttons in About component
 
 ## Fri Feb 6 2026 (v2.0.8)
 

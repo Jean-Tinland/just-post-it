@@ -15,16 +15,27 @@ export default function About() {
       />
       <div className={styles.title}>Just Post-It</div>
       <div className={styles.version}>v{process.env.APP_VERSION}</div>
-      <Button
-        tag="a"
-        variant="link"
-        href="https://github.com/Jean-Tinland/just-post-it"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Icon code="github" className={styles.icon} />
-        Open GitHub repository
-      </Button>
+      <div className={styles.links}>
+        <Button
+          tag="a"
+          variant="link"
+          href="https://github.com/Jean-Tinland/just-post-it"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon code="github" className={styles.icon} />
+          GitHub repository
+        </Button>
+        <Button
+          tag="a"
+          variant="link"
+          href="https://github.com/Jean-Tinland/just-post-it/blob/main/CHANGELOG.md"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Changelog
+        </Button>
+      </div>
     </div>
   );
 }
