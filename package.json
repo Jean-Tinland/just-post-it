@@ -24,21 +24,21 @@
     "gray-matter": "^4.0.3",
     "jsonwebtoken": "^9.0.3",
     "jt-design-system": "https://packages.jeantinland.com/jt-design-system/2.0.2",
-    "motion": "^12.33.0",
+    "motion": "^12.34.3",
     "next": "^16.1.6",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-markdown": "^10.1.0",
     "rehype-raw": "^7.0.0",
-    "shiki": "^3.22.0"
+    "shiki": "^3.23.0"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^20.19.32",
-    "@types/react": "^19.2.13",
+    "@types/node": "^20.19.35",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "babel-plugin-react-compiler": "^1.0.0",
-    "eslint": "^9.39.2",
+    "eslint": "^9.39.3",
     "eslint-config-next": "^16.1.6",
     "typescript": "^5.9.3"
   }
