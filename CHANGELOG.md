@@ -1,5 +1,9 @@
 # Changelog
 
+## Sun Mar 1 2026 (v2.0.9)
+
+- feat: allow gradients in category color
+
 ## Fri Feb 6 2026 (v2.0.8)
 
 - feat: add category filtering to post-its based on query param instead of a cookie

@@ -26,7 +26,7 @@ export default function PostItCategorySelector({
         <Button className={styles.categoryButton} variant="transparent">
           <span
             className={styles.category}
-            style={{ backgroundColor: categoryColor }}
+            style={{ background: categoryColor }}
           />
         </Button>
       }
@@ -49,7 +49,7 @@ export default function PostItCategorySelector({
               <PopoverPrimitive.Close asChild>
                 <Button
                   className={classes}
-                  style={{ backgroundColor: color }}
+                  style={{ background: color }}
                   onClick={toggleCategory}
                 />
               </PopoverPrimitive.Close>

@@ -35,7 +35,7 @@ export default function CategorySelector({ categories }: Props) {
           <Tooltip key={id} content={name} contentProps={{ side: "right" }}>
             <Button
               className={classes}
-              style={{ backgroundColor: color }}
+              style={{ background: color }}
               onClick={updateCategory}
             />
           </Tooltip>

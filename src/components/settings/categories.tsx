@@ -77,6 +77,7 @@ export default function Categories({ categories }: Props) {
       <div className={styles.categories}>
         {categories.map(({ id, name, color, position }, i) => {
           const isFirst = i === 0;
+
           return (
             <div key={id} className={styles.category}>
               <Tooltip content={isFirst ? undefined : "Move up"}>
@@ -96,7 +97,7 @@ export default function Categories({ categories }: Props) {
                   <Button
                     variant="transparent"
                     className={styles.categoryColorButton}
-                    style={{ backgroundColor: color }}
+                    style={{ background: color }}
                   />
                 }
               >
@@ -106,7 +107,7 @@ export default function Categories({ categories }: Props) {
                   onBlur={updateCategory(id, "color")}
                   compact
                 />
-                <Tooltip content="Any valid CSS color">
+                <Tooltip content="Any valid CSS color, can also be a gradient">
                   <Button
                     variant="transparent"
                     className={styles.categoryColorHelper}
