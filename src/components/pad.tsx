@@ -26,33 +26,23 @@ export default function Pad({ postIts, categories, categoryId }: Props) {
     updateCurrentCategory(categoryId);
   }, [categoryId, updateCurrentCategory]);
 
-  const filteredPostIts = React.useMemo(
-    () =>
-      postIts.filter((postIt) => {
-        if (search && !normalize(postIt.title).includes(normalize(search))) {
-          return false;
-        }
-        return true;
-      }),
-    [postIts, search],
-  );
+  const filteredPostIts = postIts.filter((postIt) => {
+    if (search && !normalize(postIt.title).includes(normalize(search))) {
+      return false;
+    }
+    return true;
+  });
 
-  const sortedPostIts = React.useMemo(
-    () =>
-      viewMode === "grid"
-        ? [...filteredPostIts].sort((a, b) => b.id - a.id)
-        : filteredPostIts,
-    [viewMode, filteredPostIts],
-  );
+  const sortedPostIts =
+    viewMode === "grid"
+      ? [...filteredPostIts].sort((a, b) => b.id - a.id)
+      : filteredPostIts;
 
-  const filteredPostItsRef = React.useRef(filteredPostIts);
-  filteredPostItsRef.current = filteredPostIts;
-
-  const updateSearch = React.useCallback((newSearch: string) => {
+  const updateSearch = (newSearch: string) => {
     setSearch(newSearch);
-    const items = filteredPostItsRef.current;
-    if (items.length === 1) {
-      const { id } = items[0];
+    const hasOnlyOneResult = filteredPostIts.length === 1;
+    if (hasOnlyOneResult) {
+      const { id } = filteredPostIts[0];
       const target = document.querySelector(`[data-post-it="${id}"]`);
       if (target) {
         target.scrollIntoView({
@@ -62,14 +52,23 @@ export default function Pad({ postIts, categories, categoryId }: Props) {
         });
       }
     }
-  }, []);
+  };
+
+  const draggingRef = React.useRef(false);
 
   const updateDragging = (e: React.MouseEvent<HTMLDivElement>) => {
     if (viewMode === "grid") {
-      return setDragging(false);
+      if (draggingRef.current) {
+        draggingRef.current = false;
+        setDragging(false);
+      }
+      return;
     }
     const isMetaPressed = e.metaKey || e.ctrlKey;
-    setDragging(isMetaPressed);
+    if (isMetaPressed !== draggingRef.current) {
+      draggingRef.current = isMetaPressed;
+      setDragging(isMetaPressed);
+    }
   };
 
   const classes = classNames(styles.pad, {

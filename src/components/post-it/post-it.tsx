@@ -30,7 +30,7 @@ const ENTER_ANIMATION = { scale: 1, opacity: 1 };
 const EXIT_ANIMATION = { opacity: 0, scale: 0.8 };
 const INITIAL_ANIMATION = { scale: 0.8, opacity: 0 };
 
-export default React.memo(function PostIt({
+export default function PostIt({
   padRef,
   postIt,
   categories,
@@ -43,10 +43,7 @@ export default React.memo(function PostIt({
   const { user, setLoading, viewMode } = useAppContext();
   const { token } = user;
   const { id, dueDate, bounds, categoryId, categoryColor, minimized } = postIt;
-  let date = dueDate;
-  if (date) {
-    date = new Date(date);
-  }
+  const date = dueDate ? new Date(dueDate) : null;
   const hasPastDueDate = Boolean(date && date < new Date());
 
   const [dragged, setDragged] = React.useState(false);
@@ -58,55 +55,61 @@ export default React.memo(function PostIt({
   const [saved, setSaved] = React.useState(false);
   const savedTimeout = React.useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  const updatePostItPosition = React.useCallback(
-    async (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-      const container = padRef.current;
+  const updatePostItPosition = async (
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
+    const container = padRef.current;
 
-      if (container) {
-        setLoading(true);
-        const { x, y } = info.offset;
+    if (container) {
+      setLoading(true);
+      const { x, y } = info.offset;
 
-        const { innerWidth, innerHeight } = window;
+      const { innerWidth, innerHeight } = window;
 
-        const xPercent = bounds.left + (x / innerWidth) * 100;
-        const yPercent = bounds.top + (y / innerHeight) * 100;
+      const xPercent = bounds.left + (x / innerWidth) * 100;
+      const yPercent = bounds.top + (y / innerHeight) * 100;
 
-        await Actions.updatePostIt(token, {
-          id,
-          bounds: { top: yPercent, left: xPercent },
-        });
-        setDragged(false);
-        setLoading(false);
-      }
-    },
-    [bounds, id, padRef, setLoading, token],
-  );
+      await Actions.updatePostIt(token, {
+        id,
+        bounds: { top: yPercent, left: xPercent },
+      });
+      setDragged(false);
+      setLoading(false);
+    }
+  };
 
-  const handleResize = React.useCallback(
+  // Captures dimensions at the start of each resize drag so that
+  // info.offset (cumulative from drag start) stays correctly relative.
+  const resizeStartRef = React.useRef({ width, height });
+
+  const handleResizeStart = () => {
+    resizeStartRef.current = { width, height };
+  };
+
+  const handleResize =
     (axis: "x" | "y" | "both") =>
-      async (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-        setLoading(true);
-        const { x, y } = info.offset;
+    async (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+      setLoading(true);
+      const { x, y } = info.offset;
+      const { width: startWidth, height: startHeight } = resizeStartRef.current;
 
-        const newWidth = Math.round(width + x);
-        const newHeight = Math.round(height + y);
+      const newWidth = Math.round(startWidth + x);
+      const newHeight = Math.round(startHeight + y);
 
-        if (axis === "both") {
-          setWidth(Math.max(MIN_WIDTH, newWidth));
-          setHeight(Math.max(MIN_HEIGHT, newHeight));
-        } else if (axis === "x") {
-          setWidth(Math.max(MIN_WIDTH, newWidth));
-        } else if (axis === "y") {
-          setHeight(Math.max(MIN_HEIGHT, newHeight));
-        }
+      if (axis === "both") {
+        setWidth(Math.max(MIN_WIDTH, newWidth));
+        setHeight(Math.max(MIN_HEIGHT, newHeight));
+      } else if (axis === "x") {
+        setWidth(Math.max(MIN_WIDTH, newWidth));
+      } else if (axis === "y") {
+        setHeight(Math.max(MIN_HEIGHT, newHeight));
+      }
 
-        setLoading(false);
-      },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [bounds],
-  );
+      setLoading(false);
+    };
 
-  const handleHeightChange = React.useCallback(() => {
+  const handleHeightChange = () => {
     if (!contentRef.current || !scrollRef.current) return;
     const currentScroll = scrollRef.current.scrollTop;
 
@@ -116,7 +119,7 @@ export default React.memo(function PostIt({
     contentRef.current.style.minHeight = `${newScrollHeight}px`;
 
     scrollRef.current.scrollTop = currentScroll;
-  }, []);
+  };
 
   const updateResize = async () => {
     setLoading(true);
@@ -124,49 +127,42 @@ export default React.memo(function PostIt({
     setLoading(false);
   };
 
-  const updateCategory = React.useCallback(
-    async (categoryId: number | null) => {
-      setLoading(true);
-      await Actions.updatePostIt(token, { id, categoryId });
-      setLoading(false);
-    },
-    [id, token, setLoading],
-  );
+  const updateCategory = async (categoryId: number | null) => {
+    setLoading(true);
+    await Actions.updatePostIt(token, { id, categoryId });
+    setLoading(false);
+  };
 
-  const updateDueDate = React.useCallback(
-    async (dueDate: string | null) => {
-      setLoading(true);
-      const newDate = dueDate ? new Date(dueDate) : null;
-      await Actions.updatePostIt(token, { id, dueDate: newDate });
-      setLoading(false);
-    },
-    [id, token, setLoading],
-  );
+  const updateDueDate = async (dueDate: string | null) => {
+    setLoading(true);
+    const newDate = dueDate ? new Date(dueDate) : null;
+    await Actions.updatePostIt(token, { id, dueDate: newDate });
+    setLoading(false);
+  };
 
-  const handleTitleChange = React.useCallback(
-    (e: React.InputEvent<HTMLInputElement>) => {
-      const target = e.target as HTMLInputElement;
-      setTitle(target.value);
-    },
-    [],
-  );
+  const handleTitleChange = (e: React.InputEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    setTitle(target.value);
+  };
 
-  const handleContentChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      const target = e.target as HTMLTextAreaElement;
-      setContent(target.value);
-    },
-    [],
-  );
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const target = e.target as HTMLTextAreaElement;
+    setContent(target.value);
+  };
 
   const updateSaved = () => {
     setSaved(true);
-    if (typeof savedTimeout.current === "string") {
+    if (savedTimeout.current !== undefined) {
       clearTimeout(savedTimeout.current);
     }
     savedTimeout.current = setTimeout(() => {
       setSaved(false);
     }, 1280);
+  };
+
+  const unMaximizePostIt = () => {
+    document.body.style.removeProperty("overflow");
+    setMaximized(false);
   };
 
   const handleKeyDown = async (e: React.KeyboardEvent) => {
@@ -216,31 +212,20 @@ export default React.memo(function PostIt({
     setLoading(false);
   };
 
-  const maximizePostIt = () => {
-    document.body.style.setProperty("overflow", "hidden");
-    setMaximized(true);
-    const textArea = contentRef.current;
-    if (textArea) {
-      textArea.focus();
-    }
-  };
-
-  const unMaximizePostIt = () => {
-    document.body.style.removeProperty("overflow");
-    setMaximized(false);
-  };
-
   const toggleMaximize = () => {
-    if (maximized) {
-      unMaximizePostIt();
-    } else {
-      maximizePostIt();
-    }
+    setMaximized((prev) => {
+      if (prev) {
+        document.body.style.removeProperty("overflow");
+        return false;
+      }
+      document.body.style.setProperty("overflow", "hidden");
+      setTimeout(() => contentRef.current?.focus(), 0);
+      return true;
+    });
   };
 
   const minimizePostIt = async () => {
     setLoading(true);
-
     unMaximizePostIt();
     await Actions.updatePostIt(token, { id, minimized: 1 });
     setLoading(false);
@@ -248,7 +233,6 @@ export default React.memo(function PostIt({
 
   const unMinimizePostIt = async () => {
     setLoading(true);
-
     await Actions.updatePostIt(token, { id, minimized: 0 });
     setLoading(false);
   };
@@ -261,14 +245,14 @@ export default React.memo(function PostIt({
     }
   };
 
-  const removePostIt = React.useCallback(async () => {
+  const removePostIt = async () => {
     setLoading(true);
     unMaximizePostIt();
     await Actions.deletePostIt(token, id);
     setLoading(false);
-  }, [id, token, setLoading]);
+  };
 
-  const downloadPostIt = React.useCallback(() => {
+  const downloadPostIt = () => {
     const href = "data:text/plain;charset=utf-8,".concat(
       encodeURIComponent(content),
     );
@@ -280,7 +264,7 @@ export default React.memo(function PostIt({
     document.body.appendChild(link);
     link.click();
     link.remove();
-  }, [content, title]);
+  };
 
   const classes = classNames(styles.postIt, {
     [styles.grid]: viewMode === "grid",
@@ -362,12 +346,13 @@ export default React.memo(function PostIt({
       {!minimized && !maximized && viewMode === "free" && (
         <ResizeHandles
           handleResize={handleResize}
+          onResizeStart={handleResizeStart}
           updateResize={updateResize}
         />
       )}
     </motion.div>
   );
-});
+}
 
 type Styles = {
   top: number;

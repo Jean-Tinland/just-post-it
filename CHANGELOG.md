@@ -3,6 +3,7 @@
 ## Thu, Mar 5 2026 (v2.0.10)
 
 - refactor: optimize filtering and sorting of post-its using React hooks
+- refactor: simplify post-it component methods and improve resize handling
 - chore: upgrade dependencies
 
 ## Sun, Mar 1 2026 (v2.0.9)

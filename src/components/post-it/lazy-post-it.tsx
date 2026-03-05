@@ -50,34 +50,25 @@ export default function LazyPostIt({
     };
   }, []);
 
-  const placeholderStyles = React.useMemo(() => {
-    if (viewMode === "grid") {
-      return {
-        minHeight: "240px",
-        width: "100%",
-      };
-    }
-
-    return {};
-  }, [viewMode]);
+  const placeholderStyles =
+    viewMode === "grid" ? { minHeight: "240px", width: "100%" } : {};
 
   const shouldRender = isInView || (dragging && hasBeenVisible.current);
+
+  const measurementStyle = {
+    position: "absolute" as const,
+    top: `${postIt.bounds.top}vh`,
+    left: `${postIt.bounds.left}vw`,
+    width: `${postIt.minimized ? 240 : postIt.bounds.width}px`,
+    height: `${postIt.minimized ? 52 : postIt.bounds.height}px`,
+    pointerEvents: "none" as const,
+    visibility: "hidden" as const,
+  };
 
   if (viewMode === "free") {
     return (
       <>
-        <div
-          ref={wrapperRef}
-          style={{
-            position: "absolute",
-            top: `${postIt.bounds.top}vh`,
-            left: `${postIt.bounds.left}vw`,
-            width: `${postIt.minimized ? 240 : postIt.bounds.width}px`,
-            height: `${postIt.minimized ? 52 : postIt.bounds.height}px`,
-            pointerEvents: "none",
-            visibility: "hidden",
-          }}
-        />
+        <div ref={wrapperRef} style={measurementStyle} />
         {shouldRender && (
           <PostIt
             padRef={padRef}
