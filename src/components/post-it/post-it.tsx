@@ -21,7 +21,16 @@ type Props = {
 const MIN_WIDTH = 300;
 const MIN_HEIGHT = 240;
 
-export default function PostIt({
+const DRAGGED_POST_IT_STYLES = {
+  opacity: 0.8,
+  cursor: "grabbing",
+};
+
+const ENTER_ANIMATION = { scale: 1, opacity: 1 };
+const EXIT_ANIMATION = { opacity: 0, scale: 0.8 };
+const INITIAL_ANIMATION = { scale: 0.8, opacity: 0 };
+
+export default React.memo(function PostIt({
   padRef,
   postIt,
   categories,
@@ -97,7 +106,7 @@ export default function PostIt({
     [bounds],
   );
 
-  const handleHeightChange = () => {
+  const handleHeightChange = React.useCallback(() => {
     if (!contentRef.current || !scrollRef.current) return;
     const currentScroll = scrollRef.current.scrollTop;
 
@@ -107,7 +116,7 @@ export default function PostIt({
     contentRef.current.style.minHeight = `${newScrollHeight}px`;
 
     scrollRef.current.scrollTop = currentScroll;
-  };
+  }, []);
 
   const updateResize = async () => {
     setLoading(true);
@@ -115,28 +124,40 @@ export default function PostIt({
     setLoading(false);
   };
 
-  const updateCategory = async (categoryId: number | null) => {
-    setLoading(true);
-    await Actions.updatePostIt(token, { id, categoryId });
-    setLoading(false);
-  };
+  const updateCategory = React.useCallback(
+    async (categoryId: number | null) => {
+      setLoading(true);
+      await Actions.updatePostIt(token, { id, categoryId });
+      setLoading(false);
+    },
+    [id, token, setLoading],
+  );
 
-  const updateDueDate = async (dueDate: string | null) => {
-    setLoading(true);
-    const newDate = dueDate ? new Date(dueDate) : null;
-    await Actions.updatePostIt(token, { id, dueDate: newDate });
-    setLoading(false);
-  };
+  const updateDueDate = React.useCallback(
+    async (dueDate: string | null) => {
+      setLoading(true);
+      const newDate = dueDate ? new Date(dueDate) : null;
+      await Actions.updatePostIt(token, { id, dueDate: newDate });
+      setLoading(false);
+    },
+    [id, token, setLoading],
+  );
 
-  const handleTitleChange = (e: React.InputEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    setTitle(target.value);
-  };
+  const handleTitleChange = React.useCallback(
+    (e: React.InputEvent<HTMLInputElement>) => {
+      const target = e.target as HTMLInputElement;
+      setTitle(target.value);
+    },
+    [],
+  );
 
-  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const target = e.target as HTMLTextAreaElement;
-    setContent(target.value);
-  };
+  const handleContentChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const target = e.target as HTMLTextAreaElement;
+      setContent(target.value);
+    },
+    [],
+  );
 
   const updateSaved = () => {
     setSaved(true);
@@ -247,7 +268,7 @@ export default function PostIt({
     setLoading(false);
   }, [id, token, setLoading]);
 
-  const downloadPostIt = () => {
+  const downloadPostIt = React.useCallback(() => {
     const href = "data:text/plain;charset=utf-8,".concat(
       encodeURIComponent(content),
     );
@@ -259,7 +280,7 @@ export default function PostIt({
     document.body.appendChild(link);
     link.click();
     link.remove();
-  };
+  }, [content, title]);
 
   const classes = classNames(styles.postIt, {
     [styles.grid]: viewMode === "grid",
@@ -277,11 +298,6 @@ export default function PostIt({
     maximized,
   });
 
-  const draggedPostItStyles = {
-    opacity: 0.8,
-    cursor: "grabbing",
-  };
-
   return (
     <motion.div
       ref={ref}
@@ -291,7 +307,7 @@ export default function PostIt({
       data-maximized={maximized}
       className={classes}
       style={postItStyles}
-      whileDrag={draggedPostItStyles}
+      whileDrag={DRAGGED_POST_IT_STYLES}
       dragConstraints={padRef}
       drag={dragging || dragged}
       dragMomentum={false}
@@ -299,9 +315,9 @@ export default function PostIt({
       onDragEnd={updatePostItPosition}
       onKeyDown={handleKeyDown}
       onBlur={updatePostIt}
-      initial={dragging ? undefined : { scale: 0.8, opacity: 0 }}
-      animate={dragging ? undefined : { scale: 1, opacity: 1 }}
-      exit={{ opacity: 0, scale: 0.8 }}
+      initial={dragging ? undefined : INITIAL_ANIMATION}
+      animate={dragging ? undefined : ENTER_ANIMATION}
+      exit={EXIT_ANIMATION}
       onClick={minimized && !dragging ? unMinimizePostIt : undefined}
     >
       <div className={styles.overflow}>
@@ -351,7 +367,7 @@ export default function PostIt({
       )}
     </motion.div>
   );
-}
+});
 
 type Styles = {
   top: number;

@@ -26,36 +26,43 @@ export default function Pad({ postIts, categories, categoryId }: Props) {
     updateCurrentCategory(categoryId);
   }, [categoryId, updateCurrentCategory]);
 
-  const filteredPostIts = postIts.filter((postIt) => {
-    if (search && !normalize(postIt.title).includes(normalize(search))) {
-      return false;
-    }
-    return true;
-  });
-
-  const sortedPostIts =
-    viewMode === "grid"
-      ? filteredPostIts.sort((a, b) => b.id - a.id)
-      : filteredPostIts;
-
-  const updateSearch = React.useCallback(
-    (newSearch: string) => {
-      setSearch(newSearch);
-      const hasOnlyOneResult = filteredPostIts.length === 1;
-      if (hasOnlyOneResult) {
-        const { id } = filteredPostIts[0];
-        const target = document.querySelector(`[data-post-it="${id}"]`);
-        if (target) {
-          target.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-            inline: "center",
-          });
+  const filteredPostIts = React.useMemo(
+    () =>
+      postIts.filter((postIt) => {
+        if (search && !normalize(postIt.title).includes(normalize(search))) {
+          return false;
         }
-      }
-    },
-    [filteredPostIts],
+        return true;
+      }),
+    [postIts, search],
   );
+
+  const sortedPostIts = React.useMemo(
+    () =>
+      viewMode === "grid"
+        ? [...filteredPostIts].sort((a, b) => b.id - a.id)
+        : filteredPostIts,
+    [viewMode, filteredPostIts],
+  );
+
+  const filteredPostItsRef = React.useRef(filteredPostIts);
+  filteredPostItsRef.current = filteredPostIts;
+
+  const updateSearch = React.useCallback((newSearch: string) => {
+    setSearch(newSearch);
+    const items = filteredPostItsRef.current;
+    if (items.length === 1) {
+      const { id } = items[0];
+      const target = document.querySelector(`[data-post-it="${id}"]`);
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center",
+        });
+      }
+    }
+  }, []);
 
   const updateDragging = (e: React.MouseEvent<HTMLDivElement>) => {
     if (viewMode === "grid") {
@@ -82,7 +89,7 @@ export default function Pad({ postIts, categories, categoryId }: Props) {
         search={search}
         updateSearch={updateSearch}
       />
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence>
         {sortedPostIts.map((postIt) => {
           return (
             <LazyPostIt

@@ -22,6 +22,7 @@ export default function LazyPostIt({
 }: Props) {
   const wrapperRef = React.useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = React.useState(false);
+  const hasBeenVisible = React.useRef(false);
 
   React.useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -30,11 +31,15 @@ export default function LazyPostIt({
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            hasBeenVisible.current = true;
+          }
           setIsInView(entry.isIntersecting);
         });
       },
       {
         threshold: 0,
+        rootMargin: "200px",
       },
     );
 
@@ -56,7 +61,7 @@ export default function LazyPostIt({
     return {};
   }, [viewMode]);
 
-  const shouldRender = isInView || dragging;
+  const shouldRender = isInView || (dragging && hasBeenVisible.current);
 
   if (viewMode === "free") {
     return (
