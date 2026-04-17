@@ -21,10 +21,20 @@ function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }
 
-function parsePositiveInt(value: unknown): number | null {
+function parseInteger(value: unknown): number | null {
   const parsed = typeof value === "number" ? value : Number(value);
 
-  if (!Number.isInteger(parsed) || parsed <= 0) {
+  if (!Number.isInteger(parsed)) {
+    return null;
+  }
+
+  return parsed;
+}
+
+function parsePositiveInt(value: unknown): number | null {
+  const parsed = parseInteger(value);
+
+  if (parsed === null || parsed <= 0) {
     return null;
   }
 
@@ -405,7 +415,7 @@ export async function getAllCategories(): Promise<CategoryItem[]> {
 
         const category = item as Partial<CategoryItem>;
         const id = parsePositiveInt(category.id);
-        const position = parsePositiveInt(category.position);
+        const position = parseInteger(category.position);
         const name =
           typeof category.name === "string"
             ? category.name.trim().slice(0, MAX_CATEGORY_NAME_LENGTH)
@@ -415,7 +425,7 @@ export async function getAllCategories(): Promise<CategoryItem[]> {
             ? category.color.trim().slice(0, MAX_CATEGORY_COLOR_LENGTH)
             : "";
 
-        if (!id || !position || !name || !color) {
+        if (!id || position === null || !name || !color) {
           return null;
         }
 
@@ -423,11 +433,15 @@ export async function getAllCategories(): Promise<CategoryItem[]> {
           id,
           name,
           color,
-          position: clamp(position, 1, MAX_CATEGORY_POSITION),
+          position,
         } satisfies CategoryItem;
       })
       .filter((category): category is CategoryItem => Boolean(category))
-      .sort((a, b) => a.position - b.position);
+      .sort((a, b) => a.position - b.position || a.id - b.id)
+      .map((category, index) => ({
+        ...category,
+        position: clamp(index + 1, 1, MAX_CATEGORY_POSITION),
+      }));
 
     return sortedCategories;
   } catch {

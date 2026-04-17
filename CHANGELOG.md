@@ -1,5 +1,9 @@
 # Changelog
 
+## Fri, Apr 17 2026 (v2.1.1)
+
+- refactor: improve integer parsing functions and ensure positive integers are validated correctly
+
 ## Fri, Apr 17 2026 (v2.1.0)
 
 - feat: full security overhaul
