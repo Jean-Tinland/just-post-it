@@ -2,7 +2,7 @@
 
 _Just Post-It_ is a simple note-taking app aiming to provide a novel experience by allowing the user to just drop notes on a free canvas.
 
-[Changelog](./CHANGELOG.md) | [Migration Guide v1 to v2](./MIGRATION.md)
+[Changelog](./CHANGELOG.md)
 
 <p align="center">
   <img src="./public/images/preview.jpg" width="600" />
