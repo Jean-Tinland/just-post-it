@@ -1,5 +1,9 @@
 # Changelog
 
+## Fri, Apr 17 2026 (v2.1.0)
+
+- feat: full security overhaul
+
 ## Thu, Mar 5 2026 (v2.0.10)
 
 - refactor: optimize filtering and sorting of post-its using React hooks

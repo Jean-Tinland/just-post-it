@@ -17,33 +17,43 @@ export const fetcher =
     body: any,
     params: Params = {},
     _headers: Headers = {},
-    options: Record<string, any> = {}
+    options: Record<string, any> = {},
   ): Promise<any> => {
     const headers: Headers = { ...defaultContentType, ..._headers };
 
-    try {
-      const qs = buildQueryString(params);
-      const url = qs.length === 0 ? _url : `${_url}?${qs}`;
+    const qs = buildQueryString(params);
+    const url = qs.length === 0 ? _url : `${_url}?${qs}`;
 
-      const reqOpts = {
-        method: method || "POST",
-        headers,
-        body:
-          method !== "GET" && body !== undefined
-            ? JSON.stringify(body)
-            : undefined,
-      };
-      const response = await fetch(url, { ...reqOpts, ...options });
+    const reqOpts = {
+      method: method || "POST",
+      headers,
+      body:
+        method !== "GET" && body !== undefined
+          ? JSON.stringify(body)
+          : undefined,
+    };
+    const response = await fetch(url, { ...reqOpts, ...options });
 
-      if ((response.ok && response.status === 204) || response.status === 500)
-        return undefined;
-
-      const resJSON = await response.json();
-      if (response.ok === false) return Promise.reject(resJSON.error);
-      return resJSON;
-    } catch (err) {
-      throw err;
+    if (response.status === 204) {
+      return undefined;
     }
+
+    const contentType = response.headers.get("content-type") || "";
+    const hasJson = contentType.includes("application/json");
+    const payload = hasJson
+      ? await response.json().catch(() => null)
+      : undefined;
+
+    if (!response.ok) {
+      const errorMessage =
+        typeof (payload as { error?: unknown } | null)?.error === "string"
+          ? (payload as { error: string }).error || "Request failed"
+          : `Request failed (${response.status})`;
+
+      throw new Error(errorMessage);
+    }
+
+    return payload;
   };
 
 export const GET = (url: string, params?: Params, headers?: Headers) =>
@@ -56,18 +66,21 @@ export const DELETE = (url: string, params?: Params, headers?: Headers) =>
 
 function buildQueryStringForObject(key: string, object: Params): string {
   return Object.entries(object)
-    .filter(([, v]) => v !== undefined)
-    .map(([k, v]) => `${key}[${k}]=${encodeURIComponent(v)}`)
+    .filter(([, v]) => v !== undefined && v !== null)
+    .map(
+      ([k, v]) =>
+        `${encodeURIComponent(key)}[${encodeURIComponent(k)}]=${encodeURIComponent(String(v))}`,
+    )
     .join("&");
 }
 
 function buildQueryString(params: Params): string {
   return Object.keys(params)
-    .filter((k) => !!params[k])
+    .filter((k) => params[k] !== undefined && params[k] !== null)
     .map((k) =>
       typeof params[k] === "object"
         ? buildQueryStringForObject(k, params[k])
-        : `${k}=${encodeURIComponent(params[k])}`
+        : `${encodeURIComponent(k)}=${encodeURIComponent(String(params[k]))}`,
     )
     .join("&");
 }

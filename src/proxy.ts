@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import * as API from "@/services/api";
+import * as Auth from "@/services/auth";
 
 export async function proxy(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
@@ -10,15 +10,12 @@ export async function proxy(request: NextRequest) {
 
   if (token) {
     try {
-      const result = await API.auth(token);
-      if (result.error) {
-        return NextResponse.redirect(redirect);
-      } else {
-        return NextResponse.next();
-      }
-    } catch (error) {
-      console.error(error);
-      return NextResponse.redirect(redirect);
+      Auth.checkToken(token);
+      return NextResponse.next();
+    } catch {
+      const response = NextResponse.redirect(redirect);
+      response.cookies.delete("token");
+      return response;
     }
   }
 

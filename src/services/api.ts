@@ -1,8 +1,26 @@
+import "server-only";
+
 import * as Fetcher from "@/services/fetcher";
 import type { PostItItemPatch } from "@/@types/post-it";
 import type { CategoryItem } from "@/@types/category";
 
-const apiUrl = process.env.API_URL as string;
+const apiUrl = getApiUrl();
+
+function getApiUrl() {
+  const port = process.env.PORT || "4000";
+
+  if (process.env.NODE_ENV === "production") {
+    const prodUrl = process.env.PROD_URL?.trim();
+
+    if (!prodUrl) {
+      throw new Error("Missing PROD_URL configuration");
+    }
+
+    return prodUrl.replace(/\/+$/, "");
+  }
+
+  return `http://localhost:${port}`;
+}
 
 export async function login(password: string) {
   return Fetcher.POST(`${apiUrl}/api/login`, { password });

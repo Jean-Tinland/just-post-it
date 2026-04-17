@@ -20,7 +20,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value as string;
   const viewMode = (cookieStore.get("viewMode")?.value || "free") as Mode;
 
   return (
@@ -29,7 +28,7 @@ export default async function RootLayout({
         <Favicons />
       </head>
       <body>
-        <AppContextProvider user={{ token }} defaultViewMode={viewMode}>
+        <AppContextProvider defaultViewMode={viewMode}>
           <PreferencesInitializer />
           {children}
         </AppContextProvider>

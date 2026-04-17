@@ -7,6 +7,68 @@ import type { CategoryItem } from "@/@types/category";
 const CONTENTS_DIR = path.join(process.cwd(), "contents");
 const CATEGORIES_FILE = path.join(CONTENTS_DIR, "categories.json");
 
+const MAX_TITLE_LENGTH = 200;
+const MAX_CONTENT_LENGTH = 100000;
+const MIN_WIDTH = 240;
+const MIN_HEIGHT = 180;
+const MAX_WIDTH = 2400;
+const MAX_HEIGHT = 2400;
+const MAX_CATEGORY_NAME_LENGTH = 80;
+const MAX_CATEGORY_COLOR_LENGTH = 80;
+const MAX_CATEGORY_POSITION = 10000;
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
+}
+
+function parsePositiveInt(value: unknown): number | null {
+  const parsed = typeof value === "number" ? value : Number(value);
+
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return null;
+  }
+
+  return parsed;
+}
+
+function normalizePercent(value: unknown, fallback: number): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    return fallback;
+  }
+
+  return clamp(value, 0, 100);
+}
+
+function normalizeBoundsSize(
+  value: unknown,
+  fallback: number,
+  min: number,
+  max: number,
+): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    return fallback;
+  }
+
+  return clamp(Math.round(value), min, max);
+}
+
+function normalizeCategoryId(value: unknown): number | null {
+  if (value === null || value === undefined) {
+    return null;
+  }
+
+  return parsePositiveInt(value);
+}
+
+function normalizeDate(value: unknown): Date | null {
+  if (!value) {
+    return null;
+  }
+
+  const date = value instanceof Date ? value : new Date(String(value));
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
 async function ensureContentsDir() {
   try {
     await fs.access(CONTENTS_DIR);
@@ -23,10 +85,13 @@ export async function getAllPostIts(): Promise<PostItItem[]> {
     const mdFiles = files.filter((file) => file.endsWith(".md"));
 
     const categories = await getAllCategories();
-    const categoryMap = categories.reduce((acc, cat) => {
-      acc[cat.id] = cat;
-      return acc;
-    }, {} as Record<number, CategoryItem>);
+    const categoryMap = categories.reduce(
+      (acc, cat) => {
+        acc[cat.id] = cat;
+        return acc;
+      },
+      {} as Record<number, CategoryItem>,
+    );
 
     const existingIds = new Set<number>();
     const fileIdMap = new Map<string, number>();
@@ -131,7 +196,7 @@ export async function getAllPostIts(): Promise<PostItItem[]> {
           } catch (error) {
             console.error(
               `Failed to rename ${filePath} to ${newFilePath}:`,
-              error
+              error,
             );
           }
         }
@@ -155,14 +220,14 @@ export async function getAllPostIts(): Promise<PostItItem[]> {
           categoryName: category?.name || "",
           categoryColor: category?.color || "",
         } as PostItItem;
-      })
+      }),
     );
 
     const validPostIts = postIts.filter((p): p is PostItItem => p !== null);
 
     return validPostIts.sort(
       (a, b) =>
-        new Date(a.lastUpdated).getTime() - new Date(b.lastUpdated).getTime()
+        new Date(a.lastUpdated).getTime() - new Date(b.lastUpdated).getTime(),
     );
   } catch {
     return [];
@@ -177,7 +242,7 @@ export async function getPostIt(id: number): Promise<PostItItem | null> {
 export async function createPostIt(
   categoryId: number | null,
   top: number = 10,
-  left: number = 10
+  left: number = 10,
 ): Promise<number> {
   await ensureContentsDir();
 
@@ -185,15 +250,19 @@ export async function createPostIt(
   const newId =
     postIts.length > 0 ? Math.max(...postIts.map((p) => p.id)) + 1 : 1;
 
+  const safeCategoryId = normalizeCategoryId(categoryId);
+  const safeTop = normalizePercent(top, 10);
+  const safeLeft = normalizePercent(left, 10);
+
   const frontMatter = {
     id: newId,
     title: "New idea",
     dueDate: null,
-    topPosition: top,
-    leftPosition: left,
+    topPosition: safeTop,
+    leftPosition: safeLeft,
     width: 380,
     height: 240,
-    categoryId,
+    categoryId: safeCategoryId,
     lastUpdated: new Date().toISOString(),
     minimized: 0,
   };
@@ -210,9 +279,22 @@ export async function updatePostIt(
   id: number,
   updates: Partial<
     Omit<PostItItem, "bounds"> & { bounds?: Partial<PostItItem["bounds"]> }
-  >
+  >,
 ): Promise<void> {
-  const filePath = path.join(CONTENTS_DIR, `${id}.md`);
+  const safeId = parsePositiveInt(id);
+  if (!safeId) {
+    throw new Error("Invalid post-it ID");
+  }
+
+  if (
+    updates.content !== undefined &&
+    typeof updates.content === "string" &&
+    updates.content.length > MAX_CONTENT_LENGTH
+  ) {
+    throw new Error("Post-it content is too large");
+  }
+
+  const filePath = path.join(CONTENTS_DIR, `${safeId}.md`);
 
   try {
     const fileContent = await fs.readFile(filePath, "utf-8");
@@ -223,27 +305,64 @@ export async function updatePostIt(
       lastUpdated: new Date().toISOString(),
     };
 
-    if (updates.title !== undefined) updatedData.title = updates.title;
-    if (updates.dueDate !== undefined)
-      updatedData.dueDate = updates.dueDate?.toISOString() || null;
-    if (updates.categoryId !== undefined)
-      updatedData.categoryId = updates.categoryId;
-    if (updates.minimized !== undefined)
+    if (updates.title !== undefined) {
+      if (typeof updates.title !== "string") {
+        throw new Error("Invalid post-it title");
+      }
+
+      updatedData.title = updates.title.slice(0, MAX_TITLE_LENGTH);
+    }
+
+    if (updates.dueDate !== undefined) {
+      updatedData.dueDate =
+        normalizeDate(updates.dueDate)?.toISOString() || null;
+    }
+
+    if (updates.categoryId !== undefined) {
+      const normalizedCategoryId = normalizeCategoryId(updates.categoryId);
+
+      if (updates.categoryId !== null && normalizedCategoryId === null) {
+        throw new Error("Invalid post-it category ID");
+      }
+
+      updatedData.categoryId = normalizedCategoryId;
+    }
+
+    if (updates.minimized !== undefined) {
+      if (updates.minimized !== 0 && updates.minimized !== 1) {
+        throw new Error("Invalid minimized state");
+      }
+
       updatedData.minimized = updates.minimized;
+    }
 
     if (updates.bounds) {
       if (updates.bounds.top !== undefined)
-        updatedData.topPosition = updates.bounds.top;
+        updatedData.topPosition = normalizePercent(updates.bounds.top, 10);
       if (updates.bounds.left !== undefined)
-        updatedData.leftPosition = updates.bounds.left;
+        updatedData.leftPosition = normalizePercent(updates.bounds.left, 10);
       if (updates.bounds.width !== undefined)
-        updatedData.width = updates.bounds.width;
+        updatedData.width = normalizeBoundsSize(
+          updates.bounds.width,
+          380,
+          MIN_WIDTH,
+          MAX_WIDTH,
+        );
       if (updates.bounds.height !== undefined)
-        updatedData.height = updates.bounds.height;
+        updatedData.height = normalizeBoundsSize(
+          updates.bounds.height,
+          240,
+          MIN_HEIGHT,
+          MAX_HEIGHT,
+        );
     }
 
     const newContent =
       updates.content !== undefined ? updates.content : content;
+    if (newContent.length > MAX_CONTENT_LENGTH) {
+      throw new Error("Post-it content is too large");
+    }
+
     const updatedFileContent = matter.stringify(newContent, updatedData);
 
     await fs.writeFile(filePath, updatedFileContent, "utf-8");
@@ -253,7 +372,12 @@ export async function updatePostIt(
 }
 
 export async function deletePostIt(id: number): Promise<void> {
-  const filePath = path.join(CONTENTS_DIR, `${id}.md`);
+  const safeId = parsePositiveInt(id);
+  if (!safeId) {
+    throw new Error("Invalid post-it ID");
+  }
+
+  const filePath = path.join(CONTENTS_DIR, `${safeId}.md`);
 
   try {
     await fs.unlink(filePath);
@@ -268,9 +392,43 @@ export async function getAllCategories(): Promise<CategoryItem[]> {
 
   try {
     const fileContent = await fs.readFile(CATEGORIES_FILE, "utf-8");
-    const sortedCategories: CategoryItem[] = JSON.parse(fileContent).sort(
-      (a: CategoryItem, b: CategoryItem) => a.position - b.position
-    );
+    const parsed = JSON.parse(fileContent) as unknown;
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+
+    const sortedCategories: CategoryItem[] = parsed
+      .map((item) => {
+        if (!item || typeof item !== "object") {
+          return null;
+        }
+
+        const category = item as Partial<CategoryItem>;
+        const id = parsePositiveInt(category.id);
+        const position = parsePositiveInt(category.position);
+        const name =
+          typeof category.name === "string"
+            ? category.name.trim().slice(0, MAX_CATEGORY_NAME_LENGTH)
+            : "";
+        const color =
+          typeof category.color === "string"
+            ? category.color.trim().slice(0, MAX_CATEGORY_COLOR_LENGTH)
+            : "";
+
+        if (!id || !position || !name || !color) {
+          return null;
+        }
+
+        return {
+          id,
+          name,
+          color,
+          position: clamp(position, 1, MAX_CATEGORY_POSITION),
+        } satisfies CategoryItem;
+      })
+      .filter((category): category is CategoryItem => Boolean(category))
+      .sort((a, b) => a.position - b.position);
+
     return sortedCategories;
   } catch {
     return [];
@@ -283,19 +441,23 @@ export async function createCategory(position: number): Promise<number> {
   const categories = await getAllCategories();
   const newId =
     categories.length > 0 ? Math.max(...categories.map((c) => c.id)) + 1 : 1;
+  const fallbackPosition =
+    categories.reduce((max, category) => Math.max(max, category.position), 0) +
+    1;
+  const safePosition = parsePositiveInt(position) ?? fallbackPosition;
 
   const newCategory: CategoryItem = {
     id: newId,
     name: "New category",
     color: "red",
-    position,
+    position: clamp(safePosition, 1, MAX_CATEGORY_POSITION),
   };
 
   categories.push(newCategory);
   await fs.writeFile(
     CATEGORIES_FILE,
     JSON.stringify(categories, null, 2),
-    "utf-8"
+    "utf-8",
   );
 
   return newId;
@@ -303,34 +465,81 @@ export async function createCategory(position: number): Promise<number> {
 
 export async function updateCategory(
   id: number,
-  updates: Partial<Omit<CategoryItem, "id">>
+  updates: Partial<Omit<CategoryItem, "id">>,
 ): Promise<void> {
+  const safeId = parsePositiveInt(id);
+  if (!safeId) {
+    throw new Error("Invalid category ID");
+  }
+
   const categories = await getAllCategories();
-  const categoryIndex = categories.findIndex((c) => c.id === id);
+  const categoryIndex = categories.findIndex((c) => c.id === safeId);
 
   if (categoryIndex === -1) {
-    throw new Error(`Category ${id} not found`);
+    throw new Error(`Category ${safeId} not found`);
+  }
+
+  const normalizedUpdates: Partial<Omit<CategoryItem, "id">> = {};
+
+  if (updates.name !== undefined) {
+    if (typeof updates.name !== "string") {
+      throw new Error("Invalid category name");
+    }
+
+    const safeName = updates.name.trim().slice(0, MAX_CATEGORY_NAME_LENGTH);
+    if (!safeName) {
+      throw new Error("Invalid category name");
+    }
+
+    normalizedUpdates.name = safeName;
+  }
+
+  if (updates.color !== undefined) {
+    if (typeof updates.color !== "string") {
+      throw new Error("Invalid category color");
+    }
+
+    const safeColor = updates.color.trim().slice(0, MAX_CATEGORY_COLOR_LENGTH);
+    if (!safeColor) {
+      throw new Error("Invalid category color");
+    }
+
+    normalizedUpdates.color = safeColor;
+  }
+
+  if (updates.position !== undefined) {
+    const safePosition = parsePositiveInt(updates.position);
+    if (!safePosition) {
+      throw new Error("Invalid category position");
+    }
+
+    normalizedUpdates.position = clamp(safePosition, 1, MAX_CATEGORY_POSITION);
   }
 
   categories[categoryIndex] = {
     ...categories[categoryIndex],
-    ...updates,
+    ...normalizedUpdates,
   };
 
   await fs.writeFile(
     CATEGORIES_FILE,
     JSON.stringify(categories, null, 2),
-    "utf-8"
+    "utf-8",
   );
 }
 
 export async function deleteCategory(id: number): Promise<void> {
+  const safeId = parsePositiveInt(id);
+  if (!safeId) {
+    throw new Error("Invalid category ID");
+  }
+
   const categories = await getAllCategories();
-  const filteredCategories = categories.filter((c) => c.id !== id);
+  const filteredCategories = categories.filter((c) => c.id !== safeId);
 
   await fs.writeFile(
     CATEGORIES_FILE,
     JSON.stringify(filteredCategories, null, 2),
-    "utf-8"
+    "utf-8",
   );
 }

@@ -40,8 +40,7 @@ export default function PostIt({
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const contentRef = React.useRef<HTMLTextAreaElement>(null);
 
-  const { user, setLoading, viewMode } = useAppContext();
-  const { token } = user;
+  const { setLoading, viewMode } = useAppContext();
   const { id, dueDate, bounds, categoryId, categoryColor, minimized } = postIt;
   const date = dueDate ? new Date(dueDate) : null;
   const hasPastDueDate = Boolean(date && date < new Date());
@@ -70,7 +69,7 @@ export default function PostIt({
       const xPercent = bounds.left + (x / innerWidth) * 100;
       const yPercent = bounds.top + (y / innerHeight) * 100;
 
-      await Actions.updatePostIt(token, {
+      await Actions.updatePostIt({
         id,
         bounds: { top: yPercent, left: xPercent },
       });
@@ -123,20 +122,20 @@ export default function PostIt({
 
   const updateResize = async () => {
     setLoading(true);
-    await Actions.updatePostIt(token, { id, bounds: { width, height } });
+    await Actions.updatePostIt({ id, bounds: { width, height } });
     setLoading(false);
   };
 
   const updateCategory = async (categoryId: number | null) => {
     setLoading(true);
-    await Actions.updatePostIt(token, { id, categoryId });
+    await Actions.updatePostIt({ id, categoryId });
     setLoading(false);
   };
 
   const updateDueDate = async (dueDate: string | null) => {
     setLoading(true);
     const newDate = dueDate ? new Date(dueDate) : null;
-    await Actions.updatePostIt(token, { id, dueDate: newDate });
+    await Actions.updatePostIt({ id, dueDate: newDate });
     setLoading(false);
   };
 
@@ -187,7 +186,7 @@ export default function PostIt({
     if (key === "s" && (ctrlKey || metaKey)) {
       e.preventDefault();
       setLoading(true);
-      await Actions.updatePostIt(token, { id, title, content });
+      await Actions.updatePostIt({ id, title, content });
       updateSaved();
       setLoading(false);
     }
@@ -207,7 +206,7 @@ export default function PostIt({
     if (!unSavedChanges || preventBlur) return;
     setLoading(true);
 
-    await Actions.updatePostIt(token, { id, title, content });
+    await Actions.updatePostIt({ id, title, content });
     updateSaved();
     setLoading(false);
   };
@@ -227,13 +226,13 @@ export default function PostIt({
   const minimizePostIt = async () => {
     setLoading(true);
     unMaximizePostIt();
-    await Actions.updatePostIt(token, { id, minimized: 1 });
+    await Actions.updatePostIt({ id, minimized: 1 });
     setLoading(false);
   };
 
   const unMinimizePostIt = async () => {
     setLoading(true);
-    await Actions.updatePostIt(token, { id, minimized: 0 });
+    await Actions.updatePostIt({ id, minimized: 0 });
     setLoading(false);
   };
 
@@ -248,7 +247,7 @@ export default function PostIt({
   const removePostIt = async () => {
     setLoading(true);
     unMaximizePostIt();
-    await Actions.deletePostIt(token, id);
+    await Actions.deletePostIt(id);
     setLoading(false);
   };
 

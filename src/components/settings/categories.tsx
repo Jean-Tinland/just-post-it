@@ -15,8 +15,7 @@ type Props = {
 };
 
 export default function Categories({ categories }: Props) {
-  const { user, setLoading } = useAppContext();
-  const { token } = user;
+  const { setLoading } = useAppContext();
 
   const createCategory = async () => {
     setLoading(true);
@@ -25,7 +24,7 @@ export default function Categories({ categories }: Props) {
         (acc, category) => Math.max(acc, category.position),
         0,
       ) + 1;
-    await Actions.createCategory(token, position);
+    await Actions.createCategory(position);
     setLoading(false);
   };
 
@@ -38,14 +37,14 @@ export default function Categories({ categories }: Props) {
         const hasChanged = current.color !== value;
         if (hasChanged) {
           setLoading(true);
-          await Actions.updateCategory(token, { id, color: value });
+          await Actions.updateCategory({ id, color: value });
         }
       }
       if (current && kind === "name") {
         const hasChanged = current.name !== value;
         if (hasChanged) {
           setLoading(true);
-          await Actions.updateCategory(token, { id, name: value });
+          await Actions.updateCategory({ id, name: value });
         }
       }
       setLoading(false);
@@ -53,7 +52,7 @@ export default function Categories({ categories }: Props) {
 
   const removeCategory = (id: number) => async () => {
     setLoading(true);
-    await Actions.removeCategory(token, id);
+    await Actions.removeCategory(id);
     setLoading(false);
   };
 
@@ -63,12 +62,12 @@ export default function Categories({ categories }: Props) {
       (category) => category.position === position,
     );
     if (previous) {
-      await Actions.updateCategory(token, {
+      await Actions.updateCategory({
         id: previous.id,
         position: position + 1,
       });
     }
-    await Actions.updateCategory(token, { id, position });
+    await Actions.updateCategory({ id, position });
     setLoading(false);
   };
 

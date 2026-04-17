@@ -31,9 +31,8 @@ export default function Controls({
   const [dragging, setDragging] = React.useState(false);
   const [draggingValid, setDraggingValid] = React.useState(false);
   const [settingsOpened, setSettingsOpened] = React.useState(false);
-  const { user, setLoading, viewMode, updateViewMode, currentCategory } =
+  const { setLoading, viewMode, updateViewMode, currentCategory } =
     useAppContext();
-  const { token } = user;
 
   const focusSearch = React.useCallback(() => {
     if (searchRef.current) {
@@ -71,10 +70,10 @@ export default function Controls({
   const addPostIt = React.useCallback(async () => {
     if (dragging) return;
     setLoading(true);
-    const { id } = await Actions.createPostIt(token, currentCategory);
+    const { id } = await Actions.createPostIt(currentCategory);
     focusNewPostIt(id);
     setLoading(false);
-  }, [currentCategory, dragging, setLoading, token]);
+  }, [currentCategory, dragging, setLoading]);
 
   const handleKeyPresses = React.useCallback(
     (e: KeyboardEvent) => {
@@ -140,12 +139,7 @@ export default function Controls({
         const left = ((x - 150) / innerWidth) * 100;
         const top = ((y - 120) / innerHeight) * 100;
 
-        const { id } = await Actions.createPostIt(
-          token,
-          currentCategory,
-          top,
-          left,
-        );
+        const { id } = await Actions.createPostIt(currentCategory, top, left);
         focusNewPostIt(id);
         setLoading(false);
       }
@@ -153,7 +147,7 @@ export default function Controls({
       setDragging(false);
       setDraggingValid(false);
     },
-    [currentCategory, padRef, setLoading, token],
+    [currentCategory, padRef, setLoading],
   );
 
   const modeTooltip =

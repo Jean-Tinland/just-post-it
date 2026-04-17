@@ -8,12 +8,7 @@ import type { Mode } from "@/@types/view-mode";
 import type { Preferences } from "@/@types/preferences";
 import AppLoader from "./app-loader";
 
-type ContextUser = {
-  token: string;
-};
-
 type AppContextType = {
-  user: ContextUser;
   loading: boolean;
   setLoading: (loading: boolean) => void;
   viewMode: "free" | "grid";
@@ -25,7 +20,6 @@ type AppContextType = {
 };
 
 const AppContext = React.createContext<AppContextType>({
-  user: { token: "" },
   loading: false,
   setLoading: () => {},
   viewMode: "free",
@@ -44,13 +38,11 @@ export function useAppContext() {
 }
 
 type Props = {
-  user: ContextUser;
   defaultViewMode: "free" | "grid";
   children: React.ReactNode;
 };
 
 export default function AppContextProvider({
-  user,
   defaultViewMode,
   children,
 }: Props) {
@@ -82,7 +74,6 @@ export default function AppContextProvider({
   return (
     <AppContext
       value={{
-        user,
         loading,
         setLoading,
         viewMode,

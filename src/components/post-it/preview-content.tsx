@@ -1,5 +1,4 @@
 import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
 import CodeBlock from "./code-block";
 
 type Props = {
@@ -9,7 +8,7 @@ type Props = {
 export default function PreviewContent({ content }: Props) {
   return (
     <ReactMarkdown
-      rehypePlugins={[rehypeRaw]}
+      skipHtml
       components={{
         code({ className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || "");

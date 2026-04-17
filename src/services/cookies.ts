@@ -1,24 +1,44 @@
 export function remove(name: string) {
-  document.cookie = `${name}= ; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+  const secure =
+    typeof window !== "undefined" && window.location.protocol === "https:";
+  const secureSuffix = secure ? "; Secure" : "";
+  document.cookie = `${encodeURIComponent(name)}=; Max-Age=0; Path=/; SameSite=Strict${secureSuffix}`;
 }
 
 export function set(name: string, value: string, days: number) {
+  const safeDays = Number.isFinite(days) && days > 0 ? Math.trunc(days) : 0;
   let expires = "";
-  if (days) {
+  if (safeDays) {
     const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = `; expires= + ${date.toUTCString()}`;
+    date.setTime(date.getTime() + safeDays * 24 * 60 * 60 * 1000);
+    expires = `; expires=${date.toUTCString()}`;
   }
-  document.cookie = `${name}=${value ?? ""}${expires}; path=/;`;
+
+  const secure =
+    typeof window !== "undefined" && window.location.protocol === "https:";
+  const secureSuffix = secure ? "; Secure" : "";
+  document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value ?? "")}${expires}; Path=/; SameSite=Strict${secureSuffix}`;
 }
 
 export function get(name: string) {
+  const key = encodeURIComponent(name);
   const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (typeof parts === "object" && parts.length === 2) {
+  const parts = value.split(`; ${key}=`);
+  if (parts.length === 2) {
     const part = parts.pop();
     if (part) {
-      return part.split(";").shift();
+      const rawValue = part.split(";").shift();
+      if (!rawValue) {
+        return undefined;
+      }
+
+      try {
+        return decodeURIComponent(rawValue);
+      } catch {
+        return rawValue;
+      }
     }
   }
+
+  return undefined;
 }

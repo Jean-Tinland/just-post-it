@@ -7,7 +7,6 @@ import Button from "jt-design-system/es/button";
 import { useSnackbar } from "jt-design-system/es/snackbar";
 import { useAppContext } from "@/components/app-context";
 import * as Actions from "@/app/actions";
-import * as Cookies from "@/services/cookies";
 import styles from "./login-form.module.css";
 
 export default function LoginForm() {
@@ -24,14 +23,10 @@ export default function LoginForm() {
 
     try {
       setLoading(true);
-      const { error, token } = await Actions.login(password);
-      if (error) {
-        throw new Error(error);
-      }
-      Cookies.set("token", token, Number(process.env.JWT_DURATION));
+      await Actions.login(password);
       snackbar.show({ type: "success", message: "Logged in successfully" });
       router.push("/");
-    } catch (e) {
+    } catch {
       snackbar.show({ type: "error", message: "Login error", filler: false });
     } finally {
       setLoading(false);
