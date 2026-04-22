@@ -1,9 +1,12 @@
 import * as React from "react";
 import classNames from "classnames";
-import { PanInfo, motion } from "motion/react";
 import Button from "jt-design-system/es/button";
 import Tooltip from "jt-design-system/es/tooltip";
 import Input from "jt-design-system/es/input";
+import {
+  DraggableDiv,
+  type PanInfo,
+} from "@/components/animation/draggable-div";
 import Icon from "@/components/icon";
 import CategorySelector from "@/components/category-selector";
 import Settings from "@/components/settings";
@@ -115,7 +118,10 @@ export default function Controls({
     };
   }, [handleKeyPresses]);
 
-  const showPostItPlaceholder = (_: any, info: PanInfo) => {
+  const showPostItPlaceholder = (
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
     setDragging(true);
     setDraggingValid(info.offset.y > 100);
   };
@@ -134,10 +140,12 @@ export default function Controls({
           return;
         }
 
-        const { innerWidth, innerHeight } = window;
+        const { innerWidth, innerHeight, scrollX, scrollY } = window;
+        const documentX = x + scrollX;
+        const documentY = y + scrollY;
 
-        const left = ((x - 150) / innerWidth) * 100;
-        const top = ((y - 120) / innerHeight) * 100;
+        const left = ((documentX - 150) / innerWidth) * 100;
+        const top = ((documentY - 120) / innerHeight) * 100;
 
         const { id } = await Actions.createPostIt(currentCategory, top, left);
         focusNewPostIt(id);
@@ -210,16 +218,14 @@ export default function Controls({
             <KeyboardShortcut keys={["ctrl", "shift", "+"]} />
           </Button>
           {viewMode === "free" && (
-            <motion.div
+            <DraggableDiv
               className={styles.bottomButtonContainer}
               drag
               dragSnapToOrigin
-              dragTransition={dragging ? { timeConstant: 100 } : undefined}
               whileDrag={{ cursor: "grabbing" }}
               dragMomentum={false}
               onDrag={showPostItPlaceholder}
               onDragEnd={createPostItFromDrag}
-              transition={{ duration: 0 }}
             >
               <Button className={styles.topAddButton} onClick={addPostIt}>
                 <Icon code="file-edit" />
@@ -227,7 +233,7 @@ export default function Controls({
                 <KeyboardShortcut keys={["ctrl", "shift", "+"]} />
               </Button>
               <PostItPlaceholder visible={draggingValid} />
-            </motion.div>
+            </DraggableDiv>
           )}
         </div>
         <Tooltip content={settingsTooltip}>

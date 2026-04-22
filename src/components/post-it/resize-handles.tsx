@@ -1,5 +1,7 @@
-import { motion } from "motion/react";
-import type { PanInfo } from "motion/react";
+import {
+  DraggableDiv,
+  type PanInfo,
+} from "@/components/animation/draggable-div";
 import styles from "./resize-handles.module.css";
 
 type Props = {
@@ -25,19 +27,19 @@ export default function ResizeHandles({
 
   return (
     <div className={styles.handles}>
-      <motion.div
+      <DraggableDiv
         className={styles.handleY}
         drag="y"
         onDrag={handleResize("y")}
         {...commonProps}
       />
-      <motion.div
+      <DraggableDiv
         className={styles.handleX}
         drag="x"
         onDrag={handleResize("x")}
         {...commonProps}
       />
-      <motion.div
+      <DraggableDiv
         className={styles.handleBoth}
         drag="x"
         onDrag={handleResize("both")}

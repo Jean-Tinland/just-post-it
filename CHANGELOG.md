@@ -1,5 +1,9 @@
 # Changelog
 
+## Wed, Apr 22 2026 (v2.2.0)
+
+- chore: refactor animation and draggable components, remove motion dependency
+
 ## Fri, Apr 17 2026 (v2.1.1)
 
 - refactor: improve integer parsing functions and ensure positive integers are validated correctly

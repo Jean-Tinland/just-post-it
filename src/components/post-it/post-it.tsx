@@ -1,6 +1,10 @@
 import * as React from "react";
-import { PanInfo, motion } from "motion/react";
 import classNames from "classnames";
+import {
+  DraggableDiv,
+  type PanInfo,
+} from "@/components/animation/draggable-div";
+import { motionValuesToStyle } from "@/components/animation/motion-values";
 import { useAppContext } from "@/components/app-context";
 import Header from "./header";
 import Content from "./content";
@@ -16,6 +20,7 @@ type Props = {
   postIt: PostItItem;
   categories: CategoryItem[];
   dragging: boolean;
+  exiting: boolean;
 };
 
 const MIN_WIDTH = 300;
@@ -29,12 +34,16 @@ const DRAGGED_POST_IT_STYLES = {
 const ENTER_ANIMATION = { scale: 1, opacity: 1 };
 const EXIT_ANIMATION = { opacity: 0, scale: 0.8 };
 const INITIAL_ANIMATION = { scale: 0.8, opacity: 0 };
+const POST_IT_TRANSITION =
+  "border 160ms var(--ds-transition-easing), opacity 160ms var(--ds-transition-easing), transform 160ms var(--ds-transition-easing)";
+const POST_IT_DRAG_TRANSITION = "border 160ms var(--ds-transition-easing)";
 
 export default function PostIt({
   padRef,
   postIt,
   categories,
   dragging,
+  exiting,
 }: Props) {
   const ref = React.useRef<HTMLDivElement>(null);
   const scrollRef = React.useRef<HTMLDivElement>(null);
@@ -53,6 +62,42 @@ export default function PostIt({
   const [maximized, setMaximized] = React.useState(false);
   const [saved, setSaved] = React.useState(false);
   const savedTimeout = React.useRef<ReturnType<typeof setTimeout>>(undefined);
+  const [animationPhase, setAnimationPhase] = React.useState<
+    "enter" | "active" | "exit"
+  >(dragging ? "active" : "enter");
+
+  React.useEffect(() => {
+    return () => {
+      if (savedTimeout.current !== undefined) {
+        clearTimeout(savedTimeout.current);
+      }
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (exiting) {
+      return;
+    }
+
+    if (dragging) {
+      setAnimationPhase("active");
+      return;
+    }
+
+    const frame = requestAnimationFrame(() => {
+      setAnimationPhase("active");
+    });
+
+    return () => {
+      cancelAnimationFrame(frame);
+    };
+  }, [dragging, exiting]);
+
+  React.useEffect(() => {
+    if (exiting) {
+      setAnimationPhase("exit");
+    }
+  }, [exiting]);
 
   const updatePostItPosition = async (
     _: MouseEvent | TouchEvent | PointerEvent,
@@ -281,26 +326,43 @@ export default function PostIt({
     maximized,
   });
 
+  const animationValues =
+    animationPhase === "enter"
+      ? dragging
+        ? ENTER_ANIMATION
+        : INITIAL_ANIMATION
+      : animationPhase === "exit"
+        ? EXIT_ANIMATION
+        : ENTER_ANIMATION;
+
+  const postItTransition = dragged
+    ? POST_IT_DRAG_TRANSITION
+    : POST_IT_TRANSITION;
+
+  const animatedPostItStyles = {
+    ...postItStyles,
+    ...motionValuesToStyle(animationValues),
+    transition: postItTransition,
+  };
+
   return (
-    <motion.div
+    <DraggableDiv
       ref={ref}
       key={String(bounds.top + bounds.left)}
       data-post-it={postIt.id}
       data-dragged={dragged}
       data-maximized={maximized}
       className={classes}
-      style={postItStyles}
+      style={animatedPostItStyles}
       whileDrag={DRAGGED_POST_IT_STYLES}
       dragConstraints={padRef}
       drag={dragging || dragged}
       dragMomentum={false}
+      offsetResetKey={`${bounds.top}-${bounds.left}`}
       onDragStart={() => setDragged(true)}
       onDragEnd={updatePostItPosition}
       onKeyDown={handleKeyDown}
       onBlur={updatePostIt}
-      initial={dragging ? undefined : INITIAL_ANIMATION}
-      animate={dragging ? undefined : ENTER_ANIMATION}
-      exit={EXIT_ANIMATION}
       onClick={minimized && !dragging ? unMinimizePostIt : undefined}
     >
       <div className={styles.overflow}>
@@ -349,7 +411,7 @@ export default function PostIt({
           updateResize={updateResize}
         />
       )}
-    </motion.div>
+    </DraggableDiv>
   );
 }
 

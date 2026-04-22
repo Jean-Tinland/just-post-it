@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import classNames from "classnames";
-import { AnimatePresence } from "motion/react";
 import Controls from "@/components/controls";
 import LazyPostIt from "@/components/post-it/lazy-post-it";
+import { usePresenceList } from "@/components/animation/use-presence-list";
 import { useAppContext } from "@/components/app-context";
 import type { PostItItem } from "@/@types/post-it";
 import type { CategoryItem } from "@/@types/category";
@@ -16,6 +16,8 @@ type Props = {
   categoryId: number | null;
 };
 
+const getPostItId = (postIt: PostItItem) => postIt.id;
+
 export default function Pad({ postIts, categories, categoryId }: Props) {
   const { viewMode, updateCurrentCategory } = useAppContext();
   const padRef = React.useRef<HTMLDivElement>(null);
@@ -26,23 +28,22 @@ export default function Pad({ postIts, categories, categoryId }: Props) {
     updateCurrentCategory(categoryId);
   }, [categoryId, updateCurrentCategory]);
 
-  const filteredPostIts = postIts.filter((postIt) => {
-    if (search && !normalize(postIt.title).includes(normalize(search))) {
-      return false;
-    }
-    return true;
-  });
+  const filteredPostIts = filterPostItsBySearch(postIts, search);
 
   const sortedPostIts =
     viewMode === "grid"
       ? [...filteredPostIts].sort((a, b) => b.id - a.id)
       : filteredPostIts;
 
+  const renderedPostIts = usePresenceList(sortedPostIts, getPostItId);
+
   const updateSearch = (newSearch: string) => {
     setSearch(newSearch);
-    const hasOnlyOneResult = filteredPostIts.length === 1;
+    const matchingPostIts = filterPostItsBySearch(postIts, newSearch);
+
+    const hasOnlyOneResult = matchingPostIts.length === 1;
     if (hasOnlyOneResult) {
-      const { id } = filteredPostIts[0];
+      const { id } = matchingPostIts[0];
       const target = document.querySelector(`[data-post-it="${id}"]`);
       if (target) {
         target.scrollIntoView({
@@ -88,20 +89,19 @@ export default function Pad({ postIts, categories, categoryId }: Props) {
         search={search}
         updateSearch={updateSearch}
       />
-      <AnimatePresence>
-        {sortedPostIts.map((postIt) => {
-          return (
-            <LazyPostIt
-              key={postIt.id}
-              padRef={padRef}
-              postIt={postIt}
-              categories={categories}
-              dragging={dragging}
-              viewMode={viewMode}
-            />
-          );
-        })}
-      </AnimatePresence>
+      {renderedPostIts.map(({ key, item: postIt, exiting }) => {
+        return (
+          <LazyPostIt
+            key={key}
+            padRef={padRef}
+            postIt={postIt}
+            categories={categories}
+            dragging={dragging}
+            viewMode={viewMode}
+            exiting={exiting}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -111,4 +111,20 @@ function normalize(text: string) {
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
+}
+
+function filterPostItsBySearch(postIts: PostItItem[], search: string) {
+  const normalizedSearch = normalize(search);
+
+  if (!normalizedSearch) {
+    return postIts;
+  }
+
+  return postIts.filter((postIt) => {
+    if (!normalize(postIt.title).includes(normalizedSearch)) {
+      return false;
+    }
+
+    return true;
+  });
 }

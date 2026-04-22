@@ -1,6 +1,6 @@
 {
   "name": "just-post-it",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "author": {
     "name": "Jean Tinland",
     "url": "https://www.jeantinland.com/contact/"
@@ -24,7 +24,6 @@
     "gray-matter": "^4.0.3",
     "jsonwebtoken": "^9.0.3",
     "jt-design-system": "https://packages.jeantinland.com/jt-design-system/2.0.2",
-    "motion": "^12.35.0",
     "next": "^16.1.6",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",

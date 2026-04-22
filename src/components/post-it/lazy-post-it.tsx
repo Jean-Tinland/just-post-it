@@ -11,6 +11,7 @@ type Props = {
   categories: CategoryItem[];
   dragging: boolean;
   viewMode: "free" | "grid";
+  exiting: boolean;
 };
 
 export default function LazyPostIt({
@@ -19,6 +20,7 @@ export default function LazyPostIt({
   categories,
   dragging,
   viewMode,
+  exiting,
 }: Props) {
   const wrapperRef = React.useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = React.useState(false);
@@ -53,7 +55,8 @@ export default function LazyPostIt({
   const placeholderStyles =
     viewMode === "grid" ? { minHeight: "240px", width: "100%" } : {};
 
-  const shouldRender = isInView || (dragging && hasBeenVisible.current);
+  const shouldRender =
+    exiting || isInView || (dragging && hasBeenVisible.current);
 
   const measurementStyle = {
     position: "absolute" as const,
@@ -75,6 +78,7 @@ export default function LazyPostIt({
             postIt={postIt}
             categories={categories}
             dragging={dragging}
+            exiting={exiting}
           />
         )}
       </>
@@ -89,6 +93,7 @@ export default function LazyPostIt({
           postIt={postIt}
           categories={categories}
           dragging={dragging}
+          exiting={exiting}
         />
       )}
     </div>
