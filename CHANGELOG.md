@@ -1,5 +1,9 @@
 # Changelog
 
+## Wed, Apr 22 2026 (v2.2.2)
+
+- feat: add disableAppearanceAnimation prop to PostIt components for improved performance with large lists
+
 ## Wed, Apr 22 2026 (v2.2.1)
 
 - chore: update package versions in package-lock.json to latest (npm audit fix)

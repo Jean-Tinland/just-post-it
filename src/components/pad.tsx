@@ -36,6 +36,7 @@ export default function Pad({ postIts, categories, categoryId }: Props) {
       : filteredPostIts;
 
   const renderedPostIts = usePresenceList(sortedPostIts, getPostItId);
+  const disableAppearanceAnimation = postIts.length > 20;
 
   const updateSearch = (newSearch: string) => {
     setSearch(newSearch);
@@ -99,6 +100,7 @@ export default function Pad({ postIts, categories, categoryId }: Props) {
             dragging={dragging}
             viewMode={viewMode}
             exiting={exiting}
+            disableAppearanceAnimation={disableAppearanceAnimation}
           />
         );
       })}

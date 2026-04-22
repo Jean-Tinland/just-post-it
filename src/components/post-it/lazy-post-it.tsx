@@ -12,6 +12,7 @@ type Props = {
   dragging: boolean;
   viewMode: "free" | "grid";
   exiting: boolean;
+  disableAppearanceAnimation: boolean;
 };
 
 export default function LazyPostIt({
@@ -21,6 +22,7 @@ export default function LazyPostIt({
   dragging,
   viewMode,
   exiting,
+  disableAppearanceAnimation,
 }: Props) {
   const wrapperRef = React.useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = React.useState(false);
@@ -79,6 +81,7 @@ export default function LazyPostIt({
             categories={categories}
             dragging={dragging}
             exiting={exiting}
+            disableAppearanceAnimation={disableAppearanceAnimation}
           />
         )}
       </>
@@ -94,6 +97,7 @@ export default function LazyPostIt({
           categories={categories}
           dragging={dragging}
           exiting={exiting}
+          disableAppearanceAnimation={disableAppearanceAnimation}
         />
       )}
     </div>

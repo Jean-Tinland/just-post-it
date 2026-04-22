@@ -21,6 +21,7 @@ type Props = {
   categories: CategoryItem[];
   dragging: boolean;
   exiting: boolean;
+  disableAppearanceAnimation: boolean;
 };
 
 const MIN_WIDTH = 300;
@@ -44,6 +45,7 @@ export default function PostIt({
   categories,
   dragging,
   exiting,
+  disableAppearanceAnimation,
 }: Props) {
   const ref = React.useRef<HTMLDivElement>(null);
   const scrollRef = React.useRef<HTMLDivElement>(null);
@@ -64,7 +66,7 @@ export default function PostIt({
   const savedTimeout = React.useRef<ReturnType<typeof setTimeout>>(undefined);
   const [animationPhase, setAnimationPhase] = React.useState<
     "enter" | "active" | "exit"
-  >(dragging ? "active" : "enter");
+  >(dragging || disableAppearanceAnimation ? "active" : "enter");
 
   React.useEffect(() => {
     return () => {
@@ -76,6 +78,11 @@ export default function PostIt({
 
   React.useEffect(() => {
     if (exiting) {
+      return;
+    }
+
+    if (disableAppearanceAnimation) {
+      setAnimationPhase("active");
       return;
     }
 
@@ -91,7 +98,7 @@ export default function PostIt({
     return () => {
       cancelAnimationFrame(frame);
     };
-  }, [dragging, exiting]);
+  }, [dragging, disableAppearanceAnimation, exiting]);
 
   React.useEffect(() => {
     if (exiting) {
@@ -327,13 +334,15 @@ export default function PostIt({
   });
 
   const animationValues =
-    animationPhase === "enter"
-      ? dragging
+    animationPhase === "exit"
+      ? EXIT_ANIMATION
+      : disableAppearanceAnimation
         ? ENTER_ANIMATION
-        : INITIAL_ANIMATION
-      : animationPhase === "exit"
-        ? EXIT_ANIMATION
-        : ENTER_ANIMATION;
+        : animationPhase === "enter"
+          ? dragging
+            ? ENTER_ANIMATION
+            : INITIAL_ANIMATION
+          : ENTER_ANIMATION;
 
   const postItTransition = dragged
     ? POST_IT_DRAG_TRANSITION
