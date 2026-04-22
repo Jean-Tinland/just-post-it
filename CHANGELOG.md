@@ -1,5 +1,9 @@
 # Changelog
 
+## Wed, Apr 22 2026 (v2.2.1)
+
+- chore: update package versions in package-lock.json to latest (npm audit fix)
+
 ## Wed, Apr 22 2026 (v2.2.0)
 
 - chore: refactor animation and draggable components, remove motion dependency
